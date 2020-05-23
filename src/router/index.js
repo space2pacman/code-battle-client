@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Main from "@/pages/Main";
 import Tasks from "@/pages/Tasks";
+import Task from "@/pages/Task";
 import Registration from "@/pages/Registration";
 import Login from "@/pages/Login";
 
@@ -16,6 +17,10 @@ export default new Router({
 		{
 			path: "/tasks",
 			component: Tasks
+		},
+		{
+			path: "/task/:id",
+			component: Task
 		},
 		{
 			path: "/registration",
