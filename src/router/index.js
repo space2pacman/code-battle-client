@@ -4,6 +4,7 @@ import Main from "@/pages/Main";
 import Tasks from "@/pages/Tasks";
 import Task from "@/pages/Task";
 import Registration from "@/pages/Registration";
+import Profile from "@/pages/Profile";
 import Login from "@/pages/Login";
 
 Vue.use(Router);
@@ -29,6 +30,10 @@ export default new Router({
 		{
 			path: "/login",
 			component: Login
+		},
+		{
+			path: "/profile/:name",
+			component: Profile
 		}
 	]
 })
