@@ -1,6 +1,6 @@
 <template>
 	<div class="w-25 mx-auto">
-		<h4 class="card-title mb-3 text-center">Вход</h4>
+		<h1 class="card-title mb-4 text-center">Вход</h1>
 		<div class="card">
 			<div class="card-body">
 				<div class="form-group">

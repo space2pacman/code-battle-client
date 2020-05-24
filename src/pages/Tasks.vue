@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h4 class="mb-3">Задания</h4>
+		<h1 class="mb-4">Задания</h1>
 		<div class="row">
 			<div class="col-9">
 				<TaskCard />

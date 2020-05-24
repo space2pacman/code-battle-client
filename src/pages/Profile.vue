@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h4 class="mb-3">Профиль</h4>
+		<h1 class="mb-4">Профиль</h1>
 		<div class="d-flex align-items-center mb-3">
 			<img src="@/assets/default-avatar.png" width="80" alt="avatar">
 			<h3 class="ml-4 font-weight-normal">test</h3>

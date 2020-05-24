@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h4 class="mb-3">Задание</h4>
+		<h1 class="mb-4">Задание</h1>
 		<div class="row">
 			<div class="col">
 				<ul class="nav nav-tabs">
