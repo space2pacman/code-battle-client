@@ -5,16 +5,15 @@
 			<div class="col">
 				<ul class="nav nav-tabs">
 					<li v-for="tab in tabs.list" class="nav-item">
-						<a class="nav-link" :class="{ 'active': tab === tabs.active }" href="#" @click.prevent="switchTab(tab)">{{ tab }}</a>
+						<a class="nav-link" :class="{ 'active': tab.type === tabs.active }" href="#" @click.prevent="switchTab(tab.type)">{{ tab.caption }}</a>
 					</li>
 				</ul>
-				<!-- fix -->
-				<Description v-if="tabs.active === 'Описание'" />
-				<Result v-if="tabs.active === 'Результат'" />
+				<Description v-show="tabs.active === 'description'" />
+				<Result v-show="tabs.active === 'result'" />
 			</div>
 			<div class="col">
 				<Editor lang="javascript" theme="monokai" height="400" v-model="code" />
-				<button type="button" class="btn btn-success float-right mt-3">Запуск</button>
+				<button type="button" class="btn btn-success float-right mt-3" @click="run">Запуск</button>
 			</div>
 		</div>
 	</div>
@@ -31,8 +30,17 @@ export default {
 	data() {
 		return {
 			tabs: {
-				list: ["Описание", "Результат"],
-				active: "Описание"
+				list: [
+					{
+						caption: "Описание",
+						type: "description"
+					},
+					{
+						caption: "Результат",
+						type: "result"
+					}
+				],
+				active: "description"
 			},
 			code: "function reverseString(str) { return str.split('').reverse().join('') }"
 		}
@@ -40,6 +48,15 @@ export default {
 	methods: {
 		switchTab(tab) {
 			this.tabs.active = tab;
+		},
+		run() {
+			let data = {
+				code: this.code
+			}
+
+			this.switchTab("result");
+			this.send("task", data);
+			this.$emit("onResult");
 		}
 	},
 	components: {

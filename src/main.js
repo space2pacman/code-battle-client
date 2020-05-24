@@ -10,6 +10,45 @@ Vue.use(BootstrapVue);
 Vue.component("TaskCard", TaskCard)
 Vue.config.productionTip = false;
 
+Vue.mixin({
+	methods: {
+		request(params) {
+			let options = {
+				method: params.method || null,
+				url: params.url || null,
+				body: params.body || null
+			}
+
+			return fetch(`http://localhost:7777/api/${options.url}/`, {
+				method: options.method,
+				headers: {
+					"Content-Type": "application/json;charset=utf-8"
+				},
+				body: options.body
+			}).then(response => response.json());
+		},
+		send(url, data) {
+			return this.request({
+                method: "POST",
+                url,
+                body: JSON.stringify(data)
+            }).then(response => {
+                console.log(response);
+            })
+		},
+		receive(url) {
+            return this.request({
+                method: "GET",
+                url,
+            }).then(response => {
+                if(response.status === "success") {
+                    console.log(response);
+                }
+            })
+		}
+	}
+})
+
 new Vue({
 	el: "#app",
 	router,
