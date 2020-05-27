@@ -3,7 +3,7 @@
 		<h1 class="mb-4">Задания</h1>
 		<div class="row">
 			<div class="col-9">
-				<TaskCard v-for="task in tasks" :task="task" />
+				<TaskCard v-for="task in filtered.tasks" :task="task" />
 			</div>
 			<div class="col-3">
 				<div class="card">
@@ -12,15 +12,15 @@
 						<div class="mb-4">
 							<h6>Уровень</h6>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck1">
+								<input type="checkbox" class="custom-control-input" id="customCheck1" @change="filter('level', 1)">
 								<label class="custom-control-label" for="customCheck1">Легкий</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck2">
+								<input type="checkbox" class="custom-control-input" id="customCheck2" @change="filter('level', 2)">
 								<label class="custom-control-label" for="customCheck2">Средений</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck3">
+								<input type="checkbox" class="custom-control-input" id="customCheck3" @change="filter('level', 3)">
 								<label class="custom-control-label" for="customCheck3">Сложный</label>
 							</div>
 						</div>
@@ -65,12 +65,16 @@
 export default {
 	data() {
 		return {
+			filtered: {
+				tasks: [],
+				tags: []
+			},
 			tasks: [
 				{
 					id: 0,
 					caption: "Перевернуть строку",
 					description: "Напишите функцию по развороту строки",
-					level: 0,
+					level: 1,
 					completed: false,
 					solutions: 8023,
 					author: "space2pacman",
@@ -99,16 +103,16 @@ export default {
 					id: 0,
 					caption: "Факториал",
 					description: "Напишите функцию по подсчету факториалаи",
-					level: 0,
+					level: 2,
 					completed: true,
 					solutions: 564,
-					author: "pacman",
+					author: "Google",
 					function: {
 						name: "fact",
 						body: "function fact(n) { return 120 }"
 					},
 					company: "Google",
-					tags: ["JavaScript"],
+					tags: ["PHP"],
 					tests: [
 						{
 							input: 5,
@@ -134,6 +138,48 @@ export default {
 				}
 			]
 		}
+	},
+	methods: {
+		filter(key, value) {
+			let tag = this.filtered.tags.find(tag => {
+				if(tag.key === key && tag.value === value) {
+					return tag;
+				}
+			});
+
+			if(tag) {
+				let index = this.filtered.tags.indexOf(tag);
+
+				this.filtered.tags.splice(index, 1);
+			} else {
+				this.filtered.tags.push({ key, value });
+			}
+
+			for(let i = 0; i < this.filtered.tags.length; i++) {
+				if(i === 0) {
+					this.filtered.tasks = [];
+				}
+
+				let tag = this.filtered.tags[i];
+				
+				this.filtered.tasks.push(...this.tasks.filter(task => {
+					console.log(task[tag.key])
+					console.log(tag.value)
+					if(task[tag.key] === tag.value) {
+						return true;
+					} else {
+						return false;
+					}
+				}))
+			}
+
+			if(this.filtered.tags.length === 0) {
+				this.filtered.tasks = this.tasks;
+			}
+		}
+	},
+	mounted() {
+		this.filtered.tasks = this.tasks;
 	}
 }
 </script>
