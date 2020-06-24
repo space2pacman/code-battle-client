@@ -27,30 +27,30 @@
 						<div class="mb-4">
 							<h6>Компании</h6>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck4">
+								<input type="checkbox" class="custom-control-input" id="customCheck4" @change="filter('company', 'Github')">
 								<label class="custom-control-label" for="customCheck4">Github</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck5">
+								<input type="checkbox" class="custom-control-input" id="customCheck5" @change="filter('company', 'Google')">
 								<label class="custom-control-label" for="customCheck5">Google</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck6">
+								<input type="checkbox" class="custom-control-input" id="customCheck6" @change="filter('company', 'Yandex')">
 								<label class="custom-control-label" for="customCheck6">Yandex</label>
 							</div>
 						</div>
 						<div class="mb-4">
-							<h6>Теги</h6>
+							<h6>Язык</h6>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck7">
+								<input type="checkbox" class="custom-control-input" id="customCheck7" @change="filter('language', 'javascript')">
 								<label class="custom-control-label" for="customCheck7">JavaScript</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck8">
+								<input type="checkbox" class="custom-control-input" id="customCheck8" @change="filter('language', 'php')">
 								<label class="custom-control-label" for="customCheck8">PHP</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck9">
+								<input type="checkbox" class="custom-control-input" id="customCheck9" @change="filter('language', 'vue')">
 								<label class="custom-control-label" for="customCheck9">Vue.js</label>
 							</div>
 						</div>
@@ -67,7 +67,7 @@ export default {
 		return {
 			filtered: {
 				tasks: [],
-				tags: []
+				tags: {},
 			},
 			tasks: [
 				{
@@ -83,7 +83,7 @@ export default {
 						body: "function reverseString(str) { return str.split('').reverse().join('') }"
 					},
 					company: null,
-					tags: ["JavaScript"],
+					language: "javascript",
 					tests: [
 						{
 							input: "Hello",
@@ -100,7 +100,7 @@ export default {
 					]
 				},
 				{
-					id: 0,
+					id: 1,
 					caption: "Факториал",
 					description: "Напишите функцию по подсчету факториалаи",
 					level: 2,
@@ -112,7 +112,7 @@ export default {
 						body: "function fact(n) { return 120 }"
 					},
 					company: "Google",
-					tags: ["PHP"],
+					language: "php",
 					tests: [
 						{
 							input: 5,
@@ -141,40 +141,31 @@ export default {
 	},
 	methods: {
 		filter(key, value) {
-			let tag = this.filtered.tags.find(tag => {
-				if(tag.key === key && tag.value === value) {
-					return tag;
-				}
-			});
+			let tags = this.filtered.tags;
 
-			if(tag) {
-				let index = this.filtered.tags.indexOf(tag);
+			// init array
+			if(!tags[key]) tags[key] = [];
 
-				this.filtered.tags.splice(index, 1);
+			let index = tags[key].indexOf(value);
+
+			// check value in array
+			if(index === -1) {
+				tags[key].push(value);				
 			} else {
-				this.filtered.tags.push({ key, value });
-			}
+				tags[key].splice(index, 1);
 
-			for(let i = 0; i < this.filtered.tags.length; i++) {
-				if(i === 0) {
-					this.filtered.tasks = [];
+				// remove array if empty
+				if(tags[key].length === 0) {
+					delete tags[key];
 				}
-
-				let tag = this.filtered.tags[i];
-				
-				this.filtered.tasks.push(...this.tasks.filter(task => {
-					console.log(task[tag.key])
-					console.log(tag.value)
-					if(task[tag.key] === tag.value) {
-						return true;
-					} else {
-						return false;
-					}
-				}))
 			}
 
-			if(this.filtered.tags.length === 0) {
-				this.filtered.tasks = this.tasks;
+			this.filtered.tasks = this.tasks;
+
+			for(let key in tags) {
+				this.filtered.tasks = this.filtered.tasks.filter(task => {
+					return tags[key].some(tag => task[key] === tag);
+				})
 			}
 		}
 	},
