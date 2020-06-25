@@ -51,11 +51,12 @@ export default {
 		},
 		run() {
 			let data = {
-				code: this.code
+				code: this.code,
+				id: 0
 			}
 
 			this.switchTab("result");
-			this.send("task", data);
+			this.send("task/test", data);
 			this.$emit("onResult");
 		}
 	},

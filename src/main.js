@@ -19,7 +19,7 @@ Vue.mixin({
 				body: params.body || null
 			}
 
-			return fetch(`http://localhost:7777/api/${options.url}/`, {
+			return fetch(`http://localhost:8080/api/${options.url}/`, {
 				method: options.method,
 				headers: {
 					"Content-Type": "application/json;charset=utf-8"
