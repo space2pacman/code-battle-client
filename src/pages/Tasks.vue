@@ -69,74 +69,7 @@ export default {
 				tasks: [],
 				tags: {},
 			},
-			tasks: [
-				{
-					id: 0,
-					caption: "Перевернуть строку",
-					description: "Напишите функцию по развороту строки",
-					level: 1,
-					completed: false,
-					solutions: 8023,
-					author: "space2pacman",
-					function: {
-						name: "reverseString",
-						body: "function reverseString(str) { return str.split('').reverse().join('') }"
-					},
-					company: null,
-					language: "javascript",
-					tests: [
-						{
-							input: "Hello",
-							output: "olleH"
-						},
-						{
-							input: "apple",
-							output: "elppa"
-						},
-						{
-							input: "I love Javascript",
-							output: "tpircsavaJ evol I"
-						}
-					]
-				},
-				{
-					id: 1,
-					caption: "Факториал",
-					description: "Напишите функцию по подсчету факториалаи",
-					level: 2,
-					completed: true,
-					solutions: 564,
-					author: "Google",
-					function: {
-						name: "fact",
-						body: "function fact(n) { return 120 }"
-					},
-					company: "Google",
-					language: "php",
-					tests: [
-						{
-							input: 5,
-							output: 120
-						},
-						{
-							input: 6,
-							output: 720
-						},
-						{
-							input: 7,
-							output: 5040
-						},
-						{
-							input: 8,
-							output: 40320
-						},
-						{
-							input: 9,
-							output: 362880
-						}
-					]
-				}
-			]
+			tasks: []
 		}
 	},
 	methods: {
@@ -170,7 +103,13 @@ export default {
 		}
 	},
 	mounted() {
-		this.filtered.tasks = this.tasks;
+		this.receive("tasks");
+		this.$store.subscribe(mutation => {
+			if(mutation.type === "tasks") {
+				this.tasks = mutation.payload;
+				this.filtered.tasks = mutation.payload;
+			}
+		})
 	}
 }
 </script>
