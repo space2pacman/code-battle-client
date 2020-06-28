@@ -29,6 +29,7 @@ import "brace/theme/monokai";
 export default {
 	data() {
 		return {
+			id: this.$route.params.id,
 			tabs: {
 				list: [
 					{
@@ -42,7 +43,7 @@ export default {
 				],
 				active: "description"
 			},
-			code: "function reverseString(str) { return str.split('').reverse().join('') }"
+			code: null
 		}
 	},
 	methods: {
@@ -52,13 +53,24 @@ export default {
 		run() {
 			let data = {
 				code: this.code,
-				id: 0
+				id: this.id
 			}
 
 			this.switchTab("result");
-			this.send("task/test", data);
-			this.$emit("onResult");
+			this.send("task/test", data).then(response => {
+				this.$emit("onResult", response.data);
+			});
 		}
+	},
+	mounted() {
+		this.receive(`task/${this.id}`);
+		this.$store.subscribe(mutation => {
+			if(mutation.type === "task") {
+				let task = mutation.payload;
+
+				this.code = task.function.body;
+			}
+		})
 	},
 	components: {
 		Description,

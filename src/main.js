@@ -31,22 +31,22 @@ Vue.mixin({
 		},
 		send(url, data) {
 			return this.request({
-                method: "POST",
-                url,
-                body: JSON.stringify(data)
-            }).then(response => {
-                console.log(response);
-            })
+				method: "POST",
+				url,
+				body: JSON.stringify(data)
+			});
 		},
 		receive(url) {
-            return this.request({
-                method: "GET",
-                url,
-            }).then(response => {
-                if(response.status === "success") {
-                    this.$store.commit(url, response.data);
-                }
-            })
+			return this.request({
+				method: "GET",
+				url,
+			}).then(response => {
+				if(response.status === "success") {
+					let url = response.url;
+
+					this.$store.commit(url, response.data);
+				}
+			})
 		}
 	}
 })
@@ -54,10 +54,14 @@ Vue.mixin({
 let store = new Vuex.Store({
 	state: {
 		"tasks": null,
+		"task": null
 	},
 	mutations: {
 		"tasks"(state, data) {
 			state["tasks"] = data;
+		},
+		"task"(state, data) {
+			state["task"] = data;
 		}
 	}
 })

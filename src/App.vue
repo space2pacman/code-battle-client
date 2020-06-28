@@ -9,6 +9,14 @@
 import Menu from "./components/Menu";
 
 export default {
+	// watch: {
+	// 	"$route"() {
+			
+	// 	}
+	// },
+	// mounted() {
+		
+	// },
 	components: {
 		Menu
 	}

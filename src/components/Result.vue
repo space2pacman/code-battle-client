@@ -7,29 +7,17 @@
 		<div v-else>
 			<div class="row">
 				<div class="col">
-					<div class="alert alert-success">Успешыне : 1</div>
+					<div class="alert alert-success">Успешыне : {{ successful }}</div>
 				</div>
 				<div class="col">
-					<div class="alert alert-danger">Не успешыне : 4</div>
+					<div class="alert alert-danger">Не успешыне : {{ unsuccessful }}</div>
 				</div>
 			</div>
 			<div class="card mt-3">
 				<div class="card-body">
-					<div class="alert alert-success">
-						<div>Ожидается: 120</div>
-						<div>Вывод: 120</div>
-					</div>
-					<div class="alert alert-danger">
-						<div>Ожидается: 120</div>
-						<div>Вывод: 120</div>
-					</div>
-					<div class="alert alert-danger">
-						<div>Ожидается: 120</div>
-						<div>Вывод: 120</div>
-					</div>
-					<div class="alert alert-danger">
-						<div>Ожидается: 120</div>
-						<div>Вывод: 120</div>
+					<div v-for="test in tests" class="alert" :class="test.result ? 'alert-success' : 'alert-danger'">
+						<div>Ожидается: {{ test.expected }}</div>
+						<div>Вывод: {{ test.return }}</div>
 					</div>
 				</div>
 			</div>
@@ -41,15 +29,26 @@
 export default {
 	data() {
 		return {
-			isLoading: true
+			isLoading: true,
+			tests: null
 		}
 	},
 	mounted() {
-		this.$parent.$on("onResult", () => {
+		this.$parent.$on("onResult", tests => {
 			setTimeout(() => {
 				this.isLoading = false;
-			}, 1000)
+			}, 1000);
+
+			this.tests = tests;
 		})
+	},
+	computed: {
+		successful() {
+			return this.tests.filter(test => test.result === true).length;
+		},
+		unsuccessful() {
+			return this.tests.filter(test => test.result === false).length;
+		}
 	}
 }
 </script>
