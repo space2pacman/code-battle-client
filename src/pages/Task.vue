@@ -8,7 +8,7 @@
 						<a class="nav-link" :class="{ 'active': tab.type === tabs.active }" href="#" @click.prevent="switchTab(tab.type)">{{ tab.caption }}</a>
 					</li>
 				</ul>
-				<Description v-show="tabs.active === 'description'" />
+				<Description v-show="tabs.active === 'description'" :task="task" />
 				<Result v-show="tabs.active === 'result'" />
 			</div>
 			<div class="col">
@@ -43,6 +43,7 @@ export default {
 				],
 				active: "description"
 			},
+			task: null,
 			code: null
 		}
 	},
@@ -66,9 +67,8 @@ export default {
 		this.receive(`task/${this.id}`);
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "task") {
-				let task = mutation.payload;
-
-				this.code = task.function.body;
+				this.task = mutation.payload;
+				this.code = this.task.function.body;
 			}
 		})
 	},
