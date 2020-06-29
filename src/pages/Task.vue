@@ -58,8 +58,9 @@ export default {
 			}
 
 			this.switchTab("result");
+			this.$emit("onTestStart");
 			this.send("task/test", data).then(response => {
-				this.$emit("onResult", response.data);
+				this.$emit("onTestEnd", response.data);
 			});
 		}
 	},

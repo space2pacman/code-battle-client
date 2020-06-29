@@ -40,7 +40,10 @@ export default {
 		}
 	},
 	mounted() {
-		this.$parent.$on("onResult", tests => {
+		this.$parent.$on("onTestStart", () => {
+			this.isLoading = true;
+		})
+		this.$parent.$on("onTestEnd", tests => {
 			setTimeout(() => {
 				this.isLoading = false;
 			}, 1000);
@@ -50,10 +53,10 @@ export default {
 	},
 	computed: {
 		successful() {
-			return this.tests.filter(test => test.result === true).length;
+			return this.tests.filter(test => test.solved === true).length;
 		},
 		unsuccessful() {
-			return this.tests.filter(test => test.result === false).length;
+			return this.tests.filter(test => test.solved === false).length;
 		}
 	}
 }
