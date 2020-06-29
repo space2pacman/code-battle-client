@@ -1,25 +1,25 @@
 <template>
 	<div>
-		<h4 class="font-weight-normal mt-4">Результат тестов</h4>
+		<h4 class="font-weight-normal mt-4 mb-3">Результат тестов</h4>
 		<div v-if="isLoading" class="d-flex justify-content-center p-5">
 			<div class="spinner-border text-success spinner__size--large"></div>
 		</div>
 		<div v-else>
-			<div class="row">
+			<div class="row mb-4">
 				<div class="col">
-					<div class="alert alert-success">Успешыне : {{ successful }}</div>
+					<div class="alert mb-0 alert-success">Успешыне : {{ successful }}</div>
 				</div>
 				<div class="col">
-					<div class="alert alert-danger">Не успешыне : {{ unsuccessful }}</div>
+					<div class="alert mb-0 alert-danger">Не успешыне : {{ unsuccessful }}</div>
 				</div>
 			</div>
 			<div class="card mt-3">
 				<div class="card-body">
-					<div v-for="test in tests" class="alert" :class="test.solved ? 'alert-success' : 'alert-danger'">
-						<div v-if="test.logs" class="card">
+					<div v-for="test in tests" class="alert pb-3" :class="test.solved ? 'alert-success' : 'alert-danger'">
+						<div v-if="test.logs" class="card mb-3 mt-3">
 							<div class="card-body">
-							<div v-for="log in test.logs">{{ log }}</div>
-								
+								<div class="card-subtitle mb-2 text-muted font-italic">Log</div>
+								<div v-for="log in test.logs" class="card-text">{{ log }}</div>
 							</div>
 						</div>
 						<div>Ожидается: {{ test.expected }}</div>
