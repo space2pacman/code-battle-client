@@ -16,7 +16,7 @@
 			<div class="card mt-3">
 				<div class="card-body">
 					<div v-for="test in tests" class="alert pb-3" :class="test.solved ? 'alert-success' : 'alert-danger'">
-						<div v-if="test.logs" class="card mb-3 mt-3">
+						<div v-if="test.logs.length > 0" class="card mb-3 mt-3">
 							<div class="card-body">
 								<div class="card-subtitle mb-2 text-muted font-italic">Log</div>
 								<div v-for="log in test.logs" class="card-text">{{ log }}</div>
