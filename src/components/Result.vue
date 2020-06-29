@@ -36,6 +36,7 @@ export default {
 	data() {
 		return {
 			isLoading: true,
+			isSolved: false,
 			tests: null
 		}
 	},
@@ -46,6 +47,7 @@ export default {
 		this.$parent.$on("onTestEnd", tests => {
 			setTimeout(() => {
 				this.isLoading = false;
+				this.isSolved = true;
 			}, 1000);
 
 			this.tests = tests;
@@ -66,5 +68,9 @@ export default {
 .spinner__size--large {
 	width: 100px;
 	height: 100px;
+}
+
+.alert.pb-3:last-child {
+	margin-bottom: 0;
 }
 </style>
