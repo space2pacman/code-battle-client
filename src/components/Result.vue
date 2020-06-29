@@ -15,7 +15,13 @@
 			</div>
 			<div class="card mt-3">
 				<div class="card-body">
-					<div v-for="test in tests" class="alert" :class="test.result ? 'alert-success' : 'alert-danger'">
+					<div v-for="test in tests" class="alert" :class="test.solved ? 'alert-success' : 'alert-danger'">
+						<div v-if="test.logs" class="card">
+							<div class="card-body">
+							<div v-for="log in test.logs">{{ log }}</div>
+								
+							</div>
+						</div>
 						<div>Ожидается: {{ test.expected }}</div>
 						<div>Вывод: {{ test.return }}</div>
 					</div>
