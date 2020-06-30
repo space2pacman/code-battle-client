@@ -10,7 +10,7 @@
 				Уровень <span class="badge badge-light">{{ profile.level }}</span>
 			</div>
 			<hr>
-			<!-- <TaskCard /> -->
+			<TaskCard v-for="task in profile.tasks.solved.list" :task="task" />
 		</div>
 		<div v-else>
 			Пользователь не найден
@@ -22,7 +22,7 @@
 export default {
 	data() {
 		return {
-			profile: null
+			profile: null,
 		}
 	},
 	mounted() {

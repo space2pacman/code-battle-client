@@ -3,7 +3,7 @@
 		<div class="card-body d-flex justify-content-between align-items-center">
 			<div class="mr-auto">
 				<div class="mb-1">{{ task.caption }}</div>
-				<small class="text-muted">{{ task.level }} | Решено: {{ task.solutions }} | Комментариев: 324</small>
+				<small class="text-muted">Уровень: {{ task.level }} | Решено: {{ task.solutions }} | Комментариев: 324</small>
 			</div>
 			<span class="badge badge-light p-2 font-weight-normal ml-3">
 				Автор: {{ task.author }}

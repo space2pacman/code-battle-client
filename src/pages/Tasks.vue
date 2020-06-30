@@ -3,7 +3,7 @@
 		<h1 class="mb-4">Задания</h1>
 		<div class="row">
 			<div class="col-9">
-				<TaskCard v-for="task in filtered.tasks" :task="task" />
+				<TaskCard v-for="task in tasks.filtered" :task="task" />
 			</div>
 			<div class="col-3">
 				<div class="card">
@@ -65,16 +65,16 @@
 export default {
 	data() {
 		return {
-			filtered: {
-				tasks: [],
-				tags: {},
-			},
-			tasks: []
+			tags: {},
+			tasks: {
+				list: [],
+				filtered: []
+			}
 		}
 	},
 	methods: {
 		filter(key, value) {
-			let tags = this.filtered.tags;
+			let tags = this.tags;
 
 			// init array
 			if(!tags[key]) tags[key] = [];
@@ -93,10 +93,10 @@ export default {
 				}
 			}
 
-			this.filtered.tasks = this.tasks;
+			this.tasks.filtered = this.tasks.list;
 
 			for(let key in tags) {
-				this.filtered.tasks = this.filtered.tasks.filter(task => {
+				this.tasks.filtered = this.tasks.filtered.filter(task => {
 					return tags[key].some(tag => task[key] === tag);
 				})
 			}
@@ -106,8 +106,8 @@ export default {
 		this.receive("tasks");
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "tasks") {
-				this.tasks = mutation.payload;
-				this.filtered.tasks = mutation.payload;
+				this.tasks.list = mutation.payload;
+				this.tasks.filtered = mutation.payload;
 			}
 		})
 	}
