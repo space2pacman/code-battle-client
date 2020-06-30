@@ -38,7 +38,7 @@ export default new Router({
 		},
 		{
 			name: "profile",
-			path: "/profile/:name",
+			path: "/profile/:login",
 			component: Profile
 		}
 	]

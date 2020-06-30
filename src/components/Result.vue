@@ -7,10 +7,10 @@
 		<div v-else>
 			<div class="row mb-4">
 				<div class="col">
-					<div class="alert mb-0 alert-success">Успешыне : {{ successful }}</div>
+					<div class="alert mb-0 alert-success">Успешные : {{ successful }}</div>
 				</div>
 				<div class="col">
-					<div class="alert mb-0 alert-danger">Не успешыне : {{ unsuccessful }}</div>
+					<div class="alert mb-0 alert-danger">Не успешные : {{ unsuccessful }}</div>
 				</div>
 			</div>
 			<div class="card mt-3">

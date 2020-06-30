@@ -54,7 +54,8 @@ Vue.mixin({
 let store = new Vuex.Store({
 	state: {
 		"tasks": null,
-		"task": null
+		"task": null,
+		"profile": null
 	},
 	mutations: {
 		"tasks"(state, data) {
@@ -62,6 +63,9 @@ let store = new Vuex.Store({
 		},
 		"task"(state, data) {
 			state["task"] = data;
+		},
+		"profile"(state, data) {
+			state["profile"] = data;
 		}
 	}
 })
