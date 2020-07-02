@@ -55,7 +55,8 @@ let store = new Vuex.Store({
 	state: {
 		"tasks": null,
 		"task": null,
-		"profile": null
+		"profile": null,
+		"profile/tasks": null
 	},
 	mutations: {
 		"tasks"(state, data) {
@@ -66,6 +67,9 @@ let store = new Vuex.Store({
 		},
 		"profile"(state, data) {
 			state["profile"] = data;
+		},
+		"profile/tasks"(state, data) {
+			state["profile/tasks"] = data;
 		}
 	}
 })

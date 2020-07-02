@@ -10,7 +10,7 @@
 				Уровень <span class="badge badge-light">{{ profile.level }}</span>
 			</div>
 			<hr>
-			<TaskCard v-for="task in profile.tasks.solved.list" :task="task" />
+			<TaskCard v-for="task in tasks" :task="task" />
 		</div>
 		<div v-else>
 			Пользователь не найден
@@ -23,15 +23,20 @@ export default {
 	data() {
 		return {
 			profile: null,
+			tasks: null
 		}
 	},
 	mounted() {
 		let login = this.$route.params.login;
 
 		this.receive(`profile/${login}`);
+		this.receive(`profile/${login}/tasks`);
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "profile") {
 				this.profile = mutation.payload;
+			}
+			if(mutation.type === "profile/tasks") {
+				this.tasks = mutation.payload;
 			}
 		})
 	}
