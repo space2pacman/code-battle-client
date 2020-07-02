@@ -4,7 +4,7 @@
 		<div v-if="isLoading" class="d-flex justify-content-center p-5">
 			<div class="spinner-border text-success spinner__size--large"></div>
 		</div>
-		<div v-else>
+		<div v-if="isSolved">
 			<div class="row mb-4">
 				<div class="col">
 					<div class="alert mb-0 alert-success">Успешные : {{ successful }}</div>
@@ -28,6 +28,7 @@
 				</div>
 			</div>
 		</div>
+		<div v-if="!isLoading && !isSolved">Нажмите на запуск</div>
 	</div>
 </template>
 
@@ -35,7 +36,7 @@
 export default {
 	data() {
 		return {
-			isLoading: true,
+			isLoading: false,
 			isSolved: false,
 			tests: null
 		}
