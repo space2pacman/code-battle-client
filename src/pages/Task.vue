@@ -10,6 +10,7 @@
 				</ul>
 				<Description v-show="tabs.active === 'description'" />
 				<Result v-show="tabs.active === 'result'" />
+				<Solutions v-show="tabs.active === 'solutions'" />
 			</div>
 			<div class="col">
 				<Editor lang="javascript" theme="monokai" height="400" v-model="code" />
@@ -22,6 +23,7 @@
 <script>
 import Description from "@/components/Description";
 import Result from "@/components/Result";
+import Solutions from "@/components/Solutions";
 import Editor from "vue2-ace-editor";
 import "brace/mode/javascript";
 import "brace/theme/monokai";
@@ -39,6 +41,10 @@ export default {
 					{
 						caption: "Результат",
 						type: "result"
+					},
+					{
+						caption: "Решения",
+						type: "solutions"
 					}
 				],
 				active: "description"
@@ -76,6 +82,7 @@ export default {
 	components: {
 		Description,
 		Result,
+		Solutions,
 		Editor
 	}
 }

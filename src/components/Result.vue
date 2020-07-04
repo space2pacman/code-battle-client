@@ -1,9 +1,7 @@
 <template>
 	<div>
 		<h4 class="font-weight-normal mt-4 mb-3">Результат тестов</h4>
-		<div v-if="isLoading" class="d-flex justify-content-center p-5">
-			<div class="spinner-border text-success spinner__size--large"></div>
-		</div>
+		<Preloader v-if="isLoading" />
 		<div v-if="isSolved">
 			<div class="row mb-4">
 				<div class="col">
@@ -33,6 +31,8 @@
 </template>
 
 <script>
+import Preloader from "@/components/Preloader";
+
 export default {
 	data() {
 		return {
@@ -44,6 +44,7 @@ export default {
 	mounted() {
 		this.$parent.$on("onTestStart", () => {
 			this.isLoading = true;
+			this.isSolved = false;
 		})
 		this.$parent.$on("onTestEnd", tests => {
 			setTimeout(() => {
@@ -61,17 +62,9 @@ export default {
 		unsuccessful() {
 			return this.tests.filter(test => test.solved === false).length;
 		}
+	},
+	components: {
+		Preloader
 	}
 }
 </script>
-
-<style scoped>
-.spinner__size--large {
-	width: 100px;
-	height: 100px;
-}
-
-.alert.pb-3:last-child {
-	margin-bottom: 0;
-}
-</style>
