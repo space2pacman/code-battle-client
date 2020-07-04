@@ -13,7 +13,7 @@
 				<Solutions v-show="tabs.active === 'solutions'" />
 			</div>
 			<div class="col">
-				<Editor lang="javascript" theme="monokai" height="400" v-model="code" />
+				<Ace lang="javascript" theme="monokai" height="400" v-model="code" />
 				<button type="button" class="btn btn-success float-right mt-3" @click="run">Запуск</button>
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 import Description from "@/components/Description";
 import Result from "@/components/Result";
 import Solutions from "@/components/Solutions";
-import Editor from "vue2-ace-editor";
+import Ace from "vue2-ace-editor";
 import "brace/mode/javascript";
 import "brace/theme/monokai";
 
@@ -83,7 +83,7 @@ export default {
 		Description,
 		Result,
 		Solutions,
-		Editor
+		Ace
 	}
 }
 </script>
