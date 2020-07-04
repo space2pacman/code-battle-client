@@ -6,9 +6,9 @@
 				<img src="@/assets/default-avatar.png" width="80" alt="avatar">
 				<h3 class="ml-4 font-weight-normal">{{ profile.login }}</h3>
 			</div>
-			<div type="button" class="btn btn-primary">
+			<span class="badge badge-primary p-2 font-weight-normal">
 				Уровень <span class="badge badge-light">{{ profile.level }}</span>
-			</div>
+			</span>
 			<hr>
 			<TaskCard v-for="task in tasks" :task="task" />
 		</div>
