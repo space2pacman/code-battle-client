@@ -6,6 +6,7 @@ import Task from "@/pages/Task";
 import Registration from "@/pages/Registration";
 import Profile from "@/pages/Profile";
 import Login from "@/pages/Login";
+import Solution from "@/pages/Solution";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
 			name: "profile",
 			path: "/profile/:login",
 			component: Profile
+		},
+		{
+			name: "solution",
+			path: "/solution/:id",
+			component: Solution
 		}
 	]
 })
