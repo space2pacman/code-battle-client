@@ -34,9 +34,3 @@ export default {
 	}
 }
 </script>
-
-<style>
-.solution__ace .ace_cursor-layer {
-	opacity: 0;
-}
-</style>

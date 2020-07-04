@@ -4,8 +4,9 @@ import BootstrapVue from "bootstrap-vue";
 import App from "./App";
 import router from "./router";
 import TaskCard from "./components/TaskCard";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-vue/dist/bootstrap-vue.min.css";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 Vue.use(Vuex);
 Vue.use(BootstrapVue);

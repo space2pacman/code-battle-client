@@ -34,7 +34,7 @@ export default {
                 },
                 {
                     caption: "Профиль",
-                    href: "/profile/name"
+                    href: "/profile/pacman"
                 }
             ]
         }

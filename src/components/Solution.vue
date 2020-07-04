@@ -1,11 +1,25 @@
 <template>
 	<div class="mb-3">
 		<Ace lang="javascript" theme="monokai" height="200" :value="solution.code" ref="ace" :options="options" class="solution__ace" />
-		<span>
-			<router-link :to="'/profile/' + solution.username">{{ solution.username }}</router-link>
-			| likes: {{ solution.likes }} | comments: {{ solution.comments }}
-			| <router-link :to="'/solution/' + solution.id">link</router-link>
-		</span>
+		<div class="mt-2">
+			<router-link :to="'/profile/' + solution.username">
+				<span class="badge badge-primary p-2 font-weight-normal">
+					<i class="fas fa-user"></i>
+					<span class="ml-2">{{ solution.username }}</span>
+				</span>
+			</router-link>
+			<a href="#" @click.prevent="" class="badge badge-primary p-2 font-weight-normal ml-2">
+				Нравится
+				<span class="badge badge-light">{{ solution.likes }}</span>
+			</a>
+			<a href="#" @click.prevent="" class="badge badge-primary p-2 font-weight-normal ml-2">
+				Комментариев
+				<span class="badge badge-light">{{ solution.comments }}</span>
+			</a>
+			<router-link :to="'/solution/' + solution.id">
+				<div type="button" class="btn btn-link btn-sm ml-2">link</div>
+			</router-link>
+		</div>
 		<!-- Slots for <hr>? -->
 	</div>
 </template>
@@ -29,3 +43,13 @@ export default {
 	}
 }
 </script>
+
+<style>
+.solution__ace .ace_cursor-layer {
+	opacity: 0;
+}
+
+.solution__ace .ace_print-margin-layer {
+	display: none;
+}
+</style>
