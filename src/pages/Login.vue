@@ -4,13 +4,13 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="E-mail">
+					<input type="text" class="form-control" placeholder="Логин" v-model="login">
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Пароль">
+					<input type="password" class="form-control" placeholder="Пароль" v-model="password">
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block">Войти</button>
+					<button type="submit" class="btn btn-primary btn-block" @click="auth">Войти</button>
 				</div>
 				<div class="text-center">
 					<span>Ещё нет аккаунта?</span> 
@@ -20,3 +20,22 @@
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	data() {
+		return {
+			login: "",
+			password: ""
+		}
+	},
+	methods: {
+		auth() {
+			this.send("login", {
+				login: this.login,
+				password: this.password
+			})
+		}
+	}
+}
+</script>
