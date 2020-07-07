@@ -40,6 +40,10 @@ Vue.mixin({
 				if(response.status === "error") {
 					this.isAuthorized = false;
 				}
+
+				if(response.status === "success") {
+					this.isAuthorized = true;
+				}
 				
 				return response;
 			})
@@ -53,7 +57,8 @@ Vue.mixin({
 					let url = response.url;
 
 					this.$store.commit(url, response.data);
-				}
+					this.isAuthorized = true;
+				} 
 
 				if(response.status === "error") {
 					this.isAuthorized = false;
@@ -64,7 +69,7 @@ Vue.mixin({
 	computed: {
 		isAuthorized: {
 			get() {
-				return this.$store.state.auth;
+				return this.$store.state.authorized;
 			},
 			set(value) {
 				this.$store.commit("authorized", value);
@@ -81,7 +86,7 @@ let store = new Vuex.Store({
 		"profile/tasks": null,
 		"solution": null,
 		"solution/task": null,
-		"auth": false
+		"authorized": false
 	},
 	mutations: {
 		"tasks"(state, data) {
