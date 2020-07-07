@@ -35,6 +35,7 @@ export default {
 				login: this.login,
 				password: this.password
 			})
+			this.send("test"); // fix
 		}
 	}
 }

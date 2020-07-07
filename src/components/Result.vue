@@ -26,7 +26,8 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="!isLoading && !isSolved">Нажмите на запуск</div>
+		<div v-if="!isLoading && !isSolved && isAuthorized">Нажмите на запуск</div>
+		<div v-if="!isAuthorized">Вы не авторизованны</div>
 	</div>
 </template>
 
@@ -47,12 +48,17 @@ export default {
 			this.isSolved = false;
 		})
 		this.$parent.$on("onTestEnd", tests => {
-			setTimeout(() => {
-				this.isLoading = false;
-				this.isSolved = true;
-			}, 1000);
+			if(this.isAuthorized) {
+				setTimeout(() => {
+					this.isLoading = false;
+					this.isSolved = true;
+				}, 1000);
 
-			this.tests = tests;
+			} else {
+				this.isLoading = false;
+			}
+
+			this.tests = tests || [];
 		})
 	},
 	computed: {

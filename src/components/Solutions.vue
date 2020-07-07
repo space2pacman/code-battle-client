@@ -5,6 +5,7 @@
 		<div v-if="!isLoading">
 			<Solution v-for="solution in solutions" :solution="solution" />
 		</div>
+		<div v-if="!isAuthorized">Вы не авторизованны</div>
 	</div>
 </template>
 

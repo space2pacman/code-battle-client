@@ -25,7 +25,8 @@ Vue.mixin({
 			return fetch(`http://localhost:8080/api/${options.url}/`, {
 				method: options.method,
 				headers: {
-					"Content-Type": "application/json;charset=utf-8"
+					"Content-Type": "application/json;charset=utf-8",
+					"Authorization": "bearer 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QiLCJpYXQiOjE1OTM5ODQ4NjF9.DY261JCcI9kPCbGzBLFzNYB1H3OjjW3RvqQ03vx1Q3o" // fix
 				},
 				body: options.body
 			}).then(response => response.json());
@@ -35,7 +36,13 @@ Vue.mixin({
 				method: "POST",
 				url,
 				body: JSON.stringify(data)
-			});
+			}).then(response => {
+				if(response.status === "error") {
+					this.isAuthorized = false;
+				}
+				
+				return response;
+			})
 		},
 		receive(url) {
 			return this.request({
@@ -47,7 +54,21 @@ Vue.mixin({
 
 					this.$store.commit(url, response.data);
 				}
+
+				if(response.status === "error") {
+					this.isAuthorized = false;
+				}
 			})
+		}
+	},
+	computed: {
+		isAuthorized: {
+			get() {
+				return this.$store.state.auth;
+			},
+			set(value) {
+				this.$store.commit("authorized", value);
+			}
 		}
 	}
 })
@@ -59,7 +80,8 @@ let store = new Vuex.Store({
 		"profile": null,
 		"profile/tasks": null,
 		"solution": null,
-		"solution/task": null
+		"solution/task": null,
+		"auth": false
 	},
 	mutations: {
 		"tasks"(state, data) {
@@ -79,6 +101,9 @@ let store = new Vuex.Store({
 		},
 		"solution/task"(state, data) {
 			state["solution/task"] = data;
+		},
+		"authorized"(state, data) {
+			state["authorized"] = data;
 		}
 	}
 })
@@ -89,5 +114,5 @@ new Vue({
 	store,
 	render(h) {
 		return h(App);
-	},
+	}
 })
