@@ -1,11 +1,12 @@
 <template>
 	<div>
 		<h4 class="font-weight-normal mt-4 mb-3">Решения</h4>
-		<div v-if="solutions === 'unauthorized'">Вы не авторизованны</div>
+		<Notice v-if="!isAuthorized" :text="solutions" />
 		<div v-else>
 			<Preloader v-if="isLoading" />
-			<div v-if="!isLoading">
-				<Solution v-for="solution in solutions" :solution="solution" />
+			<Notice v-if="typeof solutions === 'string'" :text="solutions" />
+			<div v-if="!isLoading && Array.isArray(solutions)">
+				<Solution  v-for="solution in solutions" :solution="solution" />
 			</div>
 		</div>
 	</div>
@@ -14,6 +15,7 @@
 <script>
 import Preloader from "@/components/Preloader";
 import Solution from "@/components/Solution";
+import Notice from "@/components/Notice";
 
 export default {
 	data() {
@@ -33,7 +35,8 @@ export default {
 	},
 	components: {
 		Preloader,
-		Solution
+		Solution,
+		Notice
 	}
 }
 </script>

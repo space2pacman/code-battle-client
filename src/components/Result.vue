@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h4 class="font-weight-normal mt-4 mb-3">Результат тестов</h4>
-		<div v-if="tests === 'unauthorized'">Вы не авторизованны</div>
+		<Notice v-if="!isAuthorized" :text="tests" />
 		<div v-else>
 			<Preloader v-if="isLoading" />
 			<div v-if="isSolved">
@@ -28,13 +28,14 @@
 					</div>
 				</div>
 			</div>
-			<div v-if="!isLoading && !isSolved">Нажмите на запуск</div>
 		</div>
+		<div v-if="!isLoading && !isSolved">Нажмите на запуск</div>
 	</div>
 </template>
 
 <script>
 import Preloader from "@/components/Preloader";
+import Notice from "@/components/Notice";
 
 export default {
 	data() {
@@ -71,7 +72,8 @@ export default {
 		}
 	},
 	components: {
-		Preloader
+		Preloader,
+		Notice
 	}
 }
 </script>

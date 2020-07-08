@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1 class="mb-4">Решение</h1>
-		<div v-if="solution === 'unauthorized'">Вы не авторизованны</div>
+		<Notice v-if="!isAuthorized" :text="solution" />
 		<div v-else>
 			<div v-if="solution">
 				<Solution :solution="solution" />
@@ -15,6 +15,7 @@
 
 <script>
 import Solution from "@/components/Solution";
+import Notice from "@/components/Notice";
 
 export default {
 	data() {
@@ -32,7 +33,8 @@ export default {
 		})
 	},
 	components: {
-		Solution
+		Solution,
+		Notice
 	}
 }
 </script>
