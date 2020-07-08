@@ -1,11 +1,13 @@
 <template>
 	<div>
 		<h4 class="font-weight-normal mt-4 mb-3">Решения</h4>
-		<Preloader v-if="isLoading" />
-		<div v-if="!isLoading">
-			<Solution v-for="solution in solutions" :solution="solution" />
+		<div v-if="solutions === 'unauthorized'">Вы не авторизованны</div>
+		<div v-else>
+			<Preloader v-if="isLoading" />
+			<div v-if="!isLoading">
+				<Solution v-for="solution in solutions" :solution="solution" />
+			</div>
 		</div>
-		<div v-if="!isAuthorized">Вы не авторизованны</div>
 	</div>
 </template>
 

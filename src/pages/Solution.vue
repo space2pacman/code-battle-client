@@ -1,11 +1,14 @@
 <template>
 	<div>
 		<h1 class="mb-4">Решение</h1>
-		<div v-if="solution">
-			<Solution :solution="solution" />
-		</div>
+		<div v-if="solution === 'unauthorized'">Вы не авторизованны</div>
 		<div v-else>
-			Решение не найдено
+			<div v-if="solution">
+				<Solution :solution="solution" />
+			</div>
+			<div v-else>
+				Решение не найдено
+			</div>
 		</div>
 	</div>
 </template>

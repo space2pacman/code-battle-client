@@ -66,7 +66,13 @@ export default {
 			this.switchTab("result");
 			this.$emit("onTestStart");
 			this.send("task/test", data).then(response => {
-				this.$emit("onTestEnd", response.data);
+				if(response.status === "success") {
+					this.$emit("onTestEnd", null, response.data);
+				}
+
+				if(response.status === "error") {
+					this.$emit("onTestEnd", response.error);
+				}
 			});
 		}
 	},

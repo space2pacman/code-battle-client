@@ -34,8 +34,9 @@ export default {
 			this.send("login", {
 				login: this.login,
 				password: this.password
+			}).then(response => {
+				this.$store.commit("token", response.data);
 			})
-			this.send("test"); // fix
 		}
 	}
 }

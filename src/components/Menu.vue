@@ -3,41 +3,22 @@
         <router-link class="navbar-brand" to="/">Code battle</router-link>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li v-for="item in menu" class="nav-item">
-                    <router-link :to="item.href" class="nav-link">{{ item.caption }}</router-link>
+                <li class="nav-item">
+                    <router-link to="/" class="nav-link">Главная</router-link>
+                </li>
+                <li>
+                    <router-link to="/tasks" class="nav-link">Задания</router-link>
+                </li>
+                <li>
+                    <router-link to="/registration" class="nav-link" v-if="!isAuthorized">Регистрация</router-link>
+                </li>
+                <li>
+                    <router-link to="/login" class="nav-link" v-if="!isAuthorized">Войти</router-link>
+                </li>
+                <li>
+                    <router-link to="/profile/pacman" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
             </ul>
         </div>
     </nav>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            menu: [
-                {
-                    caption: "Главная",
-                    href: "/"
-                },
-                {
-                    caption: "Задания",
-                    href: "/tasks"
-                },
-                {
-                    caption: "Регистрация",
-                    href: "/registration"
-                },
-                {
-                    caption: "Войти",
-                    href: "/login"
-                },
-                {
-                    caption: "Профиль",
-                    href: "/profile/pacman"
-                }
-            ]
-        }
-    }
-}
-</script>
