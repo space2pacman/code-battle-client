@@ -18,6 +18,9 @@
                 <li>
                     <router-link to="/profile/pacman" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
+                <li>
+                    <router-link to="/logout" class="nav-link" v-if="isAuthorized">Выйти</router-link>
+                </li>
             </ul>
         </div>
     </nav>

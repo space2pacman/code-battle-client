@@ -7,6 +7,7 @@ import Registration from "@/pages/Registration";
 import Profile from "@/pages/Profile";
 import Login from "@/pages/Login";
 import Solution from "@/pages/Solution";
+import Logout from "@/pages/Logout";
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ export default new Router({
 			name: "solution",
 			path: "/solution/:id",
 			component: Solution
+		},
+		{
+			name: "logout",
+			path: "/logout",
+			component: Logout
 		}
 	]
 })

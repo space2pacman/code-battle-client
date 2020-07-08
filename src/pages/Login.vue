@@ -36,6 +36,7 @@ export default {
 				password: this.password
 			}).then(response => {
 				this.$store.commit("token", response.data);
+				this.$router.push("/");
 			})
 		}
 	}
