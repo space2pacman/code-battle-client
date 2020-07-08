@@ -4,9 +4,11 @@
 		<Notice v-if="!isAuthorized" :text="solutions" />
 		<div v-else>
 			<Preloader v-if="isLoading" />
-			<Notice v-if="typeof solutions === 'string'" :text="solutions" />
 			<div v-if="!isLoading && Array.isArray(solutions)">
-				<Solution  v-for="solution in solutions" :solution="solution" />
+				<Solution v-for="solution in solutions" :solution="solution" />
+			</div>
+			<div v-if="typeof solutions === 'string'">
+				<Notice :text="solutions" />
 			</div>
 		</div>
 	</div>

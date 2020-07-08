@@ -8,7 +8,7 @@ export default {
 		return {
 			notices: {
 				"unauthorized": "Вы не авторизованы",
-				"not found": "Решения отсутствуют"
+				"not found": "Решение отсутствует"
 			}
 		}
 	},
