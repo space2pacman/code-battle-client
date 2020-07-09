@@ -1,5 +1,5 @@
 <template>
-	<div v-if="text" :class="className">{{ notices[text] }}</div>
+	<div v-if="text" :class="className">{{ notices[text] ? notices[text] : text }}</div>
 </template>
 
 <script>

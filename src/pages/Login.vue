@@ -34,6 +34,18 @@ export default {
 	},
 	methods: {
 		auth() {
+			if(this.login.length === 0) {
+				this.notice = "Логин не может быть пустым";
+
+				return false;
+			}
+
+			if(this.password.length === 0) {
+				this.notice = "Пароль не может быть пустым";
+
+				return false;
+			}
+
 			this.send("login", {
 				login: this.login,
 				password: this.password
