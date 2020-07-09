@@ -3,6 +3,7 @@
 		<h1 class="card-title mb-4 text-center">Вход</h1>
 		<div class="card">
 			<div class="card-body">
+				<Preloader v-if="isLoading" />
 				<Notice :text="notice" className="alert alert-danger" />
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Логин" v-model="login">
@@ -23,13 +24,16 @@
 </template>
 
 <script>
+import Preloader from "@/components/Preloader";
 import Notice from "@/components/Notice";
+
 export default {
 	data() {
 		return {
 			login: "",
 			password: "",
-			notice: null
+			notice: null,
+			isLoading: false
 		}
 	},
 	methods: {
@@ -46,6 +50,7 @@ export default {
 				return false;
 			}
 
+			this.isLoading = true;
 			this.send("login", {
 				login: this.login,
 				password: this.password
@@ -58,10 +63,24 @@ export default {
 				if(response.status === "error") {
 					this.notice = response.error;
 				}
+
+				this.isLoading = false;
 			})
+		},
+		clearNotice() {
+			this.notice = null;
+		}
+	},
+	watch: {
+		login() {
+			this.clearNotice();
+		},
+		password() {
+			this.clearNotice();
 		}
 	},
 	components: {
+		Preloader,
 		Notice
 	}
 }
