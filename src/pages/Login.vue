@@ -3,6 +3,7 @@
 		<h1 class="card-title mb-4 text-center">Вход</h1>
 		<div class="card">
 			<div class="card-body">
+				<Notice :text="notice" className="alert alert-danger" />
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Логин" v-model="login">
 				</div>
@@ -22,11 +23,13 @@
 </template>
 
 <script>
+import Notice from "@/components/Notice";
 export default {
 	data() {
 		return {
 			login: "",
-			password: ""
+			password: "",
+			notice: null
 		}
 	},
 	methods: {
@@ -35,10 +38,19 @@ export default {
 				login: this.login,
 				password: this.password
 			}).then(response => {
-				this.$store.commit("token", response.data);
-				this.$router.push("/");
+				if(response.status === "success") {
+					this.$store.commit("token", response.data);
+					this.$router.push("/");
+				}
+
+				if(response.status === "error") {
+					this.notice = response.error;
+				}
 			})
 		}
+	},
+	components: {
+		Notice
 	}
 }
 </script>
