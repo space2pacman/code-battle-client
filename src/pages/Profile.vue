@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1 class="mb-4">Профиль</h1>
-		<div v-if="profile">
+		<div v-if="profile instanceof Object">
 			<div class="d-flex align-items-center mb-3">
 				<img src="@/assets/default-avatar.png" width="80" alt="avatar">
 				<h3 class="ml-4 font-weight-normal">{{ profile.login }}</h3>
@@ -10,15 +10,22 @@
 				Уровень <span class="badge badge-light">{{ profile.level }}</span>
 			</span>
 			<hr>
-			<TaskCard v-for="task in tasks" :task="task" />
+			<div v-if="typeof tasks === 'string'">
+				<Notice :text="tasks" />
+			</div>
+			<div v-if="tasks instanceof Object">
+				<TaskCard v-for="task in tasks" :task="task" />
+			</div>
 		</div>
-		<div v-else>
-			Пользователь не найден
+		<div v-if="typeof profile === 'string'">
+			<Notice :text="profile" />
 		</div>
 	</div>
 </template>
 
 <script>
+import Notice from "@/components/Notice";
+
 export default {
 	data() {
 		return {
@@ -39,6 +46,9 @@ export default {
 				this.tasks = mutation.payload;
 			}
 		})
+	},
+	components: {
+		Notice
 	}
 }
 </script>

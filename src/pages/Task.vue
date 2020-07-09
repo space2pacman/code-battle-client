@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<h1 class="mb-4">Задание</h1>
-		<div class="row">
+		<div v-if="typeof task === 'string'">
+			<Notice :text="task" />
+		</div>
+		<div v-if="task instanceof Object" class="row">
 			<div class="col">
 				<ul class="nav nav-tabs">
 					<li v-for="tab in tabs.list" class="nav-item">
@@ -24,6 +27,7 @@
 import Description from "@/components/Description";
 import Result from "@/components/Result";
 import Solutions from "@/components/Solutions";
+import Notice from "@/components/Notice";
 import Ace from "vue2-ace-editor";
 import "brace/mode/javascript";
 import "brace/theme/monokai";
@@ -81,7 +85,10 @@ export default {
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "task") {
 				this.task = mutation.payload;
-				this.code = this.task.function.body;
+				
+				if(this.task instanceof Object) {
+					this.code = this.task.function.body;
+				}
 			}
 		})
 	},
@@ -89,6 +96,7 @@ export default {
 		Description,
 		Result,
 		Solutions,
+		Notice,
 		Ace
 	}
 }

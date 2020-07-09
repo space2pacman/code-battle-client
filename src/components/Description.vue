@@ -32,7 +32,7 @@ export default {
 	},
 	mounted() {
 		this.$store.subscribe(mutation => {
-			if(mutation.type === "task") {
+			if(mutation.type === "task" && mutation.payload instanceof Object) {
 				this.description = mutation.payload.description;
 				this.input = mutation.payload.tests[0].input;
 				this.output = mutation.payload.tests[0].output;

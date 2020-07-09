@@ -1,5 +1,5 @@
 <template>
-	<div :class="className">{{ notices[text] }}</div>
+	<div v-if="text" :class="className">{{ notices[text] }}</div>
 </template>
 
 <script>
@@ -8,8 +8,10 @@ export default {
 		return {
 			notices: {
 				"unauthorized": "Вы не авторизованы",
-				"not found": "Решение отсутствует",
 				"user not found": "Пользователь не найден",
+				"task not found": "Задача не найдена",
+				"tasks not found": "Задачи не найдены",
+				"solution not found": "Решение отсутствует",
 				"wrong password": "Неверный пароль"
 			}
 		}
