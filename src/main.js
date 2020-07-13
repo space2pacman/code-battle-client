@@ -65,6 +65,9 @@ Vue.mixin({
 		},
 		isAuthorized() {
 			return this.token !== null;
+		},
+		getUserName() {
+			return this.$store.state.user.login;
 		}
 	}
 })
@@ -77,7 +80,8 @@ let store = new Vuex.Store({
 		"profile/tasks": null,
 		"solution": null,
 		"solution/task": null,
-		"token": null
+		"token": null,
+		"user": null
 	},
 	mutations: {
 		"tasks"(state, data) {
@@ -100,6 +104,9 @@ let store = new Vuex.Store({
 		},
 		"token"(state, data) {
 			state["token"] = data;
+		},
+		"user"(state, data) {
+			state["user"] = data;
 		}
 	}
 })

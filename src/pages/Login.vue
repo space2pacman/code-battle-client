@@ -56,7 +56,8 @@ export default {
 				password: this.password
 			}).then(response => {
 				if(response.status === "success") {
-					this.$store.commit("token", response.data);
+					this.$store.commit("token", response.data.token);
+					this.$store.commit("user", response.data.user);
 					this.$router.push("/");
 				}
 

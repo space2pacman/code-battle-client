@@ -16,7 +16,7 @@
                     <router-link to="/login" class="nav-link" v-if="!isAuthorized">Войти</router-link>
                 </li>
                 <li>
-                    <router-link to="/profile/pacman" class="nav-link" v-if="isAuthorized">Профиль</router-link>
+                    <router-link :to="'/profile/' + getUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
                 <li>
                     <router-link to="/logout" class="nav-link" v-if="isAuthorized">Выйти</router-link>
