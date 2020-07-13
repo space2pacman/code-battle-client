@@ -67,7 +67,7 @@ Vue.mixin({
 			return this.token !== null;
 		},
 		getUserName() {
-			return this.$store.state.user.login;
+			return this.$store.state.user?.login;
 		}
 	}
 })
