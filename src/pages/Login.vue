@@ -56,9 +56,12 @@ export default {
 				password: this.password
 			}).then(response => {
 				if(response.status === "success") {
+					let login = response.data.user.login;
+					
 					this.$store.commit("token", response.data.token);
 					this.$store.commit("user", response.data.user);
 					this.$router.push("/");
+					this.receive(`profile/${login}`);
 				}
 
 				if(response.status === "error") {

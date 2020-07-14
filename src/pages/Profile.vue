@@ -63,6 +63,17 @@ export default {
 	methods: {
 		switchTab(tab) {
 			this.tabs.active = tab;
+		},
+		showTabs() {
+			this.tabs.list = this.tabs.list.filter(tab => {
+				if(tab.accessLevel > 0 && tab.accessLevel <= this.profile.accessLevel && this.profile.login === this.getUserName) {
+					return true;
+				} else if(tab.accessLevel === 0) {
+					return true;
+				} else {
+					return false
+				}
+			})
 		}
 	},
 	mounted() {
@@ -73,17 +84,7 @@ export default {
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "profile") {
 				this.profile = mutation.payload;
-				// fix
-				this.tabs.list = this.tabs.list.filter(tab => {
-					if(tab.accessLevel > 0 && tab.accessLevel <= this.profile.accessLevel && this.profile.login === this.getUserName) {
-						return true;
-					} else if(tab.accessLevel === 0) {
-						return true;
-					} else {
-						return false
-					}
-				})
-				//
+				this.showTabs();
 			}
 			if(mutation.type === "profile/tasks") {
 				this.tasks = mutation.payload;
