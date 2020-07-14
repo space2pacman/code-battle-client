@@ -76,12 +76,11 @@ let store = new Vuex.Store({
 	state: {
 		"tasks": null,
 		"task": null,
-		"profile": null,
-		"profile/tasks": null,
+		"user": null,
+		"user/tasks": null,
 		"solution": null,
 		"solution/task": null,
-		"token": null,
-		"user": null
+		"token": null
 	},
 	mutations: {
 		"tasks"(state, data) {
@@ -90,11 +89,11 @@ let store = new Vuex.Store({
 		"task"(state, data) {
 			state["task"] = data;
 		},
-		"profile"(state, data) {
-			state["profile"] = data;
+		"user"(state, data) {
+			state["user"] = data;
 		},
-		"profile/tasks"(state, data) {
-			state["profile/tasks"] = data;
+		"user/tasks"(state, data) {
+			state["user/tasks"] = data;
 		},
 		"solution"(state, data) {
 			state["solution"] = data;
@@ -104,9 +103,6 @@ let store = new Vuex.Store({
 		},
 		"token"(state, data) {
 			state["token"] = data;
-		},
-		"user"(state, data) {
-			state["user"] = data;
 		}
 	}
 })

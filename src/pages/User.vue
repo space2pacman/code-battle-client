@@ -1,16 +1,16 @@
 <template>
 	<div>
 		<h1 class="mb-4">Профиль</h1>
-		<div v-if="profile instanceof Object">
-			<div v-if="getUserName && profile.login === getUserName">
-				<router-link :to="'/profile/' + getUserName + '/settings/'">[Настройки]</router-link>
+		<div v-if="user instanceof Object">
+			<div v-if="getUserName && user.login === getUserName">
+				<router-link :to="'/user/' + getUserName + '/settings/'">[Настройки]</router-link>
 			</div>
 			<div class="d-flex align-items-center mb-3 mt-3">
 				<img src="@/assets/default-avatar.png" width="80" alt="avatar">
-				<h3 class="ml-4 font-weight-normal">{{ profile.login }}</h3>
+				<h3 class="ml-4 font-weight-normal">{{ user.login }}</h3>
 			</div>
 			<span class="badge badge-primary p-2 font-weight-normal">
-				Уровень <span class="badge badge-light">{{ profile.level }}</span>
+				Уровень <span class="badge badge-light">{{ user.level }}</span>
 			</span>
 			<ul class="nav nav-tabs mt-3 mb-3">
 				<li v-for="tab in tabs.list" class="nav-item">
@@ -29,8 +29,8 @@
 				Message
 			</div>
 		</div>
-		<div v-if="typeof profile === 'string'">
-			<Notice :text="profile" />
+		<div v-if="typeof user === 'string'">
+			<Notice :text="user" />
 		</div>
 	</div>
 </template>
@@ -41,7 +41,7 @@ import Notice from "@/components/Notice";
 export default {
 	data() {
 		return {
-			profile: null,
+			user: null,
 			tasks: null,
 			tabs: {
 				list: [
@@ -66,7 +66,7 @@ export default {
 		},
 		showTabs() {
 			this.tabs.list = this.tabs.list.filter(tab => {
-				if(tab.accessLevel > 0 && tab.accessLevel <= this.profile.accessLevel && this.profile.login === this.getUserName) {
+				if(tab.accessLevel > 0 && tab.accessLevel <= this.user.accessLevel && this.user.login === this.getUserName) {
 					return true;
 				} else if(tab.accessLevel === 0) {
 					return true;
@@ -79,14 +79,14 @@ export default {
 	mounted() {
 		let login = this.$route.params.login;
 
-		this.receive(`profile/${login}`);
-		this.receive(`profile/${login}/tasks`);
+		this.receive(`user/${login}`);
+		this.receive(`user/${login}/tasks`);
 		this.$store.subscribe(mutation => {
-			if(mutation.type === "profile") {
-				this.profile = mutation.payload;
+			if(mutation.type === "user") {
+				this.user = mutation.payload;
 				this.showTabs();
 			}
-			if(mutation.type === "profile/tasks") {
+			if(mutation.type === "user/tasks") {
 				this.tasks = mutation.payload;
 			}
 		})

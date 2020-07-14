@@ -16,7 +16,7 @@
                     <router-link to="/login" class="nav-link" v-if="!isAuthorized">Войти</router-link>
                 </li>
                 <li>
-                    <router-link :to="'/profile/' + getUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
+                    <router-link :to="'/user/' + getUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
                 <li>
                     <router-link to="/task/add/" class="nav-link" v-if="isAuthorized && accessLevel === 100">Новая задача</router-link>
@@ -38,7 +38,7 @@ export default {
     },
     mounted() {
         this.$store.subscribe(mutation => {
-            if(mutation.type === "profile") {
+            if(mutation.type === "user") {
                 let profile = mutation.payload;
 
                 this.accessLevel = profile.accessLevel;

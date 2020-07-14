@@ -4,7 +4,7 @@ import Main from "@/pages/Main";
 import Tasks from "@/pages/Tasks";
 import Task from "@/pages/Task";
 import Registration from "@/pages/Registration";
-import Profile from "@/pages/Profile";
+import User from "@/pages/User";
 import Login from "@/pages/Login";
 import Solution from "@/pages/Solution";
 import Logout from "@/pages/Logout";
@@ -39,9 +39,9 @@ export default new Router({
 			component: Login
 		},
 		{
-			name: "profile",
-			path: "/profile/:login",
-			component: Profile
+			name: "user",
+			path: "/user/:login",
+			component: User
 		},
 		{
 			name: "solution",
