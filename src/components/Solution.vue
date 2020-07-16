@@ -2,7 +2,7 @@
 	<div class="mb-3">
 		<Ace lang="javascript" theme="monokai" height="200" :value="solution.code" ref="ace" :options="options" class="solution__ace" />
 		<div class="mt-2">
-			<router-link :to="'/profile/' + solution.username">
+			<router-link :to="'/user/' + solution.username">
 				<span class="badge badge-primary p-2 font-weight-normal">
 					<i class="fas fa-user"></i>
 					<span class="ml-2">{{ solution.username }}</span>
