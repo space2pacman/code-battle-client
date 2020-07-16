@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h4 class="font-weight-normal mt-4">Перевернуть строку</h4>
+		<h4 class="font-weight-normal mt-4">{{ task.caption }}</h4>
 		<div>
-			<small>{{ description }}</small>
+			<small>{{ task.description }}</small>
 		</div>
 		<hr>
 		<div>
@@ -11,10 +11,10 @@
 		<div class="card mt-3">
 			<div class="card-body">
 				<div>
-					<small>Ввод: {{ input }}</small>
+					<small>Ввод: {{ task.tests[0].input }}</small>
 				</div>
 				<div>
-					<small>Вывод: {{ output }}</small>
+					<small>Вывод: {{ task.tests[0].output }}</small>
 				</div>
 			</div>
 		</div>
@@ -23,21 +23,8 @@
 
 <script>
 export default {
-	data() {
-		return {
-			description: null,
-			input: null,
-			output: null
-		}
-	},
-	mounted() {
-		this.$store.subscribe(mutation => {
-			if(mutation.type === "task" && mutation.payload instanceof Object) {
-				this.description = mutation.payload.description;
-				this.input = mutation.payload.tests[0].input;
-				this.output = mutation.payload.tests[0].output;
-			}
-		})
+	props: {
+		task: Object
 	}
 }
 </script>

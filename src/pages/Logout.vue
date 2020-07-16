@@ -6,7 +6,7 @@
 export default {
 	mounted() {
 		this.send("logout", {
-			token: this.token
+			token: this.getToken
 		}).then(response => {
 			if(response.status === "success") {
 				this.$store.commit("token", null);

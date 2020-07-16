@@ -25,8 +25,8 @@ Vue.mixin({
 
 			headers["Content-Type"] = "application/json;charset=utf-8";
 
-			if(this.token) {
-				headers["Authorization"] = `bearer ${this.token}`;
+			if(this.getToken) {
+				headers["Authorization"] = `bearer ${this.getToken}`;
 			}
 
 			return fetch(`http://localhost:8080/api/${options.url}/`, {
@@ -73,11 +73,11 @@ Vue.mixin({
 		}
 	},
 	computed: {
-		token() {
+		getToken() {
 			return this.$store.state.token;
 		},
 		isAuthorized() {
-			return this.token !== null;
+			return this.getToken !== null;
 		},
 		getUserName() {
 			return this.$store.state.user?.login;

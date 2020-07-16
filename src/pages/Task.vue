@@ -11,7 +11,7 @@
 						<a class="nav-link" :class="{ 'active': tab.type === tabs.active }" href="#" @click.prevent="switchTab(tab.type)">{{ tab.caption }}</a>
 					</li>
 				</ul>
-				<Description v-show="tabs.active === 'description'" />
+				<Description v-show="tabs.active === 'description'" :task="task" />
 				<Result v-show="tabs.active === 'result'" />
 				<Solutions v-show="tabs.active === 'solutions'" />
 			</div>
