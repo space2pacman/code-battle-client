@@ -57,6 +57,7 @@ export default {
 			}).then(response => {
 				if(response.status === "success") {
 					this.$store.commit("token", response.data.token);
+					this.$store.commit("user/auth", response.data.user);
 					this.$store.commit("user", response.data.user);
 					this.$router.push("/");
 				}

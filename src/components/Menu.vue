@@ -19,7 +19,7 @@
                     <router-link :to="'/user/' + getUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
                 <li>
-                    <router-link to="/task/add/" class="nav-link" v-if="isAuthorized && accessLevel === 100">Новая задача</router-link>
+                    <router-link to="/task/add/" class="nav-link" v-if="isAuthorized && checkAccessLevel(100)">Новая задача</router-link>
                 </li>
                 <li>
                     <router-link to="/logout" class="nav-link" v-if="isAuthorized">Выйти</router-link>
@@ -28,22 +28,3 @@
         </div>
     </nav>
 </template>
-
-<script>
-export default {
-    data() {
-        return {
-            accessLevel: null
-        }
-    },
-    mounted() {
-        this.$store.subscribe(mutation => {
-            if(mutation.type === "user") {
-                let profile = mutation.payload;
-
-                this.accessLevel = profile.accessLevel;
-            }
-        })
-    }
-}
-</script>

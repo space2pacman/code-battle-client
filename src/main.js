@@ -57,6 +57,19 @@ Vue.mixin({
 					this.$store.commit(url, response.error);
 				}
 			});
+		},
+		checkAccessLevel(accessLevel) {
+			let user = this.getAuthUser;
+
+			if(user) {
+				if(user.accessLevel >= accessLevel) {
+					return true
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
 		}
 	},
 	computed: {
@@ -68,6 +81,12 @@ Vue.mixin({
 		},
 		getUserName() {
 			return this.$store.state.user?.login;
+		},
+		getAuthUser() {
+			return this.$store.state["user/auth"];
+		},
+		getAuthUserName() {
+			return this.$store.state["user/auth"]?.login;
 		}
 	}
 })
@@ -78,6 +97,7 @@ let store = new Vuex.Store({
 		"task": null,
 		"user": null,
 		"user/tasks": null,
+		"user/auth": null,
 		"solution": null,
 		"solution/task": null,
 		"token": null
@@ -103,6 +123,9 @@ let store = new Vuex.Store({
 		},
 		"token"(state, data) {
 			state["token"] = data;
+		},
+		"user/auth"(state, data) {
+			state["user/auth"] = data;
 		}
 	}
 })

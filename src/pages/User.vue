@@ -66,7 +66,7 @@ export default {
 		},
 		showTabs() {
 			this.tabs.list = this.tabs.list.filter(tab => {
-				if(tab.accessLevel > 0 && tab.accessLevel <= this.user.accessLevel && this.user.login === this.getUserName) {
+				if(this.checkAccessLevel(tab.accessLevel) && this.getUserName === this.getAuthUserName) {
 					return true;
 				} else if(tab.accessLevel === 0) {
 					return true;
