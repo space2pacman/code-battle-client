@@ -19,7 +19,7 @@
                     <router-link :to="'/user/' + getUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
                 <li>
-                    <router-link to="/task/add/" class="nav-link" v-if="isAuthorized && checkAccessLevel(100)">Добавить задача</router-link>
+                    <router-link to="/task/add/" class="nav-link" v-if="isAuthorized && checkAccessLevel(100)">Добавить задачу</router-link>
                 </li>
                 <li>
                     <router-link to="/logout" class="nav-link" v-if="isAuthorized">Выйти</router-link>
