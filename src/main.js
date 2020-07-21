@@ -80,7 +80,7 @@ Vue.mixin({
 			return this.getToken !== null;
 		},
 		getUserName() {
-			return this.$store.state.user?.login;
+			return this.$store.state["user"]?.login;
 		},
 		getAuthUser() {
 			return this.$store.state["user/auth"];

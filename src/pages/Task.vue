@@ -87,7 +87,7 @@ export default {
 				this.task = mutation.payload;
 				
 				if(this.task instanceof Object) {
-					this.code = this.task.function.body;
+					this.code = this.task.func.body;
 				}
 			}
 		})
