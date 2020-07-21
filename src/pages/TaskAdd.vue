@@ -96,7 +96,7 @@ export default {
 				}
 			}
 
-			this.tests.push(fields);
+			this.data.tests.push(fields);
 		},
 		checkTask() {
 			let payload = {
