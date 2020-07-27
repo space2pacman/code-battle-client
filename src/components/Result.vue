@@ -22,8 +22,12 @@
 									<div v-for="log in test.logs" class="card-text">{{ log }}</div>
 								</div>
 							</div>
-							<div>Ожидается: {{ test.expected.value }} ({{ test.expected.type }})</div>
-							<div>Вывод: {{ test.return.value }} ({{ test.return.type }})</div>
+							<div>
+								Ожидается: {{ test.expected.value }} <span class="badge" :class="getBadge(test.expected.type)">{{ test.expected.type }}</span>
+							</div>
+							<div>
+								Вывод: {{ test.return.value }} <span class="badge" :class="getBadge(test.return.type)">{{ test.return.type }}</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -63,6 +67,11 @@ export default {
 			}
 		})
 	},
+	methods: {
+		getBadge(type) {
+			return `badge-${type.toLowerCase()}`;
+		}
+	},
 	computed: {
 		successful() {
 			return this.tests.filter(test => test.solved === true).length;
@@ -77,3 +86,39 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.badge-number {
+	background: #4169e1;
+	color: #fff;
+}
+
+.badge-string {
+	background: #ffff33;
+}
+
+.badge-boolean {
+	background: #9400d3;
+	color: #fff;
+}
+
+.badge-array {
+	background: #a0522d;
+	color: #fff;
+}
+
+.badge-object {
+	background: #32cd32;
+	color: #fff;
+}
+
+.badge-null {
+	background: #a9a9a9;
+	color: #fff;
+}
+
+.badge-undefined {
+	background: #a9a9a9;
+	color: #fff;
+}
+</style>
