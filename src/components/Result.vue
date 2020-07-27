@@ -22,8 +22,8 @@
 									<div v-for="log in test.logs" class="card-text">{{ log }}</div>
 								</div>
 							</div>
-							<div>Ожидается: {{ test.expected }}</div>
-							<div>Вывод: {{ test.return }}</div>
+							<div>Ожидается: {{ test.expected.value }} ({{ test.expected.type }})</div>
+							<div>Вывод: {{ test.return.value }} ({{ test.return.type }})</div>
 						</div>
 					</div>
 				</div>
