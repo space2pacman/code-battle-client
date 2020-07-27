@@ -11,10 +11,10 @@
 		<div class="card mt-3">
 			<div class="card-body">
 				<div>
-					<small>Ввод: {{ task.tests[0].input }}</small>
+					<small>Ввод: {{ task.tests[0].input.value }}</small>
 				</div>
 				<div>
-					<small>Вывод: {{ task.tests[0].output }}</small>
+					<small>Вывод: {{ task.tests[0].output.value }}</small>
 				</div>
 			</div>
 		</div>
