@@ -16,10 +16,10 @@
                     <router-link to="/login" class="nav-link" v-if="!isAuthorized">Войти</router-link>
                 </li>
                 <li>
-                    <router-link :to="'/user/' + getUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
+                    <router-link :to="'/user/' + getAuthUserName" class="nav-link" v-if="isAuthorized">Профиль</router-link>
                 </li>
                 <li>
-                    <router-link to="/task/add/" class="nav-link" v-if="isAuthorized && checkAccessLevel(100)">Добавить задачу</router-link>
+                    <router-link to="/task/add/" class="nav-link" v-if="checkAccessLevel(100)">Добавить задачу</router-link>
                 </li>
                 <li>
                     <router-link to="/logout" class="nav-link" v-if="isAuthorized">Выйти</router-link>

@@ -12,11 +12,7 @@
 			<span class="badge badge-primary p-2 font-weight-normal">
 				Уровень <span class="badge badge-light">{{ user.level }}</span>
 			</span>
-			<ul class="nav nav-tabs mt-3 mb-3">
-				<li v-for="tab in tabs.list" class="nav-item">
-					<a class="nav-link" :class="{ 'active': tab.type === tabs.active }" href="#" @click.prevent="switchTab(tab.type)">{{ tab.caption }}</a>
-				</li>
-			</ul>
+			<Tabs :tabs="tabs" @switchTab="switchTab" class="mt-3 mb-3" />
 			<div v-show="tabs.active === 'tasks/solved'">
 				<div v-if="typeof tasks === 'string'">
 					<Notice :text="tasks" />
@@ -36,6 +32,7 @@
 </template>
 
 <script>
+import Tabs from "@/components/Tabs";
 import Notice from "@/components/Notice";
 
 export default {
@@ -66,7 +63,7 @@ export default {
 		},
 		showTabs() {
 			this.tabs.list = this.tabs.list.filter(tab => {
-				if(this.checkAccessLevel(tab.accessLevel) && this.getUserName === this.getAuthUserName) {
+				if(this.checkAccessLevel(tab.accessLevel) && this.checkAuthUser()) {
 					return true;
 				} else if(tab.accessLevel === 0) {
 					return true;
@@ -92,6 +89,7 @@ export default {
 		})
 	},
 	components: {
+		Tabs,
 		Notice
 	}
 }

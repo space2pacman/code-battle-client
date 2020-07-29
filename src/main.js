@@ -61,7 +61,7 @@ Vue.mixin({
 		checkAccessLevel(accessLevel) {
 			let user = this.getAuthUser;
 
-			if(user) {
+			if(this.isAuthorized && user) {
 				if(user.accessLevel >= accessLevel) {
 					return true
 				} else {
@@ -70,6 +70,9 @@ Vue.mixin({
 			} else {
 				return false;
 			}
+		},
+		checkAuthUser() {
+			return this.getUserName === this.getAuthUserName;
 		}
 	},
 	computed: {
