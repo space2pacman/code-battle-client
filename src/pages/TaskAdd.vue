@@ -62,7 +62,17 @@ export default {
 				}
 			}
 
-			this.send("task/check", payload);
+			this.switchTab("result")
+			this.$emit("onTestStart");
+			this.send("task/check", payload).then(response => {
+				if(response.status === "success") {
+					this.$emit("onTestEnd", null, response.data);
+				}
+
+				if(response.status === "error") {
+					this.$emit("onTestEnd", response.error);
+				}
+			});
 		},
 		addTask() {
 			let payload = {
