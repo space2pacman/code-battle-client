@@ -6,11 +6,7 @@
 		</div>
 		<div v-if="task instanceof Object" class="row">
 			<div class="col">
-				<ul class="nav nav-tabs">
-					<li v-for="tab in tabs.list" class="nav-item">
-						<a class="nav-link" :class="{ 'active': tab.type === tabs.active }" href="#" @click.prevent="switchTab(tab.type)">{{ tab.caption }}</a>
-					</li>
-				</ul>
+				<Tabs :tabs="tabs" @switchTab="switchTab" />
 				<Description v-show="tabs.active === 'description'" :task="task" />
 				<Result v-show="tabs.active === 'result'" />
 				<Solutions v-show="tabs.active === 'solutions'" />
@@ -24,6 +20,7 @@
 </template>
 
 <script>
+import Tabs from "@/components/Tabs";
 import Description from "@/components/Description";
 import Result from "@/components/Result";
 import Solutions from "@/components/Solutions";
@@ -93,6 +90,7 @@ export default {
 		})
 	},
 	components: {
+		Tabs,
 		Description,
 		Result,
 		Solutions,

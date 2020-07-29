@@ -3,14 +3,9 @@
 		<h1 class="mb-4">Новая задача</h1>
 		<div class="row">
 			<div class="col">
-				<ul class="nav nav-tabs">
-					<li v-for="tab in tabs.list" class="nav-item">
-						<a class="nav-link" :class="{ 'active': tab.type === tabs.active }" href="#" @click.prevent="switchTab(tab.type)">{{ tab.caption }}</a>
-					</li>
-				</ul>
+				<Tabs :tabs="tabs" @switchTab="switchTab" />
 				<task-fields v-show="tabs.active === 'description'" @data="onTaskFields" />
 				<result v-show="tabs.active === 'result'" />
-				<!-- <Notice :text="'test'" /> -->
 			</div>
 			<div class="col">
 				<Ace lang="javascript" theme="monokai" height="400" v-model="func.body" />
@@ -22,7 +17,7 @@
 </template>
 
 <script>
-//import Notice from "@/components/Notice";
+import Tabs from "@/components/Tabs";
 import TaskFields from "@/components/TaskFields";
 import Result from "@/components/Result";
 import Ace from "vue2-ace-editor";
@@ -81,7 +76,7 @@ export default {
 		}
 	},
 	components: {
-		//Notice,
+		Tabs,
 		TaskFields,
 		Result,
 		Ace
