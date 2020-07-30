@@ -13,17 +13,8 @@
 				Уровень <span class="badge badge-light">{{ user.level }}</span>
 			</span>
 			<Tabs :tabs="tabs" @switchTab="switchTab" class="mt-3 mb-3" />
-			<div v-show="tabs.active === 'tasks/solved'">
-				<div v-if="typeof tasks === 'string'">
-					<Notice :text="tasks" />
-				</div>
-				<div v-if="tasks instanceof Object">
-					<TaskCard v-for="task in tasks" :task="task" />
-				</div>
-			</div>
-			<div v-show="tabs.active === 'tasks/add'">
-				Message
-			</div>
+			<UserTasks v-show="tabs.active === 'tasks/solved'" :tasks="tasks.solved" />
+			<UserTasks v-show="tabs.active === 'tasks/added'" :tasks="tasks.added" />
 		</div>
 		<div v-if="typeof user === 'string'">
 			<Notice :text="user" />
@@ -34,12 +25,16 @@
 <script>
 import Tabs from "@/components/Tabs";
 import Notice from "@/components/Notice";
+import UserTasks from "@/components/UserTasks";
 
 export default {
 	data() {
 		return {
 			user: null,
-			tasks: null,
+			tasks: {
+				list: [],
+				added: []
+			},
 			tabs: {
 				list: [
 					{
@@ -49,7 +44,7 @@ export default {
 					},
 					{
 						caption: "Добавленные задачи",
-						type: "tasks/add",
+						type: "tasks/added",
 						accessLevel: 100
 					}		
 				],
@@ -77,20 +72,27 @@ export default {
 		let login = this.$route.params.login;
 
 		this.receive(`user/${login}`);
-		this.receive(`user/${login}/tasks`);
+		this.receive(`user/${login}/tasks/solved`);
+		this.receive(`user/${login}/tasks/added`);
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "user") {
 				this.user = mutation.payload;
 				this.showTabs();
 			}
-			if(mutation.type === "user/tasks") {
-				this.tasks = mutation.payload;
+
+			if(mutation.type === "user/tasks/solved") {
+				this.tasks.solved = mutation.payload;
+			}
+
+			if(mutation.type === "user/tasks/added") {
+				this.tasks.added = mutation.payload;
 			}
 		})
 	},
 	components: {
 		Tabs,
-		Notice
+		Notice,
+		UserTasks
 	}
 }
 </script>

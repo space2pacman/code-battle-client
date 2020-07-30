@@ -3,14 +3,12 @@ import Vuex from "vuex";
 import BootstrapVue from "bootstrap-vue";
 import App from "./App";
 import router from "./router";
-import TaskCard from "./components/TaskCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 
 Vue.use(Vuex);
 Vue.use(BootstrapVue);
-Vue.component("TaskCard", TaskCard)
 Vue.config.productionTip = false;
 
 Vue.mixin({
@@ -99,7 +97,8 @@ let store = new Vuex.Store({
 		"tasks": null,
 		"task": null,
 		"user": null,
-		"user/tasks": null,
+		"user/tasks/solved": null,
+		"user/tasks/added": null,
 		"user/auth": null,
 		"solution": null,
 		"solution/task": null,
@@ -115,8 +114,11 @@ let store = new Vuex.Store({
 		"user"(state, data) {
 			state["user"] = data;
 		},
-		"user/tasks"(state, data) {
-			state["user/tasks"] = data;
+		"user/tasks/solved"(state, data) {
+			state["user/tasks/solved"] = data;
+		},
+		"user/tasks/added"(state, data) {
+			state["user/tasks/added"] = data;
 		},
 		"solution"(state, data) {
 			state["solution"] = data;

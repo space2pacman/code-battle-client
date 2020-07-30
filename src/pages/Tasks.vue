@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import TaskCard from "@/components/TaskCard";
+
 export default {
 	data() {
 		return {
@@ -110,6 +112,9 @@ export default {
 				this.tasks.filtered = mutation.payload;
 			}
 		})
+	},
+	components: {
+		TaskCard
 	}
 }
 </script>
