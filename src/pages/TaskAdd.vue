@@ -9,7 +9,7 @@
 			</div>
 			<div class="col">
 				<Ace lang="javascript" theme="monokai" height="400" v-model="func.body" />
-				<button type="button" class="btn btn-success float-right ml-3 mt-3" @click="checkTask">Проверка</button>
+				<button type="button" class="btn btn-success float-right ml-3 mt-3" @click="checkTask">Запуск проверки</button>
 				<button type="button" class="btn btn-success float-right mt-3" @click="addTask" :class="{ 'disabled' : !completed }">Добавить</button>
 			</div>
 		</div>
@@ -75,8 +75,12 @@ export default {
 			});
 		},
 		addTask() {
+			this.fields.func.body = this.func.body; // fix
+
 			let payload = {
-				data: this.data
+				data: {
+					task: this.fields
+				}
 			}
 			
 			this.send("task/add", payload);
