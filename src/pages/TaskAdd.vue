@@ -75,11 +75,11 @@ export default {
 			});
 		},
 		addTask() {
-			this.fields.func.body = this.func.body; // fix
-
 			let payload = {
 				data: {
-					task: this.fields
+					fields: this.fields,
+					func: this.func.body,
+					author: this.getAuthUserName
 				}
 			}
 			
