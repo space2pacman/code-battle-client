@@ -112,6 +112,11 @@ export default {
 	color: #fff;
 }
 
+.badge-function {
+	background: #000;
+	color: #fff;
+}
+
 .badge-null {
 	background: #a9a9a9;
 	color: #fff;
