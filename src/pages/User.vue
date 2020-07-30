@@ -39,13 +39,11 @@ export default {
 				list: [
 					{
 						caption: "Решенные задачи",
-						type: "tasks/solved",
-						accessLevel: 0
+						type: "tasks/solved"
 					},
 					{
 						caption: "Добавленные задачи",
-						type: "tasks/added",
-						accessLevel: 100
+						type: "tasks/added"
 					}		
 				],
 				active: "tasks/solved"
@@ -55,17 +53,6 @@ export default {
 	methods: {
 		switchTab(tab) {
 			this.tabs.active = tab;
-		},
-		showTabs() {
-			this.tabs.list = this.tabs.list.filter(tab => {
-				if(this.checkAccessLevel(tab.accessLevel) && this.checkAuthUser()) {
-					return true;
-				} else if(tab.accessLevel === 0) {
-					return true;
-				} else {
-					return false
-				}
-			})
 		}
 	},
 	mounted() {
@@ -77,7 +64,6 @@ export default {
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "user") {
 				this.user = mutation.payload;
-				this.showTabs();
 			}
 
 			if(mutation.type === "user/tasks/solved") {
