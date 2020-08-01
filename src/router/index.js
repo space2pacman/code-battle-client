@@ -2,8 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 import Main from "@/pages/Main";
 import Tasks from "@/pages/Tasks";
-import Task from "@/pages/Task";
 import TaskAdd from "@/pages/TaskAdd";
+import Task from "@/pages/Task";
+import TaskEdit from "@/pages/TaskEdit";
 import Registration from "@/pages/Registration";
 import User from "@/pages/User";
 import Login from "@/pages/Login";
@@ -25,7 +26,7 @@ export default new Router({
 			component: Tasks
 		},
 		{
-			name: "task",
+			name: "task/add",
 			path: "/task/add",
 			component: TaskAdd
 		},
@@ -33,6 +34,11 @@ export default new Router({
 			name: "task",
 			path: "/task/:id",
 			component: Task
+		},
+		{
+			name: "task/edit",
+			path: "/task/:id/edit",
+			component: TaskEdit
 		},
 		{
 			name: "registration",

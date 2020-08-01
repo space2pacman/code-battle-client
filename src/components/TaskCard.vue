@@ -4,7 +4,7 @@
 			<div class="mr-auto">
 				<div class="mb-1">
 					{{ task.caption }}
-					<!-- <router-link :to="`/task/${task.id}/edit/`">[Редактировать]</router-link> -->
+					<router-link v-if="isAuthor" :to="`/task/${task.id}/edit/`">[Редактировать]</router-link>
 				</div>
 				<small class="text-muted">Уровень: {{ task.level }} | Решений: {{ task.solutions }} | Комментариев: 324</small>
 			</div>
@@ -21,6 +21,11 @@
 export default {
 	props: {
 		task: Object
+	},
+	computed: {
+		isAuthor() {
+			return this.getAuthUserName === this.task.author;
+		}
 	}
 }
 </script>

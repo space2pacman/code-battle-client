@@ -62,8 +62,8 @@ export default {
 	},
 	methods: {
 		removeFields(index) {
-			if(this.tests.length > 1) {
-				this.tests.splice(index, 1);
+			if(this.data.tests.length > 1) {
+				this.data.tests.splice(index, 1);
 			}
 		},
 		addFields() {
@@ -88,6 +88,19 @@ export default {
 				this.$emit("data", this.data);
 			}
 		}
+	},
+	mounted() {
+		if(this.task) {
+			this.data.caption = this.task.caption;
+			this.data.description = this.task.description;
+			this.data.level = this.task.level;
+			this.data.language = this.task.language;
+			this.data.func.name = this.task.func.name;
+			this.data.tests = this.task.tests;
+		}
+	},
+	props: {
+		task: Object
 	}
 }
 </script>
