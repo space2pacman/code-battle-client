@@ -1,28 +1,22 @@
 <template>
 	<div>
-		<h1 class="mb-4">Новая задача</h1>
-		<div class="row">
-			<div class="col">
-				<Tabs :tabs="tabs" @switchTab="switchTab" />
+		<Task caption="Новая задача" :tabs="tabs">
+			<template v-slot:tabs-content>
 				<task-fields v-show="tabs.active === 'description'" @data="onTaskFields" />
-				<result v-show="tabs.active === 'result'" />
-			</div>
-			<div class="col">
-				<Ace lang="javascript" theme="monokai" height="400" v-model="func.body" />
-				<button type="button" class="btn btn-success float-right ml-3 mt-3" @click="checkTask">Запуск проверки</button>
-				<button type="button" class="btn btn-success float-right mt-3" @click="addTask" :class="{ 'disabled' : !completed }">Добавить</button>
-			</div>
-		</div>
+				<Result v-show="tabs.active === 'result'" @onResultSuccess="onResultSuccess" @onResultUnsuccess="onResultUnsuccess" />
+			</template>
+			<template v-slot:buttons>
+				<button type="button" class="btn btn-success float-right ml-3 mt-3" @click="check">Запуск проверки</button>
+				<button type="button" class="btn btn-success float-right mt-3" @click="add" :disabled="!success">Добавить</button>
+			</template>
+		</Task>
 	</div>
 </template>
 
 <script>
-import Tabs from "@/components/Tabs";
+import Task from "@/components/Task";
 import TaskFields from "@/components/TaskFields";
 import Result from "@/components/Result";
-import Ace from "vue2-ace-editor";
-import "brace/mode/javascript";
-import "brace/theme/monokai";
 
 export default {
 	data() {
@@ -40,60 +34,71 @@ export default {
 				],
 				active: "description"
 			},
-			func: {
-				body: null
-			},
+			code: null,
 			fields: null,
-			completed: false
+			success: false
 		}
 	},
 	methods: {
 		switchTab(tab) {
 			this.tabs.active = tab;
 		},
-		checkTask() {
+		check() {
 			let payload = {
 				data: {
 					func: {
 						name: this.fields.func.name,
-						body: this.func.body
+						body: this.code
 					},
 					tests: this.fields.tests
 				}
 			}
 
-			this.switchTab("result")
-			this.$emit("onTestStart");
+			this.$root.$emit("onSwitchTab", "result");
+			this.$root.$emit("onTestStart");
 			this.send("task/check", payload).then(response => {
 				if(response.status === "success") {
-					this.$emit("onTestEnd", null, response.data);
+					this.$root.$emit("onTestEnd", null, response.data);
 				}
 
 				if(response.status === "error") {
-					this.$emit("onTestEnd", response.error);
+					this.$root.$emit("onTestEnd", response.error);
 				}
 			});
 		},
-		addTask() {
+		add() {
 			let payload = {
 				data: {
 					fields: this.fields,
-					func: this.func.body,
+					func: this.code,
 					author: this.getAuthUserName
 				}
 			}
 			
-			this.send("task/add", payload);
+			if(this.success) {
+				this.send("task/add", payload);
+			}
 		},
 		onTaskFields(data) {
 			this.fields = data;
+		},
+		onCodeInput(code) {
+			this.code = code;
+		},
+		onResultSuccess() {
+			this.success = true;
+		},
+		onResultUnsuccess() {
+			this.success = false;
 		}
 	},
+	mounted() {
+		this.$root.$on("onCodeInput", this.onCodeInput);
+	},
 	components: {
-		Tabs,
+		Task,	
 		TaskFields,
-		Result,
-		Ace
+		Result
 	}
 }
 </script>

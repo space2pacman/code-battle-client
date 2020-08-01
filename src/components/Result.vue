@@ -50,15 +50,23 @@ export default {
 		}
 	},
 	mounted() {
-		this.$parent.$on("onTestStart", () => {
+		this.$root.$on("onTestStart", () => {
 			this.isLoading = true;
 			this.isSolved = false;
 		})
-		this.$parent.$on("onTestEnd", (error, tests) => {
+		this.$root.$on("onTestEnd", (error, tests) => {
 			if(error) {
 				this.tests = error;
 			} else {
 				setTimeout(() => {
+					if(this.unsuccessful === 0) {
+						this.$emit("onResultSuccess");
+					}
+
+					if(this.unsuccessful > 0) {
+						this.$emit("onResultUnsuccess");
+					}
+
 					this.isLoading = false;
 					this.isSolved = true;
 				}, 1000);

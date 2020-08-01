@@ -23,7 +23,7 @@ export default {
 	data() {
 		return {
 			id: this.$route.params.id,
-			isLoading: false,
+			isLoading: true,
 			solutions: null
 		}
 	},
@@ -32,8 +32,12 @@ export default {
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "solution/task") {
 				this.solutions = mutation.payload;
+				this.isLoading = false;
 			}
 		})
+	},
+	props: {
+		task: [String, Object]
 	},
 	components: {
 		Preloader,

@@ -1,8 +1,11 @@
 <template>
-	<router-link :to="'/task/' + task.id" class="card mb-3 text-decoration-none text-muted">
+	<router-link :to="`/task/${task.id}`" class="card mb-3 text-decoration-none text-muted">
 		<div class="card-body d-flex justify-content-between align-items-center">
 			<div class="mr-auto">
-				<div class="mb-1">{{ task.caption }}</div>
+				<div class="mb-1">
+					{{ task.caption }}
+					<!-- <router-link :to="`/task/${task.id}/edit/`">[Редактировать]</router-link> -->
+				</div>
 				<small class="text-muted">Уровень: {{ task.level }} | Решений: {{ task.solutions }} | Комментариев: 324</small>
 			</div>
 			<span class="badge badge-light p-2 font-weight-normal ml-3">

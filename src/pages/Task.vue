@@ -1,33 +1,23 @@
 <template>
 	<div>
-		<h1 class="mb-4">Задание</h1>
-		<div v-if="typeof task === 'string'">
-			<Notice :text="task" />
-		</div>
-		<div v-if="task instanceof Object" class="row">
-			<div class="col">
-				<Tabs :tabs="tabs" @switchTab="switchTab" />
-				<Description v-show="tabs.active === 'description'" :task="task" />
+		<Task caption="Задание" :tabs="tabs" :task="task">
+			<template v-slot:tabs-content>
+				<Description v-if="tabs.active === 'description'" :task="task" />
 				<Result v-show="tabs.active === 'result'" />
-				<Solutions v-show="tabs.active === 'solutions'" />
-			</div>
-			<div class="col">
-				<Ace lang="javascript" theme="monokai" height="400" v-model="code" />
+				<Solutions v-if="tabs.active === 'solutions'" :task="task" />
+			</template>
+			<template v-slot:buttons>
 				<button type="button" class="btn btn-success float-right mt-3" @click="run">Запуск</button>
-			</div>
-		</div>
+			</template>
+		</Task>
 	</div>
 </template>
 
 <script>
-import Tabs from "@/components/Tabs";
+import Task from "@/components/Task";
 import Description from "@/components/Description";
 import Result from "@/components/Result";
 import Solutions from "@/components/Solutions";
-import Notice from "@/components/Notice";
-import Ace from "vue2-ace-editor";
-import "brace/mode/javascript";
-import "brace/theme/monokai";
 
 export default {
 	data() {
@@ -55,47 +45,42 @@ export default {
 		}
 	},
 	methods: {
-		switchTab(tab) {
-			this.tabs.active = tab;
-		},
 		run() {
 			let data = {
 				code: this.code,
 				id: this.id
 			}
 
-			this.switchTab("result");
-			this.$emit("onTestStart");
+			this.$root.$emit("onSwitchTab", "result");
+			this.$root.$emit("onTestStart");
 			this.send("task/test", data).then(response => {
 				if(response.status === "success") {
-					this.$emit("onTestEnd", null, response.data);
+					this.$root.$emit("onTestEnd", null, response.data);
 				}
 
 				if(response.status === "error") {
-					this.$emit("onTestEnd", response.error);
+					this.$root.$emit("onTestEnd", response.error);
 				}
 			});
+		},
+		onCodeInput(code) {
+			this.code = code;
 		}
 	},
 	mounted() {
 		this.receive(`task/${this.id}`);
+		this.$root.$on("onCodeInput", this.onCodeInput);
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "task") {
 				this.task = mutation.payload;
-				
-				if(this.task instanceof Object) {
-					this.code = this.task.func.body;
-				}
 			}
 		})
 	},
 	components: {
-		Tabs,
+		Task,
 		Description,
 		Result,
-		Solutions,
-		Notice,
-		Ace
+		Solutions
 	}
 }
 </script>
