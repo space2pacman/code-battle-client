@@ -3,11 +3,14 @@
 		<Task caption="Задача" :tabs="tabs" :task="task">
 			<template v-slot:tabs-content>
 				<Description v-if="tabs.active === 'description'" :task="task" />
-				<Result v-show="tabs.active === 'result'" />
+				<Result v-show="tabs.active === 'result'" @onResultSuccess="onResultSuccess" @onResultUnsuccess="onResultUnsuccess" />
 				<Solutions v-if="tabs.active === 'solutions'" :task="task" />
 			</template>
 			<template v-slot:buttons>
-				<button type="button" class="btn btn-success float-right mt-3" @click="run">Запуск</button>
+				<div class="text-right">
+					<button type="button" class="btn btn-success mt-3 mr-2" @click="test">Тест</button>
+					<button type="button" class="btn btn-success mt-3" @click="submit" :disabled="!success">Отправить</button>
+				</div>
 			</template>
 		</Task>
 	</div>
@@ -22,7 +25,7 @@ import Solutions from "@/components/Solutions";
 export default {
 	data() {
 		return {
-			id: this.$route.params.id,
+			id: Number(this.$route.params.id),
 			tabs: {
 				list: [
 					{
@@ -41,11 +44,12 @@ export default {
 				active: "description"
 			},
 			task: null,
-			code: null
+			code: null,
+			success: false
 		}
 	},
 	methods: {
-		run() {
+		test() {
 			let data = {
 				code: this.code,
 				id: this.id
@@ -63,8 +67,28 @@ export default {
 				}
 			});
 		},
+		submit() {
+			let payload = {
+				data: {
+					author: this.getAuthUserName,
+					taskId: this.id,
+					code: this.code
+				}
+			}
+			
+			if(this.success) {
+				this.send("task/submit", payload);
+				this.receive(`user/${this.getAuthUserName}`);
+			}
+		},
 		onCodeInput(code) {
 			this.code = code;
+		},
+		onResultSuccess() {
+			this.success = true;
+		},
+		onResultUnsuccess() {
+			this.success = false;
 		}
 	},
 	mounted() {

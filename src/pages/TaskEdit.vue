@@ -6,8 +6,10 @@
 				<Result v-show="tabs.active === 'result'" />
 			</template>
 			<template v-slot:buttons>
-				<button type="button" class="btn btn-success float-right ml-3 mt-3" @click="check">Запуск проверки</button>
-				<button type="button" class="btn btn-success float-right mt-3" @click="edit">Редактировать</button>
+				<div class="text-right">
+					<button type="button" class="btn btn-success ml-3 mt-3 mr-2" @click="check">Тест</button>
+					<button type="button" class="btn btn-success mt-3" @click="edit">Редактировать</button>
+				</div>
 			</template>
 		</Task>
 	</div>

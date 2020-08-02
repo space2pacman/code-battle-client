@@ -7,10 +7,10 @@
 			<div v-if="isSolved">
 				<div class="row mb-4">
 					<div class="col">
-						<div class="alert mb-0 alert-success">Успешные : {{ successful }}</div>
+						<div class="alert mb-0 alert-success">Успешные: {{ successful }}</div>
 					</div>
 					<div class="col">
-						<div class="alert mb-0 alert-danger">Не успешные : {{ unsuccessful }}</div>
+						<div class="alert mb-0 alert-danger">Не успешные: {{ unsuccessful }}</div>
 					</div>
 				</div>
 				<div class="card mt-3">
@@ -33,7 +33,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="!isLoading && !isSolved">Нажмите на запуск</div>
+		<div v-if="!isLoading && !isSolved">Нажмите на тест</div>
 	</div>
 </template>
 

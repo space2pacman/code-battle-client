@@ -6,8 +6,10 @@
 				<Result v-show="tabs.active === 'result'" @onResultSuccess="onResultSuccess" @onResultUnsuccess="onResultUnsuccess" />
 			</template>
 			<template v-slot:buttons>
-				<button type="button" class="btn btn-success float-right ml-3 mt-3" @click="check">Запуск проверки</button>
-				<button type="button" class="btn btn-success float-right mt-3" @click="add" :disabled="!success">Добавить</button>
+				<div class="text-right">
+					<button type="button" class="btn btn-success ml-3 mt-3 mr-2" @click="test">Тест</button>
+					<button type="button" class="btn btn-success mt-3" @click="add" :disabled="!success">Добавить</button>
+				</div>
 			</template>
 		</Task>
 	</div>

@@ -12,7 +12,7 @@
 				Автор: {{ task.author }}
 				<i v-if="task.company" class="fas fa-check"></i>
 			</span>
-			<span class="badge p-2 font-weight-normal ml-3" :class="task.completed ? 'badge-success' : 'badge-danger'">{{ task.completed ? "Выполнена" : "Не выполнена" }}</span>
+			<span v-if="isCompleted" class="badge p-2 font-weight-normal badge-success ml-3">Выполнена</span>
 		</div>
 	</router-link>
 </template>
@@ -25,6 +25,16 @@ export default {
 	computed: {
 		isAuthor() {
 			return this.getAuthUserName === this.task.author;
+		},
+		isCompleted() {
+			let user = this.$store.state.user;
+			let id = this.task.id;
+
+			if(user && this.isAuthorized && user.tasks.solved.includes(id)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }
