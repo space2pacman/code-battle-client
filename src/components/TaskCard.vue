@@ -1,5 +1,5 @@
 <template>
-	<router-link :to="`/task/${task.id}`" class="card mb-3 text-decoration-none text-muted">
+	<router-link :to="`/task/${task.id}`" class="card mb-3 text-decoration-none text-muted task__card">
 		<div class="card-body d-flex justify-content-between align-items-center">
 			<div class="mr-auto">
 				<div class="mb-1">
@@ -29,3 +29,9 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.task__card:last-child {
+	margin-bottom: 0px !important;
+}
+</style>

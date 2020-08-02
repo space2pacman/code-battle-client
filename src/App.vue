@@ -1,12 +1,16 @@
 <template>
-	<div class="container">
+	<div>
 		<Menu />
-		<router-view />
+		<div class="container pb-6">
+			<router-view />
+		</div>
+		<Footer />
 	</div>
 </template>
 
 <script>
-import Menu from "./components/Menu";
+import Menu from "@/components/Menu";
+import Footer from "@/components/Footer";
 
 export default {
 	// watch: {
@@ -15,7 +19,14 @@ export default {
 	// 	}
 	// },
 	components: {
-		Menu
+		Menu,
+		Footer
 	}
 }
 </script>
+
+<style>
+.pb-6 {
+	padding-bottom: 110px;
+}
+</style>
