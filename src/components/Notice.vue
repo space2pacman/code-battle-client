@@ -12,7 +12,8 @@ export default {
 				"task not found": "Задача не найдена",
 				"tasks not found": "Задачи не найдены",
 				"solution not found": "Решение отсутствует",
-				"wrong password": "Неверный пароль"
+				"wrong password": "Неверный пароль",
+				"task is not solved": "Вы еще не решили эту задачу"
 			}
 		}
 	},
