@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Task caption="Задание" :tabs="tabs" :task="task">
+		<Task caption="Задача" :tabs="tabs" :task="task">
 			<template v-slot:tabs-content>
 				<Description v-if="tabs.active === 'description'" :task="task" />
 				<Result v-show="tabs.active === 'result'" />

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="mb-4">Задания</h1>
+		<h1 class="mb-4">Задачи</h1>
 		<div class="row">
 			<div class="col-9">
 				<TaskCard v-for="task in tasks.filtered" :task="task" />

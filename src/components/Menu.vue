@@ -8,7 +8,7 @@
                         <router-link to="/" class="nav-link">Главная</router-link>
                     </li>
                     <li>
-                        <router-link to="/tasks" class="nav-link">Задания</router-link>
+                        <router-link to="/tasks" class="nav-link">Задачи</router-link>
                     </li>
                     <li>
                         <router-link to="/registration" class="nav-link" v-if="!isAuthorized">Регистрация</router-link>
