@@ -45,7 +45,7 @@ export default {
 		switchTab(tab) {
 			this.tabs.active = tab;
 		},
-		check() {
+		test() {
 			let payload = {
 				data: {
 					func: {
