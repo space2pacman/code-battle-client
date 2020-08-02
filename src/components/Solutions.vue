@@ -5,7 +5,11 @@
 		<div v-else>
 			<Preloader v-if="isLoading" />
 			<div v-if="!isLoading && Array.isArray(solutions)">
-				<Solution v-for="solution in solutions" :solution="solution" />
+				<Solution v-for="solution in solutions" :solution="solution">
+					<template v-slot:separator>
+						<hr>
+					</template>
+				</Solution>
 			</div>
 			<div v-if="typeof solutions === 'string'">
 				<Notice :text="solutions" />

@@ -20,7 +20,7 @@
 				<div type="button" class="btn btn-link btn-sm ml-2">link</div>
 			</router-link>
 		</div>
-		<!-- Slots for <hr>? -->
+		<slot name="separator" />
 	</div>
 </template>
 
