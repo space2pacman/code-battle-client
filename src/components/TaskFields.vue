@@ -9,19 +9,11 @@
 		<div v-for="(test, index) in data.tests" class="d-flex mb-3">
 			<input type="text" class="form-control mr-3" placeholder="На вход" v-model="test.input.value">
 			<select class="form-control mr-3" v-model="test.input.type">
-				<option>String</option>
-				<option>Number</option>
-				<option>Boolean</option>
-				<option>Object</option>
-				<option>Array</option>
+				<option v-for="type in types">{{ type }}</option>
 			</select>
 			<input type="text" class="form-control mr-3" placeholder="На выход" v-model="test.output.value">
 			<select class="form-control mr-3" v-model="test.output.type">
-				<option>String</option>
-				<option>Number</option>
-				<option>Boolean</option>
-				<option>Object</option>
-				<option>Array</option>
+				<option v-for="type in types">{{ type }}</option>
 			</select>
 			<button type="button" class="btn btn-danger float-right" @click="removeFields(index)">
 				<i class="fas fa-minus"></i>
@@ -37,6 +29,7 @@
 export default {
 	data() {
 		return {
+			types: ["String", "Number", "Boolean", "Object", "Array"],
 			data: {
 				caption: null,
 				description: null,
@@ -45,18 +38,7 @@ export default {
 				func: {
 					name: null
 				},
-				tests: [
-					{
-						input: {
-							value: null,
-							type: null
-						},
-						output: {
-							value: null,
-							type: null
-						}
-					}
-				]
+				tests: []
 			}
 		}
 	},
@@ -69,12 +51,12 @@ export default {
 		addFields() {
 			let fields = {
 				input: {
-					value: null,
-					type: null
+					value: "",
+					type: "String"
 				},
 				output: {
-					value: null,
-					type: null
+					value: "",
+					type: "String"
 				}
 			}
 
@@ -97,6 +79,8 @@ export default {
 			this.data.language = this.task.language;
 			this.data.func.name = this.task.func.name;
 			this.data.tests = this.task.tests;
+		} else {
+			this.addFields();
 		}
 	},
 	props: {
