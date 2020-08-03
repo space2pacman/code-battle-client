@@ -83,6 +83,7 @@ export default {
 		},
 		onCodeInput(code) {
 			this.code = code;
+			this.success = false;
 		},
 		onResultSuccess() {
 			this.success = true;
