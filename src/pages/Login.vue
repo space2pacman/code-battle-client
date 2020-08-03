@@ -6,10 +6,24 @@
 				<Preloader v-if="isLoading" />
 				<Notice :text="notice" className="alert alert-danger" />
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Логин" v-model="login">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-sign-in-alt"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control" placeholder="Логин" v-model="login">
+					</div>
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Пароль" v-model="password">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-key"></i>
+							</div>
+						</div>
+						<input type="password" class="form-control" placeholder="Пароль" v-model="password">
+					</div>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary btn-block" @click="auth">Войти</button>
