@@ -7,6 +7,7 @@ import Task from "@/pages/Task";
 import TaskEdit from "@/pages/TaskEdit";
 import Registration from "@/pages/Registration";
 import User from "@/pages/User";
+import UserSettings from "@/pages/UserSettings";
 import Login from "@/pages/Login";
 import Solution from "@/pages/Solution";
 import Logout from "@/pages/Logout";
@@ -54,6 +55,11 @@ export default new Router({
 			name: "user",
 			path: "/user/:login",
 			component: User
+		},
+		{
+			name: "user/settings",
+			path: "/user/:login/settings",
+			component: UserSettings
 		},
 		{
 			name: "solution",
