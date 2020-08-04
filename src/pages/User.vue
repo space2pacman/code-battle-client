@@ -10,7 +10,7 @@
 				<h3 class="ml-4 font-weight-normal">{{ user.login }}</h3>
 			</div>
 			<span class="badge badge-primary p-2 font-weight-normal">
-				Уровень <span class="badge badge-light">{{ user.level }}</span>
+				Points <span class="badge badge-light">{{ user.points }}</span>
 			</span>
 			<Tabs :tabs="tabs" @switchTab="switchTab" class="mt-3 mb-3" />
 			<UserTasks v-show="tabs.active === 'tasks/solved'" :tasks="tasks.solved" />

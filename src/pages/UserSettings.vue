@@ -18,14 +18,17 @@
 					<div class="mb-1">Аватар</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<div class="input-group-text">
-								<i class="far fa-file-image"></i>
+							<div class="input-group-text p-0 overflow-hidden">
+								<img src="@/assets/default-avatar.png" width="36" alt="avatar">
 							</div>
 						</div>
 						<div class="custom-file">
 							<input type="file" class="custom-file-input" id="userpic">
 							<label class="custom-file-label" for="userpic">Выберите файл</label>
 						</div>
+					</div>
+					<div class="progress mt-2">
+						<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 				</div>
 				<div class="mb-2">
@@ -130,6 +133,8 @@ export default {
 			this.socialNetworks = user.socialNetworks;
 			this.country = user.country;
 			this.level = user.level;
+		} else {
+			this.$router.push("/login");
 		}
 	}
 }
