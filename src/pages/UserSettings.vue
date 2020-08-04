@@ -11,7 +11,7 @@
 								<i class="far fa-envelope"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="E-mail">
+						<input type="text" class="form-control" placeholder="E-mail" v-model="email">
 					</div>
 				</div>
 				<div class="mb-3">
@@ -52,25 +52,27 @@
 				<div>
 					<div class="mb-1">Уведомления на e-mail</div>
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="email" type="radio" id="e-mail-0" checked>
-						<label class="custom-control-label" for="e-mail-0">Присылать письма от code-battle</label>
+						<input class="custom-control-input" name="notification" type="radio" id="notification_0" :value="true" v-model="notification">
+						<label class="custom-control-label" for="notification_0">Присылать письма от code-battle</label>
 					</div>
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="email" type="radio" id="e-mail-1">
-						<label class="custom-control-label" for="e-mail-1">Не присылать письма</label>
+						<input class="custom-control-input" name="notification" type="radio" id="notification_1" :value="false" v-model="notification">
+						<label class="custom-control-label" for="notification_1">Не присылать письма</label>
 					</div>
 				</div>
 			</div>
 			<div class="col">
 				<div class="mb-3">
 					<div class="mb-1">Социальные сети</div>
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<div class="input-group-text">
-								<i class="fab fa-github"></i>
+					<div v-for="socialNetwork in socialNetworks">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<i :class="socialNetwork.icon"></i>
+								</div>
 							</div>
+							<input type="text" class="form-control" :placeholder="socialNetwork.name" v-model="socialNetwork.link">
 						</div>
-						<input type="text" class="form-control" placeholder="github">
 					</div>
 				</div>
 				<div class="mb-3">
@@ -81,7 +83,8 @@
 								<i class="fas fa-globe"></i>
 							</div>
 						</div>
-						<select class="form-control">
+						<select class="form-control" v-model="country">
+							<option>США</option>
 							<option>Россия</option>
 						</select>
 					</div>
@@ -89,15 +92,15 @@
 				<div class="mb-1">Ваш уровень</div>
 				<div class="mb-3">
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="level" type="radio" id="junior">
+						<input class="custom-control-input" name="level" type="radio" id="junior" value="junior" v-model="level">
 						<label class="custom-control-label" for="junior">Junior</label>
 					</div>
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="level" type="radio" id="middle">
+						<input class="custom-control-input" name="level" type="radio" id="middle" value="middle" v-model="level">
 						<label class="custom-control-label" for="middle">Middle</label>
 					</div>
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="level" type="radio" id="senior">
+						<input class="custom-control-input" name="level" type="radio" id="senior" value="senior" v-model="level">
 						<label class="custom-control-label" for="senior">Senior</label>
 					</div>
 				</div>
@@ -106,3 +109,28 @@
 		<button class="btn btn-success float-right">Обновить</button>
 	</div>
 </template>
+
+<script>
+export default {
+	data() {
+		return {
+			email: null,
+			notification: null,
+			socialNetworks: [],
+			country: null,
+			level: null
+		}
+	},
+	mounted() {
+		let user = this.$store.state["user/auth"];
+
+		if(user) {
+			this.email = user.email.address;
+			this.notification = user.email.notification;
+			this.socialNetworks = user.socialNetworks;
+			this.country = user.country;
+			this.level = user.level;
+		}
+	}
+}
+</script>
