@@ -25,7 +25,7 @@
                             v-model="dropdown"
                         >
                             <a class="nav-link dropdown-toggle" href="#" @click.prevent>
-                                <img src="@/assets/default-avatar.png" width="20" alt="avatar">
+                                <img src="@/assets/default-avatar.png" class="align-sub" width="20" alt="avatar">
                                 <span class="ml-2 mr-1">{{ getAuthUserName }}</span>
                             </a>
                             <div slot="dropdown" @click="dropdown = false">
@@ -66,6 +66,10 @@ export default {
 </script>
 
 <style>
+.align-sub {
+    vertical-align: sub;
+}
+
 .dropdown-menu {
     top: 38px !important;
 }
