@@ -3,7 +3,7 @@
 		<h1 class="mb-4">Профиль</h1>
 		<div v-if="user instanceof Object">
 			<div class="d-flex align-items-center mb-3 mt-3">
-				<img src="@/assets/default-avatar.png" width="80" alt="avatar">
+				<img :src="user.userpic" width="80" alt="avatar">
 				<h3 class="ml-4 font-weight-normal">{{ user.login }}</h3>
 			</div>
 			<span class="badge badge-primary p-2 font-weight-normal">

@@ -25,7 +25,7 @@
                             v-model="dropdown"
                         >
                             <a class="nav-link dropdown-toggle" href="#" @click.prevent>
-                                <img src="@/assets/default-avatar.png" class="align-sub" width="20" alt="avatar">
+                                <img :src="userpic" class="align-sub" width="20" alt="avatar">
                                 <span class="ml-2 mr-1">{{ getAuthUserName }}</span>
                             </a>
                             <div slot="dropdown" @click="dropdown = false">
@@ -48,6 +48,7 @@ import DropdownMenu from "@innologica/vue-dropdown-menu";
 export default {
     data() {
         return {
+            userpic: null,
             dropdown: false
         }
     },
@@ -58,6 +59,13 @@ export default {
         onMouseleave() {
             this.dropdown = false;
         }
+    },
+    mounted() {
+        this.$store.subscribe(mutation => {
+            if(mutation.type === "user/auth") {
+                this.userpic = mutation.payload.userpic;
+            }
+        })
     },
     components: {
         DropdownMenu

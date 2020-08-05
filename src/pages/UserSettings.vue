@@ -122,7 +122,7 @@ export default {
 		return {
 			progress: 0,
 			notice: null,
-			userpic: "@/assets/default-avatar.png",
+			userpic: null,
 			email: null,
 			notification: null,
 			socialNetworks: [],
@@ -182,6 +182,7 @@ export default {
 		if(user) {
 			this.email = user.email.address;
 			this.notification = user.email.notification;
+			this.userpic = user.userpic;
 			this.socialNetworks = user.socialNetworks;
 			this.country = user.country;
 			this.level = user.level;
