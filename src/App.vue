@@ -27,6 +27,6 @@ export default {
 
 <style>
 .pb-6 {
-	padding-bottom: 110px;
+	padding-bottom: 150px;
 }
 </style>

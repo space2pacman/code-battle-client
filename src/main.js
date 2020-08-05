@@ -54,6 +54,8 @@ Vue.mixin({
 				if(response.status === "error") {
 					this.$store.commit(url, response.error);
 				}
+
+				return response;
 			});
 		},
 		checkAccessLevel(accessLevel) {

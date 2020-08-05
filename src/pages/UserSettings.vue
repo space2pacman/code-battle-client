@@ -109,7 +109,7 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn btn-success float-right">Обновить</button>
+		<button class="btn btn-success float-right" @click="update">Обновить</button>
 	</div>
 </template>
 
@@ -122,6 +122,32 @@ export default {
 			socialNetworks: [],
 			country: null,
 			level: null
+		}
+	},
+	methods: {
+		update() {
+			let payload = {
+				data: {
+					username: this.getAuthUserName,
+					email: {
+						address: this.email,
+						notification: this.notification
+					},
+					socialNetworks: this.socialNetworks,
+					country: this.country,
+					level: this.level
+				}
+			}
+
+			this.send(`user/${this.getAuthUserName}`, payload).then(response => {
+				if(response.status === "success") {
+					this.receive(`user/${this.getAuthUserName}`).then(response => {
+						if(response.status === "success") {
+							this.$store.commit("user/auth", response.data);
+						}
+					});
+				}
+			});
 		}
 	},
 	mounted() {
