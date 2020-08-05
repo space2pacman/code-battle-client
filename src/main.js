@@ -61,14 +61,15 @@ Vue.mixin({
 		uploadFile(type, file, onloadstart, onprogress, onloadend) {
 			let formData = new FormData();
 			let xhr = new XMLHttpRequest();
-			
+
 			formData.append(type, file);
 
 			xhr.upload.onloadstart = onloadstart;
-			xhr.upload.onprogress = onprogress
-			xhr.upload.onloadend = onloadend
+			xhr.upload.onprogress = onprogress;
+			xhr.upload.onloadend = onloadend;
 
 			xhr.open("POST", `http://localhost:8080/api/upload/`);
+			xhr.setRequestHeader("Authorization", `bearer ${this.getToken}`);
 			xhr.send(formData);
 		},
 		checkAccessLevel(accessLevel) {
