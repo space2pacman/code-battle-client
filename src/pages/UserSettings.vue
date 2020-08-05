@@ -23,12 +23,12 @@
 							</div>
 						</div>
 						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="userpic">
+							<input type="file" class="custom-file-input" name="userpic" @change="upload">
 							<label class="custom-file-label" for="userpic">Выберите файл</label>
 						</div>
 					</div>
 					<div class="progress mt-2">
-						<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+						<div class="progress-bar" :style="`width: ${progress}%`"></div>
 					</div>
 				</div>
 				<div class="mb-2">
@@ -117,6 +117,7 @@
 export default {
 	data() {
 		return {
+			progress: 0,
 			email: null,
 			notification: null,
 			socialNetworks: [],
@@ -125,6 +126,18 @@ export default {
 		}
 	},
 	methods: {
+		upload(e) {
+			this.uploadFile(e.target.name, e.target.files[0], this.onloadstart, this.onprogress, this.onloadend);
+		},
+		onloadstart() {
+			this.progress = 0;
+		},
+		onprogress(e) {
+			this.progress = Math.floor(e.loaded * 100 / e.total);
+		},
+		onloadend() {
+			this.progress = 100;
+		},
 		update() {
 			let payload = {
 				data: {
