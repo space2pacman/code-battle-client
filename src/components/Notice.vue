@@ -13,7 +13,9 @@ export default {
 				"tasks not found": "Задачи не найдены",
 				"solution not found": "Решение отсутствует",
 				"wrong password": "Неверный пароль",
-				"task is not solved": "Вы еще не решили эту задачу"
+				"task is not solved": "Вы еще не решили эту задачу",
+				"unsupported file type": "Неподдерживаемый тип файла",
+				"max image size 50kb": "максимальный размер изображения 50кб"
 			}
 		}
 	},

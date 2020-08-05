@@ -58,15 +58,28 @@ Vue.mixin({
 				return response;
 			});
 		},
-		uploadFile(type, file, onloadstart, onprogress, onloadend) {
+		uploadFile(type, file, onloadstart, onprogress, onloadend, onuploaded) {
 			let formData = new FormData();
 			let xhr = new XMLHttpRequest();
 
 			formData.append(type, file);
 
+			xhr.responseType = "json";
 			xhr.upload.onloadstart = onloadstart;
 			xhr.upload.onprogress = onprogress;
 			xhr.upload.onloadend = onloadend;
+			
+			xhr.onreadystatechange = () => {
+				if(xhr.readyState === 4) {
+					if(xhr.response.status === "success") {
+						onuploaded(null, xhr.response.data);
+					}
+
+					if(xhr.response.status === "error") {
+						onuploaded(xhr.response.error);
+					}
+				}
+			}
 
 			xhr.open("POST", `http://localhost:8080/api/upload/`);
 			xhr.setRequestHeader("Authorization", `bearer ${this.getToken}`);

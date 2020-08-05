@@ -19,7 +19,7 @@
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text p-0 overflow-hidden">
-								<img src="@/assets/default-avatar.png" width="36" alt="avatar">
+								<img :src="userpic" width="36" alt="avatar">
 							</div>
 						</div>
 						<div class="custom-file">
@@ -30,6 +30,7 @@
 					<div class="progress mt-2">
 						<div class="progress-bar" :style="`width: ${progress}%`"></div>
 					</div>
+					<Notice :text="notice" className="alert alert-danger mt-2" />
 				</div>
 				<div class="mb-2">
 					<div class="mb-1">Смена пароля</div>
@@ -114,10 +115,14 @@
 </template>
 
 <script>
+import Notice from "@/components/Notice";
+
 export default {
 	data() {
 		return {
 			progress: 0,
+			notice: null,
+			userpic: "@/assets/default-avatar.png",
 			email: null,
 			notification: null,
 			socialNetworks: [],
@@ -127,7 +132,7 @@ export default {
 	},
 	methods: {
 		upload(e) {
-			this.uploadFile(e.target.name, e.target.files[0], this.onloadstart, this.onprogress, this.onloadend);
+			this.uploadFile(e.target.name, e.target.files[0], this.onloadstart, this.onprogress, this.onloadend, this.onuploaded);
 		},
 		onloadstart() {
 			this.progress = 0;
@@ -137,6 +142,14 @@ export default {
 		},
 		onloadend() {
 			this.progress = 100;
+		},
+		onuploaded(error, file) {
+			if(error) {
+				this.notice = error;
+			} else {
+				this.userpic = file.link;
+			}
+
 		},
 		update() {
 			let payload = {
@@ -175,6 +188,9 @@ export default {
 		} else {
 			this.$router.push("/login");
 		}
+	},
+	components: {
+		Notice
 	}
 }
 </script>
