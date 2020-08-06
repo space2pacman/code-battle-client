@@ -131,6 +131,7 @@ let store = new Vuex.Store({
 		"user/auth": null,
 		"solution": null,
 		"solution/task": null,
+		"solution/liked": null,
 		"token": null
 	},
 	mutations: {
@@ -154,6 +155,9 @@ let store = new Vuex.Store({
 		},
 		"solution/task"(state, data) {
 			state["solution/task"] = data;
+		},
+		"solution/liked"(state, data) {
+			state["solution/liked"] = data;
 		},
 		"token"(state, data) {
 			state["token"] = data;
