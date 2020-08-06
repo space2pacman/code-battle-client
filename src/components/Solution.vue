@@ -56,6 +56,10 @@ export default {
 					if(route === "solution") {
 						this.receive(`solution/${this.solution.id}`);
 					}
+
+					if(route === "user") {
+						this.receive("solution/liked");
+					}
 				}
 			});
 		}

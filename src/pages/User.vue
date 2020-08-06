@@ -79,7 +79,7 @@ export default {
 		this.receive(`user/${login}/tasks/added`);
 		
 		if(this.isAuthorized && this.getUserName === this.getAuthUserName) {
-			this.receive(`solution/liked/${login}`);
+			this.receive("solution/liked");
 		}
 
 		this.$store.subscribe(mutation => {
