@@ -136,6 +136,7 @@ export default {
 		},
 		onloadstart() {
 			this.progress = 0;
+			this.notice = null;
 		},
 		onprogress(e) {
 			this.progress = Math.floor(e.loaded * 100 / e.total);
@@ -149,7 +150,6 @@ export default {
 			} else {
 				this.userpic = file.link;
 			}
-
 		},
 		update() {
 			let payload = {
