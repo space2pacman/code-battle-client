@@ -8,7 +8,7 @@
 					<span class="ml-2">{{ solution.username }}</span>
 				</span>
 			</router-link>
-			<a href="#" @click.prevent="" class="badge badge-primary p-2 font-weight-normal ml-2">
+			<a href="#" @click.prevent="like" class="badge badge-primary p-2 font-weight-normal ml-2">
 				Нравится
 				<span class="badge badge-light">{{ solution.likes }}</span>
 			</a>
@@ -33,6 +33,31 @@ export default {
 			options: {
 				readOnly: true
 			}
+		}
+	},
+	methods: {
+		like() {
+			let payload = {
+				data: {
+					id: this.solution.id
+				}
+			}
+
+			this.send("solution/like", payload).then(response => {
+				if(response.status === "success") {
+					let route = this.$route.name;
+
+					if(route === "task") {
+						let taskId = this.$route.params.id;
+
+						this.receive(`solution/task/${taskId}`);
+					}
+
+					if(route === "solution") {
+						this.receive(`solution/${this.solution.id}`);
+					}
+				}
+			});
 		}
 	},
 	props: {
