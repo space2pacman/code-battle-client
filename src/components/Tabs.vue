@@ -21,7 +21,7 @@ export default {
 	mounted() {
 		this.filtered = this.tabs.list.filter(tab => {
 			if(tab.isAuthorized) {
-				if(this.isAuthorized) {
+				if(this.isAuthorized && this.getUserName === this.getAuthUserName) {
 					return true;
 				} else {
 					return false;

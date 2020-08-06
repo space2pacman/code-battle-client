@@ -78,7 +78,7 @@ export default {
 		this.receive(`user/${login}/tasks/solved`);
 		this.receive(`user/${login}/tasks/added`);
 		
-		if(this.isAuthorized) {
+		if(this.isAuthorized && this.getUserName === this.getAuthUserName) {
 			this.receive(`solution/liked/${login}`);
 		}
 
