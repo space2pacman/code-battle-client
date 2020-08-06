@@ -159,6 +159,7 @@ export default {
 						address: this.email,
 						notification: this.notification
 					},
+					userpic: this.userpic,
 					socialNetworks: this.socialNetworks,
 					country: this.country,
 					level: this.level
