@@ -8,7 +8,7 @@
 					<span class="ml-2">{{ solution.username }}</span>
 				</span>
 			</router-link>
-			<a href="#" @click.prevent="like" class="badge badge-primary p-2 font-weight-normal ml-2">
+			<a href="#" @click.prevent="like" class="badge badge-primary p-2 font-weight-normal ml-2" :class="solution.likes ? 'badge-success' : 'badge-primary'">
 				Нравится
 				<span class="badge badge-light">{{ solution.likes }}</span>
 			</a>
@@ -30,6 +30,7 @@ import Ace from "vue2-ace-editor";
 export default {
 	data() {
 		return {
+			liked: false,
 			options: {
 				readOnly: true
 			}
@@ -62,6 +63,17 @@ export default {
 					}
 				}
 			});
+		}
+	},
+	mounted() {
+		let user = this.$store.state["user/auth"];
+
+		if(user) {
+			if(user.likes.solutions.includes(this.solution.id)) {
+				this.likes = true;
+			} else {
+				this.likes = false;
+			}
 		}
 	},
 	props: {
