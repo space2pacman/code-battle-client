@@ -20,8 +20,6 @@ Vue.mixin({
 				body: params.body || null
 			}
 			let headers = {};
-			let hostname = "localhost";
-			let port = "8080";
 
 			headers["Content-Type"] = "application/json;charset=utf-8";
 
@@ -29,12 +27,7 @@ Vue.mixin({
 				headers["Authorization"] = `bearer ${this.getToken}`;
 			}
 
-			if(window.location.hostname !== "localhost") {
-				hostname = window.location.hostname;
-				port = "80";
-			}
-
-			return fetch(`http://${hostname}:${port}/api/${options.url}/`, {
+			return fetch(`http://${getHostname}:${getPort}/api/${options.url}/`, {
 				method: options.method,
 				headers,
 				body: options.body
@@ -88,7 +81,7 @@ Vue.mixin({
 				}
 			}
 
-			xhr.open("POST", `http://localhost:8080/api/upload/`);
+			xhr.open("POST", `http://${getHostname}:${getPort}/api/upload/`);
 			xhr.setRequestHeader("Authorization", `bearer ${this.getToken}`);
 			xhr.send(formData);
 		},
@@ -124,6 +117,24 @@ Vue.mixin({
 		},
 		getAuthUserName() {
 			return this.$store.state["user/auth"]?.login;
+		},
+		getHostname() {
+			let hostname = "localhost";
+			
+			if(window.location.hostname !== "localhost") {
+				hostname = window.location.hostname;
+			}
+
+			return hostname;
+		},
+		getPort() {
+			let port = "8080";
+			
+			if(window.location.hostname !== "localhost") {
+				port = "80";
+			}
+
+			return port;
 		}
 	}
 })
