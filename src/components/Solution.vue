@@ -8,16 +8,20 @@
 					<span class="ml-2">{{ solution.username }}</span>
 				</span>
 			</router-link>
-			<a href="#" @click.prevent="like" class="badge badge-primary p-2 font-weight-normal ml-2" :class="solution.likes ? 'badge-success' : 'badge-primary'">
-				Нравится
-				<span class="badge badge-light">{{ solution.likes }}</span>
+			<a href="#" @click.prevent="like">
+				<span class="badge p-2 font-weight-normal ml-2" :class="likes ? 'badge-success' : 'badge-primary'">
+					Нравится
+					<span class="badge badge-light">{{ solution.likes }}</span>
+				</span>
 			</a>
-			<a href="#" @click.prevent="" class="badge badge-primary p-2 font-weight-normal ml-2">
-				Комментариев
-				<span class="badge badge-light">{{ solution.comments }}</span>
+			<a href="#" @click.prevent="">
+				<span class="badge badge-primary p-2 font-weight-normal ml-2">
+					Комментариев
+					<span class="badge badge-light">{{ solution.comments }}</span>
+				</span>
 			</a>
 			<router-link :to="'/solution/' + solution.id">
-				<div type="button" class="btn btn-link btn-sm ml-2">link</div>
+				<div type="button" class="btn btn-link btn-sm ml-2">Ссылка</div>
 			</router-link>
 		</div>
 		<slot name="separator" />
@@ -30,7 +34,7 @@ import Ace from "vue2-ace-editor";
 export default {
 	data() {
 		return {
-			liked: false,
+			likes: false,
 			options: {
 				readOnly: true
 			}
@@ -61,20 +65,31 @@ export default {
 					if(route === "user") {
 						this.receive("solution/liked");
 					}
+
+					this.receive(`user/${this.getAuthUserName}`).then(response => {
+						if(response.status === "success") {
+							this.$store.commit("user/auth", response.data);
+							this.changeLike();
+						}
+					});
+
 				}
 			});
+		},
+		changeLike() {
+			let user = this.$store.state["user/auth"];
+
+			if(user) {
+				if(user.likes.solutions.includes(this.solution.id)) {
+					this.likes = true;
+				} else {
+					this.likes = false;
+				}
+			}
 		}
 	},
 	mounted() {
-		let user = this.$store.state["user/auth"];
-
-		if(user) {
-			if(user.likes.solutions.includes(this.solution.id)) {
-				this.likes = true;
-			} else {
-				this.likes = false;
-			}
-		}
+		this.changeLike();
 	},
 	props: {
 		solution: Object
