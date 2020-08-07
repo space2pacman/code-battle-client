@@ -27,7 +27,7 @@ Vue.mixin({
 				headers["Authorization"] = `bearer ${this.getToken}`;
 			}
 
-			return fetch(`http://${getHostname}:${getPort}/api/${options.url}/`, {
+			return fetch(`http://${this.getHostname}:${this.getPort}/api/${options.url}/`, {
 				method: options.method,
 				headers,
 				body: options.body
@@ -81,7 +81,7 @@ Vue.mixin({
 				}
 			}
 
-			xhr.open("POST", `http://${getHostname}:${getPort}/api/upload/`);
+			xhr.open("POST", `http://${this.getHostname}:${this.getPort}/api/upload/`);
 			xhr.setRequestHeader("Authorization", `bearer ${this.getToken}`);
 			xhr.send(formData);
 		},
