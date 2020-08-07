@@ -20,6 +20,8 @@ Vue.mixin({
 				body: params.body || null
 			}
 			let headers = {};
+			let hostname = "localhost";
+			let port = "8080";
 
 			headers["Content-Type"] = "application/json;charset=utf-8";
 
@@ -27,7 +29,12 @@ Vue.mixin({
 				headers["Authorization"] = `bearer ${this.getToken}`;
 			}
 
-			return fetch(`http://localhost:8080/api/${options.url}/`, {
+			if(window.location.hostname !== "localhost") {
+				hostname = window.location.hostname;
+				port = "80";
+			}
+
+			return fetch(`http://${hostname}:${port}/api/${options.url}/`, {
 				method: options.method,
 				headers,
 				body: options.body
