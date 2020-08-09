@@ -16,9 +16,18 @@ export default {
 	methods: {
 		switchTab(tab) {
 			this.$emit("switchTab", tab);
+			this.$router.push({ hash: tab });
+		},
+		changeActiveTab() {
+			let hash = this.$route.hash;
+
+			if(hash.length > 0) {
+				this.tabs.active = hash.slice(1);
+			}
 		}
 	},
 	mounted() {
+		this.changeActiveTab();
 		this.filtered = this.tabs.list.filter(tab => {
 			if(tab.isAuthorized) {
 				if(this.isAuthorized && this.getUserName === this.getAuthUserName) {
