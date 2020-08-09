@@ -19,7 +19,10 @@ export default new Router({
 		{
 			name: "home",
 			path: "/",
-			component: Main
+			component: Main,
+			meta: {
+				layout: "main"
+			}
 		},
 		{
 			name: "tasks",
