@@ -79,7 +79,14 @@ export default {
 				}
 			}
 			
-			this.send('task/edit', payload);
+			this.$root.$emit("onPreloaderStart");
+			setTimeout(() => {
+				this.send('task/edit', payload).then(response => {
+					if(response.status === "success") {
+						this.$root.$emit("onPreloaderEnd");
+					}
+				});
+			}, 1000);
 		},
 		onTaskFields(data) {
 			this.fields = data;

@@ -77,8 +77,16 @@ export default {
 			}
 			
 			if(this.success) {
-				this.send("task/submit", payload);
-				this.receive(`user/${this.getAuthUserName}`);
+				this.$root.$emit("onPreloaderStart");
+				setTimeout(() => {
+					this.send("task/submit", payload).then(response => {
+						if(response.status === "success") {
+							this.receive(`user/${this.getAuthUserName}`);
+							this.$root.$emit("onPreloaderEnd");
+							this.$root.$emit("onSwitchTab", "solutions");
+						}
+					});
+				}, 1000)
 			}
 		},
 		onCodeInput(code) {
