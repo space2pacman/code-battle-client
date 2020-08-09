@@ -18,7 +18,7 @@
 export default {
 	computed: {
 		imageSize() {
-			return this.section.image.size ? this.section.image.size : "w-100";
+			return this.section.image.size ? this.section.image.size : "w-50";
 		},
 		imagePadding() {
 			return this.index % 2 === 1 ? "pr-5" : "pl-5";

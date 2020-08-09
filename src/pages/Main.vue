@@ -18,29 +18,27 @@ export default {
 				{
 					caption: "Совершенствуйте свои навыки программирования",
 					image: {
-						link: require("@/assets/code.jpg")
+						link: require("@/assets/code.jpg"),
+						size: "w-100"
 					},
 					slot: "button"
 				},
 				{
 					caption: "Выполняйте задания на качество/скорость и зарабатывайте очки",
 					image: {
-						link: require("@/assets/brain.png"),
-						size: "w-50"
+						link: require("@/assets/brain.png")
 					}
 				},
 				{
 					caption: "Создавайте свои задания",
 					image: {
-						link: require("@/assets/lamp.png"),
-						size: "w-50"
+						link: require("@/assets/lamp.png")
 					}
 				},
 				{
 					caption: "Обсуждайте решения других пользователей",
 					image: {
-						link: require("@/assets/chat.png"),
-						size: "w-50"
+						link: require("@/assets/chat.png")
 					}
 				}
 			]
