@@ -1,21 +1,53 @@
 <template>
 	<div>
-		<div class="row mt-5">
-			<div class="col">
-				<h1 class="display-4">Совершенствуйте свои навыки программирования</h1>
+		<main-section v-for="(section, index) in sections" :section="section" :index="index">
+			<template v-if="section.slot === 'button'" v-slot:description>
 				<button type="button" class="btn btn-success btn-lg mt-5">Попробовать</button>
-			</div>
-			<div class="col">
-				<img src="@/assets/code.jpg" width="100%">
-			</div>
-		</div>
-		<div class="row mt-5 bg-light">
-			<div class="col">
-				Выполняйте задания на качество/скорость и зарабатывайте очки
-			</div>
-			<div class="col">
-				<img src="@/assets/brain.png">
-			</div>
-		</div>
+			</template>
+		</main-section>
 	</div>
 </template>
+
+<script>
+import MainSection from "@/components/MainSection";
+
+export default {
+	data() {
+		return {
+			sections: [
+				{
+					caption: "Совершенствуйте свои навыки программирования",
+					image: {
+						link: require("@/assets/code.jpg")
+					},
+					slot: "button"
+				},
+				{
+					caption: "Выполняйте задания на качество/скорость и зарабатывайте очки",
+					image: {
+						link: require("@/assets/brain.png"),
+						size: "w-50"
+					}
+				},
+				{
+					caption: "Создавайте свои задания",
+					image: {
+						link: require("@/assets/lamp.png"),
+						size: "w-50"
+					}
+				},
+				{
+					caption: "Обсуждайте решения других пользователей",
+					image: {
+						link: require("@/assets/chat.png"),
+						size: "w-50"
+					}
+				}
+			]
+		} 
+	},
+	components: {
+		MainSection
+	}
+}
+</script>
