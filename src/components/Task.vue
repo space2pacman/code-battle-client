@@ -12,7 +12,7 @@
 			<div class="col">
 				<div class="position-relative">
 					<Ace lang="javascript" theme="monokai" height="400" v-model="code" />
-					<Preloader class="ace__preloader" v-if="preloader" />
+					<Preloader v-if="preloader" :overlay="true" />
 				</div>
 				<slot name="buttons" />
 			</div>
@@ -79,14 +79,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-.ace__preloader {
-	position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgb(255 255 255 / 0.85);
-    z-index: 10;
-}
-</style>

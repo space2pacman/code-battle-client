@@ -2,8 +2,8 @@
 	<div class="w-25 mx-auto">
 		<h1 class="card-title mb-4 text-center">Регистрация</h1>
 		<div class="card">
-			<div class="card-body">
-				<Preloader v-if="isLoading" />
+			<div class="card-body position-relative">
+				<Preloader v-if="isLoading" :overlay="true" />
 				<Notice :text="notice" className="alert alert-danger" />
 				<div class="form-group">
 					<div class="input-group">
