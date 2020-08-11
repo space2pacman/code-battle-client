@@ -71,7 +71,14 @@ export default {
 
 			this.preloader = true;
 			setTimeout(() => {
-				this.sections[0].caption = func();
+				let result = func();
+
+				if(result === undefined) {
+					this.sections[0].caption = "¯\\_(ツ)_/¯";
+				} else {
+					this.sections[0].caption = result;
+				}
+
 				this.preloader = false;
 			}, 200)
 		}
