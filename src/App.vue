@@ -16,7 +16,7 @@ import MainLayout from "@/layouts/MainLayout";
 
 export default {
 	// watch: {
-	// 	"$route"() {
+	// 	$route() {
 			
 	// 	}
 	// },

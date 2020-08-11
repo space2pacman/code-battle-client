@@ -127,15 +127,31 @@ export default {
     vertical-align: sub;
 }
 
+.navbar-nav .nav-link {
+    color: rgba(0,0,0,.5);
+}
+
 /* dropdown */
 .dropdown-menu {
     top: 38px !important;
 }
 
-.dropdown__modile {
+.dropdown__mobile {
     border-top: 1px solid #dcdcdc;
-    padding: 8px 0px;
 }
+
+.dropdown__mobile .dropdown-item {
+    color: rgba(0,0,0,.5);
+}
+
+.dropdown__mobile .dropdown-item:first-child {
+    margin-top: 8px;
+}
+
+.dropdown__mobile .dropdown-item:last-child {
+    margin-bottom: 8px;
+}
+
 
 /* modile menu animate */
 .mobile-nav-enter-active {
