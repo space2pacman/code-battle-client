@@ -4,12 +4,13 @@
 			<div class="d-flex justify-content-between align-items-center" :class="rowReverse">
 				<div class="w-50">
 					<h2 class="display-4">{{ section.caption }}</h2>
-					<slot name="description" />
 				</div>
 				<div class="w-50">
-					<img :src="section.image.link" class="pt-5 pb-5" :class="[imagePadding, imageSize, imageDirection]">
+					<slot v-if="hasImage" name="image" />
+					<img v-else :src="imageLink" class="pt-5 pb-5" :class="[imagePadding, imageSize, imageDirection]">
 				</div>
 			</div>
+			<slot name="bottom" />
 		</div>
 	</div>
 </template>
@@ -18,7 +19,7 @@
 export default {
 	computed: {
 		imageSize() {
-			return this.section.image.size ? this.section.image.size : "w-50";
+			return this.section.image && this.section.image.size ? this.section.image.size : "w-50";
 		},
 		imagePadding() {
 			return this.index % 2 === 1 ? "pr-5" : "pl-5";
@@ -31,6 +32,12 @@ export default {
 		},
 		background() {
 			return { "bg-light": this.index % 2 === 1 };
+		},
+		imageLink() {
+			return this.section.image && this.section.image.link ? this.section.image.link : "";
+		},
+		hasImage() {
+			return this.$slots.image !== undefined;
 		}
 	},
 	props: {
