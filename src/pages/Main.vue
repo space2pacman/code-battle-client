@@ -26,14 +26,7 @@ import "brace/theme/monokai";
 export default {
 	data() {
 		return {
-			code: `function greeting() {
-	return [
-		'Совершенствуйте',
-		'свои',
-		'навыки',
-		'программирования'
-	].join(" ");
-}`,
+			code: 'function greeting() { \n\treturn [ \n\t\t"Совершенствуйте", \n\t\t"свои", \n\t\t"навыки", \n\t\t"программирования" \n\t].join(" "); \n}',
 			preloader: false,
 			sections: [
 				{
@@ -75,8 +68,8 @@ export default {
 
 				return greeting();
 			`);
-			this.preloader = true;
 
+			this.preloader = true;
 			setTimeout(() => {
 				this.sections[0].caption = func();
 				this.preloader = false;
