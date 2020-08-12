@@ -83,6 +83,15 @@ export default {
 				return slot === value;
 			}
 		},
+		addDots(string) {
+			let MAX_LENGTH = 50;
+
+			if(string.length >= MAX_LENGTH) {
+				return string.slice(0, MAX_LENGTH) + "...";
+			} else {
+				return string;
+			}
+		},
 		run() {
 			let func = new Function(`
 				${this.code}
@@ -99,7 +108,7 @@ export default {
 				if(result === undefined) {
 					this.sections[0].caption = "¯\\_(ツ)_/¯";
 				} else {
-					this.sections[0].caption = result.toString();
+					this.sections[0].caption = this.addDots(result.toString());
 				}
 
 				this.preloader = false;
