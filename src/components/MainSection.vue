@@ -3,7 +3,8 @@
 		<div class="container">
 			<div class="d-flex justify-content-between align-items-center" :class="rowReverse">
 				<div class="w-50">
-					<h2 class="display-4">{{ section.caption }}</h2>
+					<slot v-if="hasCaption" name="caption" />
+					<h2 v-else class="display-4">{{ section.caption }}</h2>
 				</div>
 				<div class="w-50">
 					<slot v-if="hasImage" name="image" />
@@ -38,6 +39,9 @@ export default {
 		},
 		hasImage() {
 			return this.$slots.image !== undefined;
+		},
+		hasCaption() {
+			return this.$slots.caption !== undefined;
 		}
 	},
 	props: {
