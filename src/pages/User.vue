@@ -4,7 +4,10 @@
 		<div v-if="user instanceof Object">
 			<div class="d-flex align-items-center mb-3 mt-3">
 				<img :src="user.userpic" width="80" alt="avatar">
-				<h3 class="ml-4 font-weight-normal">{{ user.login }}</h3>
+				<h3 class="ml-4 font-weight-normal">
+					<span class="mr-2">{{ user.login }}</span>
+					<i v-if="user.verified" class="fas fa-check"></i>
+				</h3>
 			</div>
 			<span class="badge badge-primary p-2 font-weight-normal">
 				Points <span class="badge badge-light">{{ user.points }}</span>
