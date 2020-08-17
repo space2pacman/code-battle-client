@@ -27,15 +27,15 @@
 						<div class="mb-4">
 							<h6>Компании</h6>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck4" @change="filter('company', 'Github')">
+								<input type="checkbox" class="custom-control-input" id="customCheck4" @change="filter('author', 'Github')">
 								<label class="custom-control-label" for="customCheck4">Github</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck5" @change="filter('company', 'Google')">
+								<input type="checkbox" class="custom-control-input" id="customCheck5" @change="filter('author', 'Google')">
 								<label class="custom-control-label" for="customCheck5">Google</label>
 							</div>
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customCheck6" @change="filter('company', 'Yandex')">
+								<input type="checkbox" class="custom-control-input" id="customCheck6" @change="filter('author', 'Yandex')">
 								<label class="custom-control-label" for="customCheck6">Yandex</label>
 							</div>
 						</div>
