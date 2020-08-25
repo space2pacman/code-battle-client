@@ -27,6 +27,57 @@
 					<Notice :text="solutions" />
 				</div>
 			</div>
+			<div v-show="tabs.active === 'statistics'">
+				<div class="d-flex">
+					<div class="card w-100 mr-3">
+						<div class="card-body">
+							<div class="d-flex justify-content-between align-items-center">
+								<h3>space2pacman</h3>
+								<i class="fas fa-user"></i>
+							</div>
+							<p class="mt-3 text-muted font-weight-normal">Активный пользователь</p>
+						</div>
+					</div>
+					<div class="card w-100 mr-3">
+						<div class="card-body">
+							<div class="d-flex justify-content-between align-items-center">
+								<h3>10</h3>
+								<i class="fas fa-tasks"></i>
+							</div>
+							<p class="mt-3 text-muted font-weight-normal">Добавленных задач</p>
+						</div>
+					</div>
+					<div class="card w-100">
+						<div class="card-body">
+							<div class="d-flex justify-content-between align-items-center">
+								<h3>9</h3>
+								<i class="fas fa-check-double"></i>
+							</div>
+							<p class="mt-3 text-muted font-weight-normal">Решений по добавленным задачам</p>
+						</div>
+					</div>
+				</div>
+				<div class="mt-3">
+					<div class="card w-100 mr-3 mb-3">
+						<div class="card-body">
+							<div class="float-right">
+								<i class="fas fa-thumbs-up"></i>
+							</div>
+							<h5 class="text-muted font-weight-normal mt-0 mb-3">Лучшее понравившееся решение</h5>
+							<Solution :solution="solutionsForTest" />
+						</div>
+					</div>
+					<div class="card w-100">
+						<div class="card-body">
+							<div class="float-right">
+								<i class="fas fa-comments"></i>
+							</div>
+							<h5 class="text-muted font-weight-normal mt-0 mb-3">Самое обсуждаемое решение</h5>
+							<Solution :solution="solutionsForTest" />
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div v-if="typeof user === 'string'">
 			<Notice :text="user" />
@@ -45,6 +96,15 @@ export default {
 		return {
 			user: null,
 			solutions: [],
+			statistics: null,
+			solutionsForTest: { // fix
+				code: "function pacman() {}",
+				comments: 0,
+				id: 0,
+				likes: 1,
+				task: 0,
+				username: "pacman"
+			},
 			tasks: {
 				list: [],
 				added: []
@@ -63,7 +123,12 @@ export default {
 						caption: "Понравившееся решения",
 						type: "solution/liked",
 						isAuthorized: true
-					}		
+					},
+					{
+						caption: "Статистика",
+						type: "statistics",
+						isAuthorized: true
+					}	
 				],
 				active: "tasks/solved"
 			}
@@ -100,6 +165,10 @@ export default {
 
 			if(mutation.type === "solution/liked") {
 				this.solutions = mutation.payload;
+			}
+
+			if(mutation.type === "user/statistics") {
+				this.statistics = mutation.payload;
 			}
 		})
 	},
