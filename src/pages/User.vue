@@ -28,36 +28,8 @@
 				</div>
 			</div>
 			<div v-show="tabs.active === 'statistics'">
-				<div class="d-flex">
-					<div class="card w-100 mr-3">
-						<div class="card-body">
-							<div class="d-flex justify-content-between align-items-center">
-								<h3>space2pacman</h3>
-								<i class="fas fa-user"></i>
-							</div>
-							<p class="mt-3 text-muted font-weight-normal">Активный пользователь</p>
-						</div>
-					</div>
-					<div class="card w-100 mr-3">
-						<div class="card-body">
-							<div class="d-flex justify-content-between align-items-center">
-								<h3>10</h3>
-								<i class="fas fa-tasks"></i>
-							</div>
-							<p class="mt-3 text-muted font-weight-normal">Добавленных задач</p>
-						</div>
-					</div>
-					<div class="card w-100">
-						<div class="card-body">
-							<div class="d-flex justify-content-between align-items-center">
-								<h3>9</h3>
-								<i class="fas fa-check-double"></i>
-							</div>
-							<p class="mt-3 text-muted font-weight-normal">Решений по добавленным задачам</p>
-						</div>
-					</div>
-				</div>
-				<div class="mt-3">
+				<StatisticsCard :cards="statistics.cards" />
+				<!-- <div class="mt-3">
 					<div class="card w-100 mr-3 mb-3">
 						<div class="card-body">
 							<div class="float-right">
@@ -76,7 +48,7 @@
 							<Solution :solution="solutionsForTest" />
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div v-if="typeof user === 'string'">
@@ -90,21 +62,37 @@ import Tabs from "@/components/Tabs";
 import Notice from "@/components/Notice";
 import UserTasks from "@/components/UserTasks";
 import Solution from "@/components/Solution";
+import StatisticsCard from "@/components/StatisticsCard";
 
 export default {
 	data() {
 		return {
 			user: null,
 			solutions: [],
-			statistics: null,
-			solutionsForTest: { // fix
-				code: "function pacman() {}",
-				comments: 0,
-				id: 0,
-				likes: 1,
-				task: 0,
-				username: "pacman"
+			statistics: {
+				cards: [
+					{
+						value: 10,
+						description: "Добавленных задач"
+					},
+					{
+						value: 9,
+						description: "Решений по добавленным задачам"
+					},
+					{
+						value: 8,
+						description: "Решено задач"
+					}
+				]
 			},
+			// solutionsForTest: { // fix
+			// 	code: "function pacman() {}",
+			// 	comments: 0,
+			// 	id: 0,
+			// 	likes: 1,
+			// 	task: 0,
+			// 	username: "pacman"
+			// },
 			tasks: {
 				list: [],
 				added: []
@@ -124,11 +112,11 @@ export default {
 						type: "solution/liked",
 						isAuthorized: true
 					},
-					{
-						caption: "Статистика",
-						type: "statistics",
-						isAuthorized: true
-					}	
+					// {
+					// 	caption: "Статистика",
+					// 	type: "statistics",
+					// 	isAuthorized: true
+					// }	
 				],
 				active: "tasks/solved"
 			}
@@ -167,16 +155,17 @@ export default {
 				this.solutions = mutation.payload;
 			}
 
-			if(mutation.type === "user/statistics") {
-				this.statistics = mutation.payload;
-			}
+			// if(mutation.type === "user/statistics") {
+			// 	this.statistics = mutation.payload;
+			// }
 		})
 	},
 	components: {
 		Tabs,
 		Notice,
 		UserTasks,
-		Solution
+		Solution,
+		StatisticsCard
 	}
 }
 </script>
