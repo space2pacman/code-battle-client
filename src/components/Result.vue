@@ -22,11 +22,17 @@
 									<div v-for="log in test.logs" class="card-text">{{ log }}</div>
 								</div>
 							</div>
+							<div v-if="test.error" class="card mb-3 mt-3">
+								<div class="card-body">
+									<div class="card-subtitle mb-2 text-muted font-italic">Error</div>
+									<div class="card-text">{{ test.return.value }}</div>
+								</div>
+							</div>
 							<div>
 								Ожидается: {{ test.expected.value }} <span class="badge" :class="getBadge(test.expected.type)">{{ test.expected.type }}</span>
 							</div>
 							<div>
-								Вывод: {{ test.return.value }} <span class="badge" :class="getBadge(test.return.type)">{{ test.return.type }}</span>
+								Вывод: {{ test.error ? "null" : test.return.value }} <span class="badge" :class="getBadge(test.return.type)">{{ test.return.type }}</span>
 							</div>
 						</div>
 					</div>
@@ -77,7 +83,11 @@ export default {
 	},
 	methods: {
 		getBadge(type) {
-			return `badge-${type.toLowerCase()}`;
+			if(type) {
+				return `badge-${type.toLowerCase()}`;
+			} else {
+				"badge-null";
+			}
 		}
 	},
 	computed: {
