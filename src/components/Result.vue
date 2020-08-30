@@ -25,7 +25,7 @@
 							<div v-if="test.error" class="card mb-3 mt-3">
 								<div class="card-body">
 									<div class="card-subtitle mb-2 text-muted font-italic">Error</div>
-									<div class="card-text">{{ test.return.value }}</div>
+									<div class="card-text">{{ test.error }}</div>
 								</div>
 							</div>
 							<div>
