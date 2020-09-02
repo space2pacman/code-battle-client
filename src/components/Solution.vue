@@ -11,7 +11,10 @@
 			<a href="#" @click.prevent="like">
 				<span class="badge p-2 font-weight-normal ml-2" :class="likes ? 'badge-success' : 'badge-primary'">
 					Нравится
-					<span class="badge badge-light">{{ solution.likes }}</span>
+					<span class="badge badge-light">
+						<slot v-if="hasLikes" name="likes" :state="likes" />
+						<span v-else>{{ solution.likes }}</span>
+					</span>
 				</span>
 			</a>
 			<a href="#" @click.prevent="">
@@ -86,6 +89,11 @@ export default {
 					this.likes = false;
 				}
 			}
+		}
+	},
+	computed: {
+		hasLikes() {
+			return this.$scopedSlots.likes !== undefined;
 		}
 	},
 	mounted() {

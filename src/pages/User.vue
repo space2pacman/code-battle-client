@@ -21,6 +21,9 @@
 						<template v-slot:separator>
 							<hr>
 						</template>
+						<template v-slot:likes="{ state }">
+							{{ state ? solution.likes : solution.likes - 1 }}
+						</template>
 					</Solution>
 				</div>
 				<div v-if="typeof solutions === 'string'">
@@ -152,7 +155,9 @@ export default {
 			}
 
 			if(mutation.type === "solution/liked") {
-				this.solutions = mutation.payload;
+				if(this.solutions.length === 0) {
+					this.solutions = mutation.payload;
+				}
 			}
 
 			// if(mutation.type === "user/statistics") {
