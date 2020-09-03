@@ -20,6 +20,7 @@ Vue.mixin({
 				body: params.body || null
 			}
 			let headers = {};
+			let version = "v1";
 
 			headers["Content-Type"] = "application/json;charset=utf-8";
 
@@ -27,7 +28,7 @@ Vue.mixin({
 				headers["Authorization"] = `bearer ${this.getToken}`;
 			}
 
-			return fetch(`http://${this.getHostname}:${this.getPort}/api/${options.url}/`, {
+			return fetch(`http://${this.getHostname}:${this.getPort}/${version}/api/${options.url}/`, {
 				method: options.method,
 				headers,
 				body: options.body
