@@ -12,7 +12,7 @@
 								<i class="fas fa-sign-in-alt"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="Логин" v-model="login">
+						<input type="text" class="form-control" maxlength="20" placeholder="Логин" v-model="login.value" :class="validate('login')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -22,7 +22,7 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" placeholder="Пароль" v-model="password">
+						<input type="password" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validate('password')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -32,7 +32,7 @@
 								<i class="far fa-envelope"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="E-mail" v-model="email.value" :class="validate('email')">
+						<input type="text" class="form-control" maxlength="20" placeholder="E-mail" v-model="email.value" :class="validate('email')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -55,8 +55,14 @@ import Notice from "@/components/Notice";
 export default {
 	data() {
 		return {
-			login: "",
-			password: "",
+			login: {
+				value: "",
+				invalid: false
+			},
+			password: {
+				value: "",
+				invalid: false
+			},
 			email: {
 				value: "",
 				invalid: false
@@ -67,13 +73,13 @@ export default {
 	},
 	methods: {
 		registration() {
-			if(this.login.length === 0) {
+			if(this.login.value.length === 0) {
 				this.notice = "Логин не может быть пустым";
 
 				return false;
 			}
 
-			if(this.password.length === 0) {
+			if(this.password.value.length === 0) {
 				this.notice = "Пароль не может быть пустым";
 
 				return false;
@@ -115,7 +121,7 @@ export default {
 			} else {
 				if(this[field].value.length > 0) {
 					return "is-valid";
-				}	
+				}
 			}
 		},
 		clearNotice() {
@@ -123,11 +129,27 @@ export default {
 		}
 	},
 	watch: {
-		login() {
+		"login.value"(newValue, oldValue) {
 			this.clearNotice();
+
+			if(oldValue.length > 0 && newValue.length === 0) {
+				this.login.invalid = true;
+			}
+
+			if(newValue.length > 0) {
+				this.login.invalid = false;
+			}
 		},
-		password() {
+		"password.value"(newValue, oldValue) {
 			this.clearNotice();
+
+			if(oldValue.length > 0 && newValue.length === 0) {
+				this.password.invalid = true;
+			}
+
+			if(newValue.length > 0) {
+				this.password.invalid = false;
+			}
 		},
 		"email.value"(value) {
 			this.clearNotice();
