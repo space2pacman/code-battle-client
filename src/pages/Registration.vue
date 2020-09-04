@@ -32,7 +32,7 @@
 								<i class="far fa-envelope"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="E-mail" v-model="email">
+						<input type="text" class="form-control" placeholder="E-mail" v-model="email.value" :class="validate('email')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import validator from "validator";
 import Preloader from "@/components/Preloader";
 import Notice from "@/components/Notice";
 
@@ -56,7 +57,10 @@ export default {
 		return {
 			login: "",
 			password: "",
-			email: "",
+			email: {
+				value: "",
+				invalid: false
+			},
 			notice: null,
 			isLoading: false
 		}
@@ -75,8 +79,14 @@ export default {
 				return false;
 			}
 
-			if(this.email.length === 0) {
+			if(this.email.value.length === 0) {
 				this.notice = "E-mail не может быть пустым";
+
+				return false;
+			}
+
+			if(this.email.invalid) {
+				this.notice = "Некорректный e-mail";
 
 				return false;
 			}
@@ -99,6 +109,15 @@ export default {
 				this.isLoading = false;
 			})
 		},
+		validate(field) {
+			if(this[field].invalid) {
+				return "is-invalid";
+			} else {
+				if(this[field].value.length > 0) {
+					return "is-valid";
+				}	
+			}
+		},
 		clearNotice() {
 			this.notice = null;
 		}
@@ -110,8 +129,14 @@ export default {
 		password() {
 			this.clearNotice();
 		},
-		email() {
-			this.clearNotice();	
+		"email.value"(value) {
+			this.clearNotice();
+
+			if(validator.isEmail(value)) {
+				this.email.invalid = false;
+			} else {
+				this.email.invalid = true;
+			}
 		}
 	},
 	components: {
