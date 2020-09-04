@@ -95,7 +95,7 @@ export default {
 			this.send("registration", {
 				login: this.login,
 				password: this.password,
-				email: this.email
+				email: this.email.value
 			}).then(response => {
 				if(response.status === "success") {
 					//this.$store.commit("token", response.data);
