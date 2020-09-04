@@ -12,7 +12,7 @@
 								<i class="fas fa-sign-in-alt"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" maxlength="20" placeholder="Логин" v-model="login.value" :class="validate('login')">
+						<input type="text" class="form-control" maxlength="20" placeholder="Логин" v-model="login.value" :class="validateForm('login')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -22,7 +22,7 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validate('password')">
+						<input type="password" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
 					</div>
 				</div>
 				<div class="form-group">
@@ -88,15 +88,6 @@ export default {
 
 				this.isLoading = false;
 			})
-		},
-		validate(field) {
-			if(this[field].invalid) {
-				return "is-invalid";
-			} else {
-				if(this[field].value.length > 0) {
-					return "is-valid";
-				}
-			}
 		},
 		clearNotice() {
 			this.notice = null;

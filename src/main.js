@@ -101,6 +101,15 @@ Vue.mixin({
 		},
 		checkAuthUser() {
 			return this.getUserName === this.getAuthUserName;
+		},
+		validateForm(field) {
+			if(this[field].invalid) {
+				return "is-invalid";
+			} else {
+				if(this[field].value.length > 0) {
+					return "is-valid";
+				}
+			}
 		}
 	},
 	computed: {
