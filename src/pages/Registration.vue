@@ -99,8 +99,8 @@ export default {
 
 			this.isLoading = true;
 			this.send("registration", {
-				login: this.login,
-				password: this.password,
+				login: this.login.value,
+				password: this.password.value,
 				email: this.email.value
 			}).then(response => {
 				if(response.status === "success") {
