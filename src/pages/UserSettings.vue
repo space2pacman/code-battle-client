@@ -191,6 +191,11 @@ export default {
 			});
 		}
 	},
+	watch: {
+		email() {
+			this.notice.email = null;
+		}
+	},
 	mounted() {
 		let user = this.$store.state["user/auth"];
 
