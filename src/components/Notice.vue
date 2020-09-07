@@ -16,7 +16,8 @@ export default {
 				"task is not solved": "Вы еще не решили эту задачу",
 				"unsupported file type": "Неподдерживаемый тип файла. Поддерживаются: jpg, png",
 				"max image size 50kb": "Максимальный размер изображения 50кб",
-				"no liked solutions": "Нет понравившихся решений"
+				"no liked solutions": "Нет понравившихся решений",
+				"user already exists": "Пользователь уже существует"
 			}
 		}
 	},
