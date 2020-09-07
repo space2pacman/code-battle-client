@@ -20,7 +20,6 @@ Vue.mixin({
 				body: params.body || null
 			}
 			let headers = {};
-			let version = "v1";
 
 			headers["Content-Type"] = "application/json;charset=utf-8";
 
@@ -28,7 +27,7 @@ Vue.mixin({
 				headers["Authorization"] = `bearer ${this.getToken}`;
 			}
 
-			return fetch(`http://${this.getHostname}:${this.getPort}/${version}/api/${options.url}/`, {
+			return fetch(`http://${this.getHostname}:${this.getPort}/${this.getVersion}/api/${options.url}/`, {
 				method: options.method,
 				headers,
 				body: options.body
@@ -82,7 +81,7 @@ Vue.mixin({
 				}
 			}
 
-			xhr.open("POST", `http://${this.getHostname}:${this.getPort}/api/upload/`);
+			xhr.open("POST", `http://${this.getHostname}:${this.getPort}/${this.getVersion}/api/upload/`);
 			xhr.setRequestHeader("Authorization", `bearer ${this.getToken}`);
 			xhr.send(formData);
 		},
@@ -145,6 +144,9 @@ Vue.mixin({
 			}
 
 			return port;
+		},
+		getVersion() {
+			return "v1";
 		}
 	}
 })

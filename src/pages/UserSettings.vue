@@ -5,6 +5,7 @@
 			<div class="col">
 				<div>
 					<div class="mb-1">E-mail</div>
+					<Notice :text="notice.email" className="alert alert-danger mb-2" />
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
@@ -16,6 +17,7 @@
 				</div>
 				<div class="mb-3">
 					<div class="mb-1">Аватар</div>
+					<Notice :text="notice.file" className="alert alert-danger mb-2" />
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text p-0 overflow-hidden">
@@ -30,7 +32,6 @@
 					<div class="progress mt-2">
 						<div class="progress-bar" :style="`width: ${progress}%`"></div>
 					</div>
-					<Notice :text="notice" className="alert alert-danger mt-2" />
 				</div>
 				<div class="mb-2">
 					<div class="mb-1">Смена пароля</div>
@@ -121,7 +122,10 @@ export default {
 	data() {
 		return {
 			progress: 0,
-			notice: null,
+			notice: {
+				email: null,
+				file: null
+			},
 			userpic: null,
 			email: null,
 			notification: null,
@@ -136,7 +140,7 @@ export default {
 		},
 		onloadstart() {
 			this.progress = 0;
-			this.notice = null;
+			this.notice.file = null;
 		},
 		onprogress(e) {
 			this.progress = Math.floor(e.loaded * 100 / e.total);
@@ -146,7 +150,7 @@ export default {
 		},
 		onuploaded(error, file) {
 			if(error) {
-				this.notice = error;
+				this.notice.file = error;
 			} else {
 				this.userpic = file.link;
 			}
@@ -154,7 +158,7 @@ export default {
 		update() {
 			let payload = {
 				data: {
-					username: this.getAuthUserName,
+					login: this.getAuthUserName,
 					email: {
 						address: this.email,
 						notification: this.notification
@@ -173,6 +177,16 @@ export default {
 							this.$store.commit("user/auth", response.data);
 						}
 					});
+					this.notice.email = null;
+				}
+
+				if(response.status === "error") {
+					switch(response.error) {
+						case "email already exists":
+							this.notice.email = response.error;
+
+							break;
+					}
 				}
 			});
 		}
