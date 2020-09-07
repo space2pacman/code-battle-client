@@ -32,7 +32,7 @@
 								<i class="far fa-envelope"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" maxlength="20" placeholder="E-mail" v-model="email.value" :class="validateForm('email')">
+						<input type="text" class="form-control" maxlength="50" placeholder="E-mail" v-model="email.value" :class="validateForm('email')">
 					</div>
 				</div>
 				<div class="form-group">
