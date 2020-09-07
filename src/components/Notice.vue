@@ -17,7 +17,8 @@ export default {
 				"unsupported file type": "Неподдерживаемый тип файла. Поддерживаются: jpg, png",
 				"max image size 50kb": "Максимальный размер изображения 50кб",
 				"no liked solutions": "Нет понравившихся решений",
-				"user already exists": "Пользователь уже существует"
+				"user already exists": "Пользователь уже существует",
+				"email already exists": "Этот электронный адрес уже используется"
 			}
 		}
 	},

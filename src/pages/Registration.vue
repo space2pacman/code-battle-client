@@ -104,7 +104,6 @@ export default {
 				email: this.email.value
 			}).then(response => {
 				if(response.status === "success") {
-					//this.$store.commit("token", response.data);
 					this.$router.push("/login");
 				}
 
