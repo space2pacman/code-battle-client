@@ -113,14 +113,11 @@ export default {
 
 				this.isLoading = false;
 			})
-		},
-		clearNotice() {
-			this.notice = null;
 		}
 	},
 	watch: {
 		"login.value"(newValue, oldValue) {
-			this.clearNotice();
+			this.notice = null;
 
 			if(oldValue.length > 0 && newValue.length === 0) {
 				this.login.invalid = true;
@@ -131,7 +128,7 @@ export default {
 			}
 		},
 		"password.value"(newValue, oldValue) {
-			this.clearNotice();
+			this.notice = null;
 
 			if(oldValue.length > 0 && newValue.length === 0) {
 				this.password.invalid = true;
@@ -142,7 +139,7 @@ export default {
 			}
 		},
 		"email.value"(value) {
-			this.clearNotice();
+			this.notice = null;
 
 			if(validator.isEmail(value)) {
 				this.email.invalid = false;

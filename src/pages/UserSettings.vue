@@ -12,7 +12,7 @@
 								<i class="far fa-envelope"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="E-mail" v-model="email">
+						<input type="text" class="form-control" placeholder="E-mail" v-model="email.value" :class="validateForm('email')">
 					</div>
 				</div>
 				<div class="mb-3">
@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import validator from "validator";
 import Notice from "@/components/Notice";
 
 export default {
@@ -127,7 +128,11 @@ export default {
 				file: null
 			},
 			userpic: null,
-			email: null,
+			email: {
+				value: null,
+				default: null,
+				invalid: null
+			},
 			notification: null,
 			socialNetworks: [],
 			country: null,
@@ -160,7 +165,7 @@ export default {
 				data: {
 					login: this.getAuthUserName,
 					email: {
-						address: this.email,
+						address: this.email.value,
 						notification: this.notification
 					},
 					userpic: this.userpic,
@@ -192,15 +197,30 @@ export default {
 		}
 	},
 	watch: {
-		email() {
+		"email.value"(value, oldValue) {
 			this.notice.email = null;
+
+			if(value === this.email.default) {
+				this.email.invalid = null;
+
+				return;
+			}
+
+			if(oldValue !== null) {
+				if(validator.isEmail(value)) {
+					this.email.invalid = false;
+				} else {
+					this.email.invalid = true;
+				}
+			}
 		}
 	},
 	mounted() {
 		let user = this.$store.state["user/auth"];
 
 		if(user) {
-			this.email = user.email.address;
+			this.email.value = user.email.address;
+			this.email.default = user.email.address;
 			this.notification = user.email.notification;
 			this.userpic = user.userpic;
 			this.socialNetworks = user.socialNetworks;
