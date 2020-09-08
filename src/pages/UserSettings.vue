@@ -175,6 +175,12 @@ export default {
 				}
 			}
 
+			if(this.email.invalid) {
+				this.notice.email = "Некорректный e-mail";
+
+				return false;
+			}
+
 			this.send(`user/${this.getAuthUserName}`, payload).then(response => {
 				if(response.status === "success") {
 					this.receive(`user/${this.getAuthUserName}`).then(response => {
