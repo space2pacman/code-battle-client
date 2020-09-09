@@ -247,8 +247,8 @@ export default {
 		},
 		addFields() {
 			let fields = {
-				name: "github",
-				icon: "fab fa-github",
+				name: this.icons[0].name,
+				icon: this.icons[0].icon,
 				link: ""
 			}
 
