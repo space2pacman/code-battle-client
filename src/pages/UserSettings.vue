@@ -68,19 +68,6 @@
 			</div>
 			<div class="col">
 				<div class="mb-3">
-					<div class="mb-1">Социальные сети</div>
-					<div v-for="socialNetwork in socialNetworks">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
-									<i :class="socialNetwork.icon"></i>
-								</div>
-							</div>
-							<input type="text" class="form-control" :placeholder="socialNetwork.name" v-model="socialNetwork.link">
-						</div>
-					</div>
-				</div>
-				<div class="mb-3">
 					<div class="mb-1">Страна</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -94,20 +81,55 @@
 						</select>
 					</div>
 				</div>
-				<div class="mb-1">Ваш уровень</div>
 				<div class="mb-3">
-					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="level" type="radio" id="junior" value="junior" v-model="level">
-						<label class="custom-control-label" for="junior">Junior</label>
+					<div class="mb-1">Ваш уровень</div>
+					<div class="btn-group btn-group-toggle d-flex">
+						<label class="btn btn-info" :class="{ 'active': level === 'junior' }">
+							<input class="custom-control-input" name="level" type="radio" value="junior" v-model="level">
+							Junior
+						</label>
+						<label class="btn btn-info" :class="{ 'active': level === 'middle' }">
+							<input class="custom-control-input" name="level" type="radio" value="middle" v-model="level">
+							Middle
+						</label>
+						<label class="btn btn-info" :class="{ 'active': level === 'senior' }">
+							<input class="custom-control-input" name="level" type="radio" value="senior" v-model="level">
+							Senior
+						</label>
 					</div>
-					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="level" type="radio" id="middle" value="middle" v-model="level">
-						<label class="custom-control-label" for="middle">Middle</label>
+				</div>
+				<div class="clearfix">
+					<div class="mb-1">Социальные сети</div>
+					<div v-for="(socialNetwork, index) in socialNetworks" class="mb-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="dropdown__social-networks">
+									<dropdown-menu
+										:hover="true"
+										:hover_timeout="0"
+										transition="translate-fade-down"
+										v-model="dropdowns[index]"
+									>
+										<button class="btn btn-secondary dropdown-toggle dropdown-icon" type="button">
+											<i :class="socialNetwork.icon"></i>
+										</button>
+										<div slot="dropdown" class="dropdown-icons">
+											<div v-for="item in icons" class="dropdown-item" @click="changeIcon(index, item)">
+												<i :class="item.icon"></i>
+											</div>
+										</div>
+									</dropdown-menu>
+								</div>
+							</div>
+							<input type="text" class="form-control" :placeholder="socialNetwork.name" v-model="socialNetwork.link">
+							<button type="button" class="btn btn-danger float-right ml-3" @click="removeFields(index)">
+								<i class="fas fa-minus"></i>
+							</button>
+						</div>
 					</div>
-					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="level" type="radio" id="senior" value="senior" v-model="level">
-						<label class="custom-control-label" for="senior">Senior</label>
-					</div>
+					<button type="button" class="btn btn-success float-right mb-3" @click="addFields">
+						<i class="fas fa-plus"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -118,15 +140,31 @@
 <script>
 import validator from "validator";
 import Notice from "@/components/Notice";
+import DropdownMenu from "@innologica/vue-dropdown-menu";
 
 export default {
 	data() {
 		return {
+			dropdowns: [],
 			progress: 0,
 			notice: {
 				email: null,
 				file: null
 			},
+			icons: [
+				{
+					name: "github",
+					icon: "fab fa-github",
+				},
+				{
+					name: "facebook",
+					icon: "fab fa-facebook",
+				},
+				{
+					name: "twitter",
+					icon: "fab fa-twitter",
+				}
+			],
 			userpic: null,
 			email: {
 				value: null,
@@ -200,6 +238,26 @@ export default {
 					}
 				}
 			});
+		},
+		removeFields(index) {
+			if(this.socialNetworks.length > 1) {
+				this.socialNetworks.splice(index, 1);
+				this.dropdowns.splice(index, 1);
+			}
+		},
+		addFields() {
+			let fields = {
+				name: "github",
+				icon: "fab fa-github",
+				link: ""
+			}
+
+			this.socialNetworks.push(fields);
+			this.dropdowns.push(false)
+		},
+		changeIcon(index, item) {
+			this.socialNetworks[index].name = item.name;
+			this.socialNetworks[index].icon = item.icon;
 		}
 	},
 	watch: {
@@ -229,15 +287,48 @@ export default {
 			this.email.default = user.email.address;
 			this.notification = user.email.notification;
 			this.userpic = user.userpic;
-			this.socialNetworks = user.socialNetworks;
 			this.country = user.country;
 			this.level = user.level;
+			
+			if(user.socialNetworks.length > 0) {
+				this.socialNetworks = user.socialNetworks;
+			} else {
+				this.addFields();
+			}
 		} else {
 			this.$router.push("/login");
 		}
+
 	},
 	components: {
-		Notice
+		Notice,
+		DropdownMenu
 	}
 }
 </script>
+
+<style scoped>
+.dropdown-icon {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    color: #495057;
+    box-shadow: none;
+    border-radius: .25rem 0 0 .25rem;
+}
+
+.dropdown-icons {
+    text-align: center;
+}
+
+.dropdown__social-networks .dropdown-item {
+	padding: 0.25rem 0;
+}
+</style>
+
+<style>
+.dropdown__social-networks .dropdown-menu {
+	width: 55px;
+    min-width: 0px;
+    top: 35px !important;
+}
+</style>
