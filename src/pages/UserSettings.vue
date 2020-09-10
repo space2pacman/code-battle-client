@@ -2,6 +2,7 @@
 	<div>
 		<h1 class="mb-4">Настройки профиля</h1>
 		<div class="row">
+			<Preloader v-if="isLoading" :overlay="true" />
 			<div class="col">
 				<div>
 					<div class="mb-1">E-mail</div>
@@ -140,12 +141,14 @@
 
 <script>
 import validator from "validator";
+import Preloader from "@/components/Preloader";
 import Notice from "@/components/Notice";
 import DropdownMenu from "@innologica/vue-dropdown-menu";
 
 export default {
 	data() {
 		return {
+			isLoading: false,
 			dropdowns: [],
 			progress: 0,
 			notice: {
@@ -226,7 +229,7 @@ export default {
 				return false;
 			}
 
-			if(this.password.new === null || this.password.new.length === 0) {
+			if(this.password.old !== null && (this.password.new === null || this.password.new.length === 0)) {
 				this.notice.password = "Новый пароль не может быть пустым";
 
 				return false;
@@ -238,11 +241,13 @@ export default {
 				return false;
 			}
 
+			this.isLoading = true;
 			this.send(`user/${this.getAuthUserName}`, payload).then(response => {
 				if(response.status === "success") {
 					this.receive(`user/${this.getAuthUserName}`).then(response => {
 						if(response.status === "success") {
 							this.$store.commit("user/auth", response.data);
+							this.isLoading = false;
 						}
 					});
 					this.notice.email = null;
@@ -259,6 +264,8 @@ export default {
 
 							break;
 					}
+
+					this.isLoading = false;
 				}
 			});
 		},
@@ -330,6 +337,7 @@ export default {
 
 	},
 	components: {
+		Preloader,
 		Notice,
 		DropdownMenu
 	}
