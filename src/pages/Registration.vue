@@ -1,7 +1,7 @@
 <template>
 	<div class="w-25 mx-auto">
 		<h1 class="card-title mb-4 text-center">Регистрация</h1>
-		<div class="card">
+		<form class="card" @submit.prevent>
 			<div class="card-body position-relative">
 				<Preloader v-if="isLoading" :overlay="true" />
 				<Notice :text="notice" className="alert alert-danger" />
@@ -43,7 +43,7 @@
 					<router-link to="/login">Войдите</router-link>
 				</div> 
 			</div>
-		</div>
+		</form>
 	</div>
 </template>
 
