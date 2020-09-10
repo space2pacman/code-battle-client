@@ -35,13 +35,14 @@
 				</div>
 				<div class="mb-2">
 					<div class="mb-1">Смена пароля</div>
+					<Notice :text="notice.password" className="alert alert-danger mb-2" />
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" placeholder="Старый пароль">
+						<input type="password" class="form-control" placeholder="Старый пароль" v-model="password.old">
 					</div>
 				</div>
 				<div class="mb-3">
@@ -51,7 +52,7 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" placeholder="Новый пароль">
+						<input type="password" class="form-control" placeholder="Новый пароль" v-model="password.new">
 					</div>
 				</div>
 				<div>
@@ -149,7 +150,8 @@ export default {
 			progress: 0,
 			notice: {
 				email: null,
-				file: null
+				file: null,
+				password: null
 			},
 			icons: [
 				{
@@ -165,6 +167,10 @@ export default {
 					icon: "fab fa-twitter",
 				}
 			],
+			password: {
+				old: null,
+				new: null
+			},
 			userpic: null,
 			email: {
 				value: null,
@@ -202,6 +208,7 @@ export default {
 			let payload = {
 				data: {
 					login: this.getAuthUserName,
+					password: this.password,
 					email: {
 						address: this.email.value,
 						notification: this.notification
@@ -215,6 +222,18 @@ export default {
 
 			if(this.email.invalid) {
 				this.notice.email = "Некорректный e-mail";
+
+				return false;
+			}
+
+			if(this.password.new === null || this.password.new.length === 0) {
+				this.notice.password = "Новый пароль не может быть пустым";
+
+				return false;
+			}
+
+			if(this.password.new !== null && this.password.old !== null && this.password.new === this.password.old) {
+				this.notice.password = "Новый пароль совпадает со старым";
 
 				return false;
 			}
@@ -233,6 +252,10 @@ export default {
 					switch(response.error) {
 						case "email already exists":
 							this.notice.email = response.error;
+
+							break;
+						case "wrong old password":
+							this.notice.password = response.error;
 
 							break;
 					}
@@ -277,6 +300,12 @@ export default {
 					this.email.invalid = true;
 				}
 			}
+		},
+		"password.old"() {
+			this.notice.password = null;
+		},
+		"password.new"() {
+			this.notice.password = null;
 		}
 	},
 	mounted() {
