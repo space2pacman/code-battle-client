@@ -39,6 +39,20 @@ export default {
 	padding-bottom: 150px;
 }
 
+/* states */
+.is-warning {
+	border-color: #ffc107 !important;
+    padding-right: calc(1.5em + .75rem) !important;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23ffc107' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ffc107' stroke='none'/%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: right calc(0.375em + 0.1875rem) center;
+	background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.is-warning:focus {
+	box-shadow: 0 0 0 0.2rem rgb(255 193 7 / 25%) !important;
+}
+
 /* dropdown */
 .dropdown-menu {
     top: 38px !important;

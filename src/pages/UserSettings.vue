@@ -7,13 +7,18 @@
 				<div>
 					<div class="mb-1">E-mail</div>
 					<Notice :text="notice.email" className="alert alert-danger mb-2" />
+					<Notice :text="notice.confirmed" className="alert alert-warning mb-2 d-flex justify-content-between align-items-center">
+						<template v-slot:button>
+							<button class="btn btn-warning">Подтвердить</button>
+						</template>
+					</Notice>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
 								<i class="far fa-envelope"></i>
 							</div>
 						</div>
-						<input type="text" class="form-control" placeholder="E-mail" v-model="email.value" :class="validateForm('email')">
+						<input type="text" class="form-control" placeholder="E-mail" v-model="email.value" :class="[validateForm('email'), checkState(email.confirmed)]">
 					</div>
 				</div>
 				<div class="mb-3">
@@ -152,6 +157,7 @@ export default {
 			progress: 0,
 			notice: {
 				email: null,
+				confirmed: null,
 				file: null,
 				password: null
 			},
@@ -536,11 +542,29 @@ export default {
 		changeIcon(index, item) {
 			this.socialNetworks[index].name = item.name;
 			this.socialNetworks[index].icon = item.icon;
+		},
+		checkState(state) {
+			if(state === false) {
+				return "is-warning";
+			}
+		},
+		checkEmailConfirmation() {
+			if(this.email.confirmed === false) {
+				this.notice.confirmed = "E-mail адрес не подтвержден";
+			}
+		},
+		setSocialNetworks(socialNetworks) {
+			if(socialNetworks.length > 0) {
+				this.socialNetworks = socialNetworks;
+			} else {
+				this.addFields();
+			}
 		}
 	},
 	watch: {
 		"email.value"(value, oldValue) {
 			this.notice.email = null;
+			
 
 			if(value === this.email.default) {
 				this.email.invalid = null;
@@ -549,6 +573,9 @@ export default {
 			}
 
 			if(oldValue !== null) {
+				this.email.confirmed = null;
+				this.notice.confirmed = null;
+
 				if(validator.isEmail(value)) {
 					this.email.invalid = false;
 				} else {
@@ -569,20 +596,24 @@ export default {
 		if(user) {
 			this.email.value = user.email.address;
 			this.email.default = user.email.address;
+			this.email.confirmed = user.email.confirmed;
 			this.notification = user.email.notification;
 			this.userpic = user.userpic;
 			this.country = user.country;
 			this.level = user.level;
-			
-			if(user.socialNetworks.length > 0) {
-				this.socialNetworks = user.socialNetworks;
-			} else {
-				this.addFields();
-			}
+			this.setSocialNetworks(user.socialNetworks);
+			this.checkEmailConfirmation();
 		} else {
 			this.$router.push("/login");
 		}
 
+		this.$store.subscribe(mutation => {
+			if(mutation.type === "user/auth") {
+				this.email.confirmed = mutation.payload.email.confirmed;
+				this.email.invalid = null;
+				this.checkEmailConfirmation();
+			}
+		})
 	},
 	components: {
 		Preloader,
