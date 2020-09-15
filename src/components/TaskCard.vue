@@ -27,7 +27,7 @@ export default {
 			return this.getAuthUserName === this.task.author;
 		},
 		isCompleted() {
-			let user = this.$store.state.user;
+			let user = this.$store.state["user/auth"];
 			let id = this.task.id;
 
 			if(user && this.isAuthorized && user.tasks.solved.includes(id)) {
