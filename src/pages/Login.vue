@@ -52,6 +52,9 @@ export default {
 				value: "",
 				invalid: false
 			},
+			regex: {
+				form: /^[a-zA-Z0-9]+$/
+			},
 			notice: null,
 			isLoading: false
 		}
@@ -102,7 +105,12 @@ export default {
 			}
 
 			if(newValue.length > 0) {
-				this.login.invalid = false;
+				if(!this.regex.form.test(newValue)) {
+					this.login.invalid = true;
+					this.notice = "В логине допускаются только буквы или цифры";
+				} else {
+					this.login.invalid = false;
+				}
 			}
 		},
 		"password.value"(newValue, oldValue) {
@@ -113,7 +121,12 @@ export default {
 			}
 
 			if(newValue.length > 0) {
-				this.password.invalid = false;
+				if(!this.regex.form.test(newValue)) {
+					this.password.invalid = true;
+					this.notice = "В пароле допускаются только буквы или цифры";
+				} else {
+					this.password.invalid = false;
+				}
 			}
 		}
 	},
