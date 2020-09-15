@@ -22,7 +22,9 @@ export default {
 				"max image size 50kb": "Максимальный размер изображения 50кб",
 				"no liked solutions": "Нет понравившихся решений",
 				"user already exists": "Пользователь уже существует",
-				"email already exists": "Этот электронный адрес уже используется"
+				"email already exists": "Этот электронный адрес уже используется",
+				"invalid characters in login": "Недопустимые символы в логине",
+				"invalid characters in password": "Недопустимые символы в пароле"
 			}
 		}
 	},
