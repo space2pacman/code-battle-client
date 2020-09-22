@@ -27,6 +27,7 @@ export default {
 		}
 	},
 	mounted() {
+		this.$root.$on("onSwitchTab", this.switchTab);
 		this.changeActiveTab();
 		this.filtered = this.tabs.list.filter(tab => {
 			if(tab.isAuthorized) {
