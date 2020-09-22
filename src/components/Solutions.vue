@@ -4,7 +4,7 @@
 		<Notice v-if="!isAuthorized" :text="solutions" />
 		<div v-else>
 			<Preloader v-if="isLoading" />
-			<div v-if="!isLoading && Array.isArray(solutions)">
+			<div v-if="checkSolution">
 				<Solution v-for="solution in solutions" :solution="solution">
 					<template v-slot:separator>
 						<hr>
@@ -39,6 +39,11 @@ export default {
 				this.isLoading = false;
 			}
 		})
+	},
+	computed: {
+		checkSolution() {
+			return !this.isLoading && Array.isArray(this.solutions);
+		}
 	},
 	props: {
 		task: [String, Object]
