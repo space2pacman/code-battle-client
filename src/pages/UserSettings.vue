@@ -594,6 +594,10 @@ export default {
 		let user = this.$store.state["user/auth"];
 
 		if(user) {
+			if(user !== this.$route.params.login) {
+				this.$router.push(`/user/${user.login}/settings`);
+			}
+
 			this.email.value = user.email.address;
 			this.email.default = user.email.address;
 			this.email.confirmed = user.email.confirmed;
