@@ -89,7 +89,7 @@ export default {
 			if(type) {
 				return `badge-${type.toLowerCase()}`;
 			} else {
-				"badge-null";
+				return "badge-null";
 			}
 		}
 	},
