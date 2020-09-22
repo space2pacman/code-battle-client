@@ -36,7 +36,7 @@ export default {
 			return this.$route.meta.authorized;
 		},
 		getAccessLevel() {
-			return this.$route.meta.accessLevel;
+			return this.$route.meta.accessLevel || 0;
 		}
 	},
 	components: {
