@@ -39,7 +39,7 @@
 				</div>
 			</div>
 		</div>
-		<Notice v-if="typeof tests === 'string'" :text="tests" />
+		<Notice v-if="isAuthorized && typeof tests === 'string'" :text="tests" />
 		<div v-if="!isLoading && !isSolved && typeof tests !== 'string'">Нажмите на тест</div>
 	</div>
 </template>
