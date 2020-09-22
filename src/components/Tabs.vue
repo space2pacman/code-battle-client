@@ -15,8 +15,13 @@ export default {
 	},
 	methods: {
 		switchTab(tab) {
+			let hash = this.$route.hash.slice(1);
+			
+			if(hash !== tab) {
+				this.$router.push({ hash: tab });
+			}
+			
 			this.$emit("switchTab", tab);
-			this.$router.push({ hash: tab });
 		},
 		changeActiveTab() {
 			let hash = this.$route.hash;
