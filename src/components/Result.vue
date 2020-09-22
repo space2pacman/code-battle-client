@@ -1,8 +1,7 @@
 <template>
 	<div>
 		<h4 class="font-weight-normal mt-4 mb-3">Результат тестов</h4>
-		<Notice v-if="!isAuthorized" :text="tests" />
-		<div v-else>
+		<div v-if="isAuthorized">
 			<Preloader v-if="isLoading" />
 			<div v-if="isSolved">
 				<div class="row mb-4">
@@ -39,8 +38,9 @@
 				</div>
 			</div>
 		</div>
-		<Notice v-if="isAuthorized && typeof tests === 'string'" :text="tests" />
-		<div v-if="!isLoading && !isSolved && typeof tests !== 'string'">Нажмите на тест</div>
+		<Notice v-if="!isAuthorized" :text="tests" />
+		<Notice v-if="checkAccess" :text="tests" />
+		<Notice v-if="checkTested" text="Нажмите на тест" />
 	</div>
 </template>
 
@@ -99,6 +99,12 @@ export default {
 		},
 		unsuccessful() {
 			return this.tests.filter(test => test.solved === false).length;
+		},
+		checkAccess() {
+			return this.isAuthorized && typeof this.tests === "string";
+		},
+		checkTested() {
+			return !this.isLoading && !this.isSolved && typeof this.tests !== "string";
 		}
 	},
 	components: {
