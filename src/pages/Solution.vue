@@ -1,14 +1,11 @@
 <template>
 	<div>
 		<h1 class="mb-4">Решение</h1>
-		<Notice v-if="!isAuthorized" :text="solution" />
-		<div v-else>
-			<div v-if="solution instanceof Object">
-				<Solution :solution="solution" />
-			</div>
-			<div v-if="typeof solution === 'string'">
-				<Notice :text="solution" />
-			</div>
+		<div v-if="solution instanceof Object">
+			<Solution :solution="solution" />
+		</div>
+		<div v-if="typeof solution === 'string'">
+			<Notice :text="solution" />
 		</div>
 	</div>
 </template>

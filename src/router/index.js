@@ -32,7 +32,11 @@ export default new Router({
 		{
 			name: "task/add",
 			path: "/task/add",
-			component: TaskAdd
+			component: TaskAdd,
+			meta: {
+				authorized: true,
+				accessLevel: 100
+			}
 		},
 		{
 			name: "task",
@@ -67,7 +71,10 @@ export default new Router({
 		{
 			name: "solution",
 			path: "/solution/:id",
-			component: Solution
+			component: Solution,
+			meta: {
+				authorized: true
+			}
 		},
 		{
 			name: "logout",

@@ -39,7 +39,8 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="!isLoading && !isSolved">Нажмите на тест</div>
+		<Notice v-if="typeof tests === 'string'" :text="tests" />
+		<div v-if="!isLoading && !isSolved && typeof tests !== 'string'">Нажмите на тест</div>
 	</div>
 </template>
 
@@ -63,6 +64,8 @@ export default {
 		this.$root.$on("onTestEnd", (error, tests) => {
 			if(error) {
 				this.tests = error;
+				this.isLoading = false;
+				this.isSolved = false;
 			} else {
 				setTimeout(() => {
 					if(this.unsuccessful === 0) {

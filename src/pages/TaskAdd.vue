@@ -56,6 +56,13 @@ export default {
 				}
 			}
 
+			if(this.code === null || this.code.length === 0) {
+				this.$root.$emit("onSwitchTab", "result");
+				this.$root.$emit("onTestEnd", "Отсутствует код");
+
+				return false;
+			}
+
 			this.$root.$emit("onSwitchTab", "result");
 			this.$root.$emit("onTestStart");
 			this.send("task/check", payload).then(response => {
@@ -83,6 +90,12 @@ export default {
 					this.send("task/add", payload).then(response => {
 						if(response.status === "success") {
 							this.$root.$emit("onPreloaderEnd");
+						}
+
+						if(response.status === "error") {
+							this.$root.$emit("onPreloaderEnd");
+							this.$root.$emit("onSwitchTab", "result");
+							this.$root.$emit("onTestEnd", response.error);
 						}
 					});
 				}, 1000)

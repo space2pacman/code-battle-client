@@ -24,7 +24,8 @@ export default {
 				"user already exists": "Пользователь уже существует",
 				"email already exists": "Этот электронный адрес уже используется",
 				"invalid characters in login": "Недопустимые символы в логине",
-				"invalid characters in password": "Недопустимые символы в пароле"
+				"invalid characters in password": "Недопустимые символы в пароле",
+				"access closed": "Доступ закрыт"
 			}
 		}
 	},

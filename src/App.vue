@@ -2,7 +2,14 @@
 	<div>
 		<Menu />
 		<component :is="layout">
-			<router-view />
+			<div v-if="checkAuthorized">
+				<div v-if="isAuthorized">
+					<router-view v-if="checkAccessLevel(getAccessLevel)" />
+					<Notice v-else text="Доступ закрыт" />
+				</div>
+				<Notice v-else text="Вы не авторизованы" />
+			</div>
+			<router-view v-else />
 		</component>
 		<Footer />
 	</div>
@@ -11,6 +18,7 @@
 <script>
 import Menu from "@/components/Menu";
 import Footer from "@/components/Footer";
+import Notice from "@/components/Notice";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import MainLayout from "@/layouts/MainLayout";
 
@@ -23,11 +31,18 @@ export default {
 	computed: {
 		layout() {
 			return this.$route.meta.layout || "default-layout";
+		},
+		checkAuthorized() {
+			return this.$route.meta.authorized;
+		},
+		getAccessLevel() {
+			return this.$route.meta.accessLevel;
 		}
 	},
 	components: {
 		Menu,
 		Footer,
+		Notice,
 		DefaultLayout,
 		MainLayout
 	}
