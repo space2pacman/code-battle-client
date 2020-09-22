@@ -158,6 +158,7 @@ let store = new Vuex.Store({
 		"tasks": null,
 		"task": null,
 		"user": null,
+		"users": null,
 		"user/tasks/solved": null,
 		"user/tasks/added": null,
 		"user/auth": null,
@@ -175,6 +176,9 @@ let store = new Vuex.Store({
 		},
 		"user"(state, data) {
 			state["user"] = data;
+		},
+		"users"(state, data) {
+			state["users"] = data;
 		},
 		"user/tasks/solved"(state, data) {
 			state["user/tasks/solved"] = data;
