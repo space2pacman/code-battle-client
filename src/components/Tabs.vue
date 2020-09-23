@@ -17,7 +17,7 @@ export default {
 		switchTab(tab) {
 			let hash = this.$route.hash.slice(1);
 			
-			if(hash !== tab) {
+			if(hash !== tab && this.changeHash) {
 				this.$router.push({ hash: tab });
 			}
 			
@@ -26,7 +26,7 @@ export default {
 		changeActiveTab() {
 			let hash = this.$route.hash;
 
-			if(hash.length > 0) {
+			if(hash.length > 0 && this.changeHash) {
 				this.tabs.active = hash.slice(1);
 			}
 		}
@@ -47,7 +47,11 @@ export default {
 		})
 	},
 	props: {
-		tabs: Object
+		tabs: Object,
+		changeHash: {
+			type: Boolean,
+			default: true
+		}
 	}
 }
 </script>

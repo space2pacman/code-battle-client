@@ -1,7 +1,7 @@
 <template>
 	<div class="mt-3">
-		<input type="text" class="form-control mb-3" placeholder="Название" v-model="data.caption">
-		<textarea class="form-control mb-3" placeholder="Описание" v-model="data.description"></textarea>
+		<input type="text" class="form-control mb-3" placeholder="Название задачи" v-model="data.caption">
+		<textarea class="form-control mb-3" placeholder="Описание задачи" v-model="data.description"></textarea>
 		<input type="number" class="form-control mb-3" placeholder="Уровень" v-model.number="data.level">
 		<input type="text" class="form-control mb-3" placeholder="Язык" v-model="data.language">
 		<input type="text" class="form-control mb-3" placeholder="Имя функции" v-model="data.func.name">
