@@ -1,58 +1,71 @@
 <template>
 	<div>
-		<h1 class="mb-4">Пользователи</h1>
-		<table class="table table-bordered">
-			<tr>
-				<td v-for="caption in captions" class="align-middle">{{ caption }}</td>
-			</tr>
-			<tr v-for="user in users">
-				<td class="text-center align-middle">
-					<button type="button" class="btn btn-success">
-						<i class="fas fa-edit"></i>
-					</button>
-				</td>
-				<td class="text-center align-middle">
-					<img :src="user.userpic" alt="Avatar">
-				</td>
-				<td class="align-middle">{{ user.login }}</td>
-				<td class="align-middle">{{ user.email.address }}</td>
-				<td class="text-center align-middle">
-					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" :checked="user.email.notification">
-						<label class="custom-control-label"></label>
-					</div>
-				</td>
-				<td class="text-center align-middle">
-					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" :checked="user.email.confirmed">
-						<label class="custom-control-label"></label>
-					</div>
-				</td>
-				<td class="align-middle">{{ user.level }}</td>
-				<td class="align-middle">{{ user.country }}</td>
-				<td class="align-middle">
-					<input class="form-control" type="number" :value="user.accessLevel">
-				</td>
-			</tr>
-		</table>
+		<div class="row">
+			<div class="col-3">
+				<div class="list-group">
+					<router-link
+						v-for="link in links.list" 
+						class="list-group-item list-group-item-action" 
+						:to="'#' + link.href" 
+						:class="{ 'active': link.href === links.active }"
+					>
+						{{ link.caption }}
+					</router-link>
+				</div>
+			</div>
+			<div class="col-9">
+				<Statistics v-if="links.active === 'statistics'" />
+				<Users v-if="links.active === 'users'" />
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import Statistics from "@/components/admin/Statistics";
+import Users from "@/components/admin/Users";
+
 export default {
 	data() {
 		return {
-			captions: ["Действие", "Аватар", "Логин", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Access level"],
-			users: null
+			links: {
+				list: [
+					{
+						href: "statistics",
+						caption: "Статистика"
+					},
+					{
+						href: "users",
+						caption: "Пользователи"
+					}
+				],
+				active: ""
+			}
+		}
+	},
+	methods: {
+		checkHash() {
+			let hash = this.$route.hash.slice(1);
+
+			if(hash.length === 0) {
+				this.$router.push({ hash: "statistics" });
+			}
+		}
+	},
+	watch: {
+		"$route"(value) {
+			let hash = value.hash.slice(1);
+
+			this.links.active = hash;
+			this.checkHash();
 		}
 	},
 	mounted() {
-		this.receive("users");
-		this.$store.subscribe(mutation => {
-			if(mutation.type === "users") {
-				this.users = mutation.payload;
-			}
-		})
+		this.checkHash();
+	},
+	components: {
+		Statistics,
+		Users
 	}
 }
 </script>
