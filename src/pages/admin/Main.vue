@@ -6,7 +6,12 @@
 				<td v-for="caption in captions">{{ caption }}</td>
 			</tr>
 			<tr v-for="user in users">
-				<td>
+				<td class="text-center">
+					<button type="button" class="btn btn-success">
+						<i class="fas fa-edit"></i>
+					</button>
+				</td>
+				<td class="text-center">
 					<img :src="user.userpic" alt="Avatar">
 				</td>
 				<td>{{ user.login }}</td>
@@ -37,7 +42,7 @@
 export default {
 	data() {
 		return {
-			captions: ["Аватар", "Логин", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Access level"],
+			captions: ["Действие", "Аватар", "Логин", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Access level"],
 			users: null
 		}
 	},
