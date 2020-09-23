@@ -3,34 +3,34 @@
 		<h1 class="mb-4">Пользователи</h1>
 		<table class="table table-bordered">
 			<tr>
-				<td v-for="caption in captions">{{ caption }}</td>
+				<td v-for="caption in captions" class="align-middle">{{ caption }}</td>
 			</tr>
 			<tr v-for="user in users">
-				<td class="text-center">
+				<td class="text-center align-middle">
 					<button type="button" class="btn btn-success">
 						<i class="fas fa-edit"></i>
 					</button>
 				</td>
-				<td class="text-center">
+				<td class="text-center align-middle">
 					<img :src="user.userpic" alt="Avatar">
 				</td>
-				<td>{{ user.login }}</td>
-				<td>{{ user.email.address }}</td>
-				<td class="text-center">
+				<td class="align-middle">{{ user.login }}</td>
+				<td class="align-middle">{{ user.email.address }}</td>
+				<td class="text-center align-middle">
 					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" :id="user.email.address" :checked="user.email.notification">
-						<label class="custom-control-label" :for="user.email.address"></label>
+						<input type="checkbox" class="custom-control-input" :checked="user.email.notification">
+						<label class="custom-control-label"></label>
 					</div>
 				</td>
-				<td class="text-center">
+				<td class="text-center align-middle">
 					<div class="custom-control custom-checkbox">
 						<input type="checkbox" class="custom-control-input" :checked="user.email.confirmed">
 						<label class="custom-control-label"></label>
 					</div>
 				</td>
-				<td>{{ user.level }}</td>
-				<td>{{ user.country }}</td>
-				<td>
+				<td class="align-middle">{{ user.level }}</td>
+				<td class="align-middle">{{ user.country }}</td>
+				<td class="align-middle">
 					<input class="form-control" type="number" :value="user.accessLevel">
 				</td>
 			</tr>

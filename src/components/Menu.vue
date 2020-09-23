@@ -31,6 +31,7 @@
                                 </a>
                                 <div slot="dropdown">
                                     <router-link :to="`/user/${getAuthUserName}`" class="dropdown-item">Профиль</router-link>
+                                    <router-link to="/admin/" class="dropdown-item" v-if="checkAccessLevel(100)">Панель администратора</router-link>
                                     <router-link to="/task/add/" class="dropdown-item" v-if="checkAccessLevel(100)">Добавить задачу</router-link>
                                     <router-link :to="`/user/${getAuthUserName}/settings`" class="dropdown-item">Настройки</router-link>
                                     <router-link to="/logout" class="dropdown-item">Выйти</router-link>
@@ -68,6 +69,7 @@
                             <transition name="mobile-nav">
                                 <div v-if="dropdown" class="dropdown__mobile">
                                     <router-link :to="`/user/${getAuthUserName}`" class="dropdown-item">Профиль</router-link>
+                                    <router-link to="/admin/" class="dropdown-item" v-if="checkAccessLevel(100)">Панель администратора</router-link>
                                     <router-link to="/task/add/" class="dropdown-item" v-if="checkAccessLevel(100)">Добавить задачу</router-link>
                                     <router-link :to="`/user/${getAuthUserName}/settings`" class="dropdown-item">Настройки</router-link>
                                     <router-link to="/logout" class="dropdown-item">Выйти</router-link>
