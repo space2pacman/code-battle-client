@@ -10,6 +10,7 @@ import User from "@/pages/User";
 import UserSettings from "@/pages/UserSettings";
 import Login from "@/pages/Login";
 import Solution from "@/pages/Solution";
+import AdminMain from "@/pages/admin/Main";
 import Logout from "@/pages/Logout";
 
 Vue.use(Router);
@@ -80,6 +81,15 @@ export default new Router({
 			name: "logout",
 			path: "/logout",
 			component: Logout
+		},
+		{
+			name: "admin",
+			path: "/admin",
+			component: AdminMain,
+			meta: {
+				authorized: true,
+				accessLevel: 100
+			}
 		}
 	]
 })
