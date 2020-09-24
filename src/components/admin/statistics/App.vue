@@ -17,8 +17,13 @@ export default {
 				labels: [],
 				datasets: [
 					{
+						label: "FREE MB",
+						backgroundColor: "#2c4c6c",
+						data: []
+					},
+					{
 						label: "APP MB",
-						backgroundColor: "#007bff",
+						backgroundColor: "#9fb2d4",
 						data: []
 					}
 				]
@@ -28,7 +33,8 @@ export default {
 	methods: {
 		addData(data) {
 			this.data.labels.push(this.getDate());
-			this.data.datasets[0].data.push(data.memory);
+			this.data.datasets[0].data.push(data.memory.free);
+			this.data.datasets[1].data.push(data.memory.app);
 		},
 		requestData() {
 			this.receive("system/app").then(response => {
