@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1 class="mb-4">Статистика</h1>
-		<Tabs :tabs="tabs" :change-hash="false" @switchTab="switchTab" />
+		<Tabs :tabs="tabs" :change-hash="false" @switchTab="switchTab" class="mb-3" />
 		<App v-if="tabs.active === 'app'" />
 		<Ram v-if="tabs.active === 'ram'" />
 		<Cpu v-if="tabs.active === 'cpu'" />

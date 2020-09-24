@@ -48,7 +48,9 @@ Vue.mixin({
 				let url = response.url;
 				
 				if(response.status === "success") {
-					this.$store.commit(url, response.data);
+					if(url) {
+						this.$store.commit(url, response.data);
+					}
 				} 
 
 				if(response.status === "error") {
@@ -111,6 +113,18 @@ Vue.mixin({
 					}
 				}
 			}
+		},
+		getDate() {
+			let date = new Date();
+			let hours = date.getHours().toString();
+			let minutes = date.getMinutes().toString();
+			let seconds = date.getSeconds().toString();
+
+			hours = hours.length === 1 ? "0" + hours : hours;
+			minutes = minutes.length === 1 ? "0" + minutes : minutes;
+			seconds = seconds.length === 1 ? "0" + seconds : seconds;
+
+			return `${hours}:${minutes}:${seconds}`;
 		}
 	},
 	computed: {
@@ -186,6 +200,9 @@ let store = new Vuex.Store({
 		"user/tasks/added"(state, data) {
 			state["user/tasks/added"] = data;
 		},
+		"user/auth"(state, data) {
+			state["user/auth"] = data;
+		},
 		"solution"(state, data) {
 			state["solution"] = data;
 		},
@@ -197,9 +214,6 @@ let store = new Vuex.Store({
 		},
 		"token"(state, data) {
 			state["token"] = data;
-		},
-		"user/auth"(state, data) {
-			state["user/auth"] = data;
 		}
 	}
 })
