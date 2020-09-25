@@ -36,6 +36,7 @@
 						<div class="card-body">
 							<div>OS: {{ info.version.os }}</div>
 							<div>node: {{ info.version.node }}</div>
+							<div>mongodb: {{ info.version.mongodb }}</div>
 						</div>
 					</div>
 				</div>
