@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<div class="card-header">Память приложения</div>
+		<h6 class="card-header">Память приложения</h6>
 		<div class="card-body">
 			<Chart :data="data" />
 		</div>

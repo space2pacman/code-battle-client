@@ -2,7 +2,7 @@
 	<div class="card">
 		<div class="card-body" v-if="data.list.length > 0">
 			<div class="card" v-for="(item, index) in data.list" :class="{ 'mb-3': index !== data.list.length - 1 }">
-				<div class="card-header">{{ data.models[index] }}</div>
+				<h6 class="card-header">{{ data.models[index] }}</h6>
 				<div class="card-body">
 					<Chart :data="item" />
 				</div>

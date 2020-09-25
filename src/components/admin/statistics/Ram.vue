@@ -1,6 +1,6 @@
 <template>
 	<div class="card">
-		<div class="card-header">Оперативная память</div>
+		<h6 class="card-header">Оперативная память</h6>
 		<div class="card-body">
 			<Chart :data="data" />
 		</div>

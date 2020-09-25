@@ -4,13 +4,13 @@
 			<div class="row mb-3">
 				<div class="col-6">
 					<div class="card">
-						<h5 class="card-header">Платформа</h5>
+						<h6 class="card-header">Платформа</h6>
 						<div class="card-body">{{ info.platform }}</div>
 					</div>
 				</div>
 				<div class="col-6">
 					<div class="card">
-						<h5 class="card-header">Директория</h5>
+						<h6 class="card-header">Директория</h6>
 						<div class="card-body">{{ info.directory }}</div>
 					</div>
 				</div>
@@ -18,13 +18,13 @@
 			<div class="row mb-3">
 				<div class="col-6">
 					<div class="card">
-						<h5 class="card-header">Время работы системы</h5>
+						<h6 class="card-header">Время работы системы</h6>
 						<div class="card-body">{{ uptime(info.uptime.system) }}</div>
 					</div>
 				</div>
 				<div class="col-6">
 					<div class="card">
-						<h5 class="card-header">Время работы приложения</h5>
+						<h6 class="card-header">Время работы приложения</h6>
 						<div class="card-body">{{ uptime(info.uptime.app) }}</div>
 					</div>
 				</div>
@@ -32,7 +32,7 @@
 			<div class="row">
 				<div class="col-6">
 					<div class="card">
-						<h5 class="card-header">Версия</h5>
+						<h6 class="card-header">Версия</h6>
 						<div class="card-body">
 							<div>OS: {{ info.version.os }}</div>
 							<div>node: {{ info.version.node }}</div>
