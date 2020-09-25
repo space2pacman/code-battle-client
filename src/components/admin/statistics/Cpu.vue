@@ -26,6 +26,7 @@ export default {
 	},
 	methods: {
 		addData(data) {
+			let MAX_DATA_LENGTH = 10;
 			let template = {
 				labels: [],
 				datasets: [
@@ -52,6 +53,15 @@ export default {
 					this.data.list.push(JSON.parse(JSON.stringify(template)));
 					this.data.models.push(data[i].model);
 				}
+			} else {
+				for(let i = 0; i < this.data.list.length; i++) {
+					if(this.data.list[i].labels.length > MAX_DATA_LENGTH) {
+						this.data.list[i].labels.shift();
+						this.data.list[i].datasets[0].data.shift();
+						this.data.list[i].datasets[1].data.shift();
+						this.data.list[i].datasets[2].data.shift();
+					}
+				}
 			}
 
 			data.forEach((cpu, index) => {
@@ -76,7 +86,7 @@ export default {
 		clearInterval(this.timer);
 		this.timer = setInterval(() => {
 			this.requestData();
-		}, 5000)
+		}, 1000)
 	},
 	beforeDestroy() {
 		clearInterval(this.timer);

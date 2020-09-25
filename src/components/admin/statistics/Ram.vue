@@ -33,6 +33,14 @@ export default {
 	},
 	methods: {
 		addData(data) {
+			let MAX_DATA_LENGTH = 10;
+
+			if(this.data.labels.length > MAX_DATA_LENGTH) {
+				this.data.labels.shift();
+				this.data.datasets[0].data.shift();
+				this.data.datasets[1].data.shift();
+			}
+
 			this.data.labels.push(this.getDate());
 			this.data.datasets[0].data.push(data.free);
 			this.data.datasets[1].data.push(data.total);
@@ -51,7 +59,7 @@ export default {
 		clearInterval(this.timer);
 		this.timer = setInterval(() => {
 			this.requestData();
-		}, 5000)
+		}, 1000)
 	},
 	beforeDestroy() {
 		clearInterval(this.timer);
