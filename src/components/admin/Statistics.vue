@@ -26,7 +26,7 @@ export default {
 						type: "app"
 					},
 					{
-						caption: "Память",
+						caption: "RAM",
 						type: "ram"
 					},
 					{

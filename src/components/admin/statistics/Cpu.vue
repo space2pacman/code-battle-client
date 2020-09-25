@@ -1,10 +1,10 @@
 <template>
 	<div class="card">
-		<div class="card-body">
-			<div class="card">
-				<div class="card-header">Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz</div>
+		<div class="card-body" v-if="data.list.length > 0">
+			<div class="card" v-for="(item, index) in data.list" :class="{ 'mb-3': index !== data.list.length - 1 }">
+				<div class="card-header">{{ data.models[index] }}</div>
 				<div class="card-body">
-					<Chart :data="data" />
+					<Chart :data="item" />
 				</div>
 			</div>
 		</div>
@@ -19,6 +19,14 @@ export default {
 		return {
 			timer: null,
 			data: {
+				list: [],
+				models: []
+			}
+		}
+	},
+	methods: {
+		addData(data) {
+			let template = {
 				labels: [],
 				datasets: [
 					{
@@ -38,14 +46,21 @@ export default {
 					}
 				]
 			}
-		}
-	},
-	methods: {
-		addData(data) {
-			this.data.labels.push(this.getDate());
-			this.data.datasets[0].data.push(data[0].load.user);
-			this.data.datasets[1].data.push(data[0].load.system);
-			this.data.datasets[2].data.push(data[0].load.total);
+
+			if(this.data.list.length === 0) {
+				for(let i = 0; i < data.length; i++) {
+					this.data.list.push(JSON.parse(JSON.stringify(template)));
+					this.data.models.push(data[i].model);
+				}
+			}
+
+			data.forEach((cpu, index) => {
+				this.data.list[index].labels.push(this.getDate());
+				this.data.list[index].datasets[0].data.push(cpu.load.user);
+				this.data.list[index].datasets[1].data.push(cpu.load.system);
+				this.data.list[index].datasets[2].data.push(cpu.load.total);
+			})
+
 		},
 		requestData() {
 			this.receive("system/cpu").then(response => {
