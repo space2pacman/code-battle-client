@@ -26,7 +26,7 @@ export default {
 	},
 	methods: {
 		addData(data) {
-			let MAX_DATA_LENGTH = 10;
+			let MAX_DATA_LENGTH = 50;
 			let template = {
 				labels: [],
 				datasets: [
@@ -86,7 +86,7 @@ export default {
 		clearInterval(this.timer);
 		this.timer = setInterval(() => {
 			this.requestData();
-		}, 1000)
+		}, 5000)
 	},
 	beforeDestroy() {
 		clearInterval(this.timer);

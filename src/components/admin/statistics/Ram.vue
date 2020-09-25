@@ -33,7 +33,7 @@ export default {
 	},
 	methods: {
 		addData(data) {
-			let MAX_DATA_LENGTH = 10;
+			let MAX_DATA_LENGTH = 50;
 
 			if(this.data.labels.length > MAX_DATA_LENGTH) {
 				this.data.labels.shift();
@@ -59,7 +59,7 @@ export default {
 		clearInterval(this.timer);
 		this.timer = setInterval(() => {
 			this.requestData();
-		}, 1000)
+		}, 5000)
 	},
 	beforeDestroy() {
 		clearInterval(this.timer);
