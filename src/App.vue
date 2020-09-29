@@ -12,6 +12,8 @@
 			<router-view v-else />
 		</component>
 		<Footer />
+
+		<modal-email-confirmation />
 	</div>
 </template>
 
@@ -21,6 +23,7 @@ import Footer from "@/components/Footer";
 import Notice from "@/components/Notice";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import MainLayout from "@/layouts/MainLayout";
+import ModalEmailConfirmation from "@/components/modals/EmailConfirmation";
 
 export default {
 	// watch: {
@@ -44,7 +47,8 @@ export default {
 		Footer,
 		Notice,
 		DefaultLayout,
-		MainLayout
+		MainLayout,
+		ModalEmailConfirmation
 	}
 }
 </script>

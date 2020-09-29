@@ -9,7 +9,7 @@
 					<Notice :text="notice.email" className="alert alert-danger mb-2" />
 					<Notice :text="notice.confirmed" className="alert alert-warning mb-2 d-flex justify-content-between align-items-center">
 						<template v-slot:button>
-							<button class="btn btn-warning">Подтвердить</button>
+							<button class="btn btn-warning" @click="confirm">Подтвердить</button>
 						</template>
 					</Notice>
 					<div class="input-group mb-3">
@@ -559,6 +559,9 @@ export default {
 			} else {
 				this.addFields();
 			}
+		},
+		confirm() {
+			this.$bvModal.show("email-confirmation");
 		}
 	},
 	watch: {
