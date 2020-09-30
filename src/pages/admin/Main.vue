@@ -3,6 +3,7 @@
 		<div class="row">
 			<div class="col-3">
 				<div class="list-group">
+					<div class="list-group-item list-group-item-stub"></div>
 					<router-link
 						v-for="link in links.list" 
 						class="list-group-item list-group-item-action" 
@@ -69,3 +70,9 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.list-group-item-stub {
+	padding-top: 60px;
+}
+</style>

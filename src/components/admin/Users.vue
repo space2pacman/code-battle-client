@@ -8,7 +8,7 @@
 			<tr v-for="user in users">
 				<td class="text-center align-middle">
 					<button type="button" class="btn btn-success">
-						<i class="fas fa-edit"></i>
+						<i class="fas fa-pencil-alt"></i>
 					</button>
 				</td>
 				<td class="text-center align-middle">
