@@ -14,6 +14,7 @@
 		<Footer />
 
 		<modal-email-confirmation />
+		<modal-user-edit />
 	</div>
 </template>
 
@@ -24,6 +25,7 @@ import Notice from "@/components/Notice";
 import DefaultLayout from "@/layouts/DefaultLayout";
 import MainLayout from "@/layouts/MainLayout";
 import ModalEmailConfirmation from "@/components/modals/EmailConfirmation";
+import ModalUserEdit from "@/components/modals/UserEdit";
 
 export default {
 	// watch: {
@@ -48,7 +50,8 @@ export default {
 		Notice,
 		DefaultLayout,
 		MainLayout,
-		ModalEmailConfirmation
+		ModalEmailConfirmation,
+		ModalUserEdit
 	}
 }
 </script>

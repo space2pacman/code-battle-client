@@ -7,7 +7,7 @@
 			</tr>
 			<tr v-for="user in users">
 				<td class="text-center align-middle">
-					<button type="button" class="btn btn-success">
+					<button type="button" class="btn btn-success" @click="edit(user)">
 						<i class="fas fa-pencil-alt"></i>
 					</button>
 				</td>
@@ -44,6 +44,12 @@ export default {
 		return {
 			captions: ["Действие", "Аватар", "Логин", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Access level"],
 			users: null
+		}
+	},
+	methods: {
+		edit(user) {
+			this.$bvModal.show("user-edit");
+			this.$root.$emit("onUserData", user);
 		}
 	},
 	mounted() {
