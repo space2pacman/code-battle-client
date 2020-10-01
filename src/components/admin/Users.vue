@@ -12,7 +12,7 @@
 					</button>
 				</td>
 				<td class="text-center align-middle">
-					<img :src="user.userpic" alt="Avatar">
+					<img :src="user.userpic" alt="Avatar" width="50">
 				</td>
 				<td class="align-middle">{{ user.login }}</td>
 				<td class="align-middle">{{ user.email.address }}</td>
@@ -30,9 +30,7 @@
 				</td>
 				<td class="align-middle">{{ user.level }}</td>
 				<td class="align-middle">{{ user.country }}</td>
-				<td class="align-middle">
-					<input class="form-control" type="number" :value="user.accessLevel">
-				</td>
+				<td class="align-middle">{{ user.accessLevel }}</td>
 			</tr>
 		</table>
 	</div>

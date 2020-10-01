@@ -4,7 +4,7 @@
 		<div class="row">
 			<Preloader v-if="isLoading" :overlay="true" />
 			<div class="col">
-				<div>
+				<div class="mb-3">
 					<div class="mb-1">E-mail</div>
 					<Notice :text="notice.email" className="alert alert-danger mb-2" />
 					<Notice :text="notice.confirmed" className="alert alert-warning mb-2 d-flex justify-content-between align-items-center">
@@ -12,7 +12,7 @@
 							<button class="btn btn-warning" @click="confirm">Подтвердить</button>
 						</template>
 					</Notice>
-					<div class="input-group mb-3">
+					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
 								<i class="far fa-envelope"></i>
@@ -39,10 +39,10 @@
 						<div class="progress-bar" :style="`width: ${progress}%`"></div>
 					</div>
 				</div>
-				<div class="mb-2">
+				<div class="mb-3">
 					<div class="mb-1">Смена пароля</div>
 					<Notice :text="notice.password" className="alert alert-danger mb-2" />
-					<div class="input-group">
+					<div class="input-group mb-2">
 						<div class="input-group-prepend">
 							<div class="input-group-text">
 								<i class="fas fa-key"></i>
@@ -50,8 +50,6 @@
 						</div>
 						<input type="password" class="form-control" placeholder="Старый пароль" v-model="password.old">
 					</div>
-				</div>
-				<div class="mb-3">
 					<div class="input-group">
 						<div class="input-group-prepend">
 							<div class="input-group-text">

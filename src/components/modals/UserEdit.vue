@@ -4,22 +4,46 @@
 			Редактирование пользователя
 		</template>
 		<div v-if="user">
-			<div>{{ user.login }}</div>
-			<div>{{ user.email.address }}</div>
-			<div>{{ user.email.confirmed }}</div>
-			<div>{{ user.email.notification }}</div>
-			<div>{{ user.verified }}</div>
-			<div>{{ user.userpic }}</div>
-			<div>{{ user.socialNetworks }}</div>
-			<div>{{ user.country }}</div>
-			<div>{{ user.accessLevel }}</div>
-			<div>{{ user.tasks }}</div>
-			<div>{{ user.level }}</div>
-			<div>{{ user.points }}</div>
-			<div>{{ user.likes }}</div>
+			<div class="d-flex align-items-center mb-3 mt-3">
+				<img src="http://ovz1.pacman2ebawer.myllp.vps.myjino.ru/public/images/users/default.png" width="80" alt="avatar">
+				<h3 class="ml-4 font-weight-normal">
+					<span class="mr-2">{{ user.login }}</span>
+					<i v-if="user.verified" class="fas fa-check"></i>
+				</h3>
+			</div>
+			<div class="mb-3">
+				<div class="mb-1">E-mail: подтвержден</div>
+				{{ user.email.confirmed }}
+			</div>
+			<div class="mb-3">
+				<div class="mb-1">Пользователь: подтвержден</div>
+				{{ user.verified }}
+			</div>
+			<div class="mb-3">
+				<div class="mb-1">Points</div>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-star"></i>
+						</div>
+					</div>
+					<input type="number" class="form-control" placeholder="Старый пароль" v-model="user.points">
+				</div>
+			</div>
+			<div>
+				<div class="mb-1">Access level</div>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-key"></i>
+						</div>
+					</div>
+					<input type="number" class="form-control" placeholder="Старый пароль" v-model="user.accessLevel">
+				</div>
+			</div>
 		</div>
-		<template v-slot:modal-footer="{ ok }">
-			<button class="btn btn-primary" @click="ok">Обновить</button>
+		<template v-slot:modal-footer>
+			<button class="btn btn-primary" @click="update">Обновить</button>
 		</template>
 	</b-modal>
 </template>
@@ -29,6 +53,11 @@ export default {
 	data() {
 		return {
 			user: null
+		}
+	},
+	methods: {
+		update() {
+			this.$bvModal.hide("user-edit");
 		}
 	},
 	mounted() {
