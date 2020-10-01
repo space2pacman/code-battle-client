@@ -5,7 +5,7 @@
 		</template>
 		<div v-if="user">
 			<div class="d-flex align-items-center mb-3 mt-3">
-				<img src="http://ovz1.pacman2ebawer.myllp.vps.myjino.ru/public/images/users/default.png" width="80" alt="avatar">
+				<img :src="user.userpic" width="80" alt="avatar">
 				<h3 class="ml-4 font-weight-normal">
 					<span class="mr-2">{{ user.login }}</span>
 					<i v-if="user.verified" class="fas fa-check"></i>
