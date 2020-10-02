@@ -12,12 +12,18 @@
 				</h3>
 			</div>
 			<div class="mb-3">
-				<div class="mb-1">E-mail: подтвержден</div>
-				{{ user.email.confirmed }}
+				<div class="mb-1">E-mail:</div>
+				<div class="custom-control custom-checkbox d-inline">
+					<input type="checkbox" class="custom-control-input" id="email" v-model="user.email.confirmed">
+					<label class="custom-control-label" for="email">Подтвержден</label>
+				</div>
 			</div>
 			<div class="mb-3">
-				<div class="mb-1">Пользователь: подтвержден</div>
-				{{ user.verified }}
+				<div class="mb-1">Пользователь:</div>
+				<div class="custom-control custom-checkbox d-inline">
+					<input type="checkbox" class="custom-control-input" id="verified" v-model="user.verified">
+					<label class="custom-control-label" for="verified">Верифицирован</label>
+				</div>
 			</div>
 			<div class="mb-3">
 				<div class="mb-1">Points</div>
