@@ -2,7 +2,7 @@
 	<div>
 		<div class="row">
 			<div class="col-3">
-				<div class="list-group">
+				<div class="list-group h-100">
 					<div class="list-group-item list-group-item-stub"></div>
 					<router-link
 						v-for="link in links.list" 
@@ -12,6 +12,7 @@
 					>
 						{{ link.caption }}
 					</router-link>
+					<div class="list-group-item h-100"></div>
 				</div>
 			</div>
 			<div class="col-9">

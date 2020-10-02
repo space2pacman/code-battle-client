@@ -1,6 +1,6 @@
 <template>
-	<div class="card">
-		<div class="card-body" v-if="info">
+	<div>
+		<div v-if="info">
 			<div class="row mb-3">
 				<div class="col-6">
 					<div class="card">
