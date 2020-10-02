@@ -13,16 +13,20 @@
 			</div>
 			<div class="mb-3">
 				<div class="mb-1">E-mail:</div>
-				<div class="custom-control custom-checkbox d-inline">
+				<div class="custom-control custom-checkbox">
 					<input type="checkbox" class="custom-control-input" id="email" v-model="user.email.confirmed">
 					<label class="custom-control-label" for="email">Подтвержден</label>
 				</div>
 			</div>
 			<div class="mb-3">
 				<div class="mb-1">Пользователь:</div>
-				<div class="custom-control custom-checkbox d-inline">
+				<div class="custom-control custom-checkbox">
 					<input type="checkbox" class="custom-control-input" id="verified" v-model="user.verified">
 					<label class="custom-control-label" for="verified">Верифицирован</label>
+				</div>
+				<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" id="company" v-model="user.company">
+					<label class="custom-control-label" for="company">Компания</label>
 				</div>
 			</div>
 			<div class="mb-3">

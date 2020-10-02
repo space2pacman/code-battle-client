@@ -22,6 +22,12 @@
 							<label class="custom-control-label"></label>
 						</div>
 					</td>
+					<td class="align-middle text-center ">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" :checked="user.company">
+							<label class="custom-control-label"></label>
+						</div>
+					</td>
 					<td class="align-middle">{{ user.email.address }}</td>
 					<td class="align-middle text-center">
 						<div class="custom-control custom-checkbox">
@@ -49,7 +55,7 @@
 export default {
 	data() {
 		return {
-			captions: ["Действие", "Аватар", "Логин", "Верифицирован", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Points", "Access level"],
+			captions: ["Действие", "Аватар", "Логин", "Верифицирован", "Компания", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Points", "Access level"],
 			users: null
 		}
 	},
