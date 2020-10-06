@@ -125,6 +125,9 @@ Vue.mixin({
 			seconds = seconds.length === 1 ? "0" + seconds : seconds;
 
 			return `${hours}:${minutes}:${seconds}`;
+		},
+		getClientVersion() {
+			return "1.0.0";
 		}
 	},
 	computed: {
