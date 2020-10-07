@@ -3,6 +3,7 @@
 		<h1 class="mb-4">Задачи</h1>
 		<div class="row">
 			<div class="col-9">
+				<Preloader v-if="preloader" :overlay="true" />
 				<TaskCard v-for="task in tasks.filtered" :task="task" />
 			</div>
 			<div class="col-3">
@@ -63,10 +64,12 @@
 
 <script>
 import TaskCard from "@/components/TaskCard";
+import Preloader from "@/components/Preloader";
 
 export default {
 	data() {
 		return {
+			preloader: true,
 			tags: {},
 			tasks: {
 				list: [],
@@ -76,30 +79,28 @@ export default {
 	},
 	methods: {
 		filter(key, value) {
-			let tags = this.tags;
-
 			// init array
-			if(!tags[key]) tags[key] = [];
+			if(!this.tags[key]) this.tags[key] = [];
 
-			let index = tags[key].indexOf(value);
+			let index = this.tags[key].indexOf(value);
 
 			// check value in array
 			if(index === -1) {
-				tags[key].push(value);				
+				this.tags[key].push(value);				
 			} else {
-				tags[key].splice(index, 1);
+				this.tags[key].splice(index, 1);
 
 				// remove array if empty
-				if(tags[key].length === 0) {
-					delete tags[key];
+				if(this.tags[key].length === 0) {
+					delete this.tags[key];
 				}
 			}
 
 			this.tasks.filtered = this.tasks.list;
 
-			for(let key in tags) {
+			for(let key in this.tags) {
 				this.tasks.filtered = this.tasks.filtered.filter(task => {
-					return tags[key].some(tag => task[key] === tag);
+					return this.tags[key].some(tag => task[key] === tag);
 				})
 			}
 		}
@@ -110,11 +111,13 @@ export default {
 			if(mutation.type === "tasks") {
 				this.tasks.list = mutation.payload;
 				this.tasks.filtered = mutation.payload;
+				this.preloader = false;
 			}
 		})
 	},
 	components: {
-		TaskCard
+		TaskCard,
+		Preloader
 	}
 }
 </script>
