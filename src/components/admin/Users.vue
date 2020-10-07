@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<h1 class="mb-4">Пользователи</h1>
-		<div class="overflow-auto">
+		<div class="overflow-x position-relative overflow-y-hidden">
+			<Preloader v-if="preloader" :overlay="true" />
 			<table class="table table-bordered">
 				<tr>
 					<td v-for="caption in captions" class="align-middle">{{ caption }}</td>
@@ -52,11 +53,14 @@
 </template>
 
 <script>
+import Preloader from "@/components/Preloader";
+
 export default {
 	data() {
 		return {
 			captions: ["Действие", "Аватар", "Логин", "Верифицирован", "Компания", "E-mail: адрес", "E-mail: уведомления", "E-mail: подтвержден", "Уровень", "Страна", "Points", "Access level"],
-			users: null
+			users: null,
+			preloader: true
 		}
 	},
 	methods: {
@@ -70,8 +74,12 @@ export default {
 		this.$store.subscribe(mutation => {
 			if(mutation.type === "users") {
 				this.users = mutation.payload;
+				this.preloader = false;
 			}
 		})
+	},
+	components: {
+		Preloader
 	}
 }
 </script>

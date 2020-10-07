@@ -1,5 +1,6 @@
 <template>
 	<b-modal id="user-edit">
+		<Preloader v-if="preloader" :overlay="true" />
 		<template v-slot:modal-title>
 			Редактирование пользователя
 		</template>
@@ -59,10 +60,13 @@
 </template>
 
 <script>
+import Preloader from "@/components/Preloader";
+
 export default {
 	data() {
 		return {
-			user: null
+			user: null,
+			preloader: false
 		}
 	},
 	methods: {
@@ -78,11 +82,12 @@ export default {
 					accessLevel: this.user.accessLevel
 				}
 			}
-
+			this.preloader = true;
 			this.send(`user/${this.user.login}/update/advanced`, payload).then(response => {
 				if(response.status === "success") {
 					this.$bvModal.hide("user-edit");
 					this.receive("users");
+					this.preloader = false;
 				}
 			})
 		}
@@ -91,6 +96,9 @@ export default {
 		this.$root.$on("onUserData", user => {
 			this.user = user;
 		})
+	},
+	components: {
+		Preloader
 	}
 }
 </script>

@@ -61,6 +61,14 @@ export default {
 	padding-bottom: 150px;
 }
 
+.overflow-x {
+	overflow-x: scroll;
+}
+
+.overflow-y-hidden {
+	overflow-y: hidden;
+}
+
 /* states */
 .is-warning {
 	border-color: #ffc107 !important;
