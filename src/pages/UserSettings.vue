@@ -462,7 +462,6 @@ export default {
 		update() {
 			let payload = {
 				data: {
-					login: this.getAuthUserName,
 					password: this.password,
 					email: {
 						address: this.email.value,
@@ -494,7 +493,7 @@ export default {
 			}
 
 			this.isLoading = true;
-			this.send(`user/${this.getAuthUserName}`, payload).then(response => {
+			this.send(`user/${this.getAuthUserName}/update/settings`, payload).then(response => {
 				if(response.status === "success") {
 					this.receive(`user/${this.getAuthUserName}`).then(response => {
 						if(response.status === "success") {

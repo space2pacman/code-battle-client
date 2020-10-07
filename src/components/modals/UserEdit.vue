@@ -67,7 +67,24 @@ export default {
 	},
 	methods: {
 		update() {
-			this.$bvModal.hide("user-edit");
+			let payload = {
+				data: {
+					email: {
+						confirmed: this.user.email.confirmed
+					},
+					verified: this.user.verified,
+					company: this.user.company,
+					points: this.user.points,
+					accessLevel: this.user.accessLevel
+				}
+			}
+
+			this.send(`user/${this.user.login}/update/advanced`, payload).then(response => {
+				if(response.status === "success") {
+					this.$bvModal.hide("user-edit");
+					this.receive("users");
+				}
+			})
 		}
 	},
 	mounted() {
