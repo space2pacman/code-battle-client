@@ -69,6 +69,10 @@ export default {
 	overflow-y: hidden;
 }
 
+.icon-min-width {
+	min-width: 20px;
+}
+
 /* states */
 .is-warning {
 	border-color: #ffc107 !important;

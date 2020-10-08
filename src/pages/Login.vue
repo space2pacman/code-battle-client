@@ -22,7 +22,12 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
+						<input :type="password.type" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
+						<div class="input-group-append" @click="togglePassword">
+							<button class="input-group-text btn btn-outline-secondary">
+								<i class="icon-min-width" :class="getPasswordStateIcon"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -50,7 +55,8 @@ export default {
 			},
 			password: {
 				value: "",
-				invalid: false
+				invalid: false,
+				type: "password"
 			},
 			regex: {
 				form: /^[a-zA-Z0-9]+$/
@@ -94,6 +100,32 @@ export default {
 		},
 		clearNotice() {
 			this.notice = null;
+		},
+		togglePassword() {
+			if(this.password.type === "password") {
+				this.password.type = "text";
+
+				return false;
+			}
+
+			if(this.password.type === "text") {
+				this.password.type = "password";
+
+				return false;
+			}
+		}
+	},
+	computed: {
+		getPasswordStateIcon() {
+			if(this.password.type === "password") {
+				return "fas fa-eye-slash";
+			}
+
+			if(this.password.type === "text") {
+				return "fas fa-eye";
+			}
+
+			return "";
 		}
 	},
 	watch: {
