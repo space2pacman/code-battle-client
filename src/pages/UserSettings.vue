@@ -48,7 +48,12 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" placeholder="Старый пароль" v-model="password.old">
+						<input :type="password.old.type" class="form-control" placeholder="Старый пароль" v-model="password.old.value">
+						<div class="input-group-append" @click="togglePasswordType(password.old)">
+							<button class="input-group-text btn btn-outline-secondary">
+								<i class="icon-min-width" :class="getPasswordStateIcon(password.old.type)"></i>
+							</button>
+						</div>
 					</div>
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -56,7 +61,12 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" placeholder="Новый пароль" v-model="password.new">
+						<input :type="password.new.type" class="form-control" placeholder="Новый пароль" v-model="password.new.value">
+						<div class="input-group-append" @click="togglePasswordType(password.new)">
+							<button class="input-group-text btn btn-outline-secondary">
+								<i class="icon-min-width" :class="getPasswordStateIcon(password.new.type)"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div>
@@ -174,8 +184,14 @@ export default {
 				}
 			],
 			password: {
-				old: null,
-				new: null
+				old: {
+					value: "",
+					type: "password"
+				},
+				new: {
+					value: "",
+					type: "password"
+				}
 			},
 			userpic: null,
 			email: {
@@ -462,7 +478,10 @@ export default {
 		update() {
 			let payload = {
 				data: {
-					password: this.password,
+					password: {
+						old: this.password.old.value,
+						new: this.password.new.value,
+					},
 					email: {
 						address: this.email.value,
 						notification: this.notification
@@ -583,10 +602,10 @@ export default {
 				}
 			}
 		},
-		"password.old"() {
+		"password.old.value"() {
 			this.notice.password = null;
 		},
-		"password.new"() {
+		"password.new.value"() {
 			this.notice.password = null;
 		}
 	},

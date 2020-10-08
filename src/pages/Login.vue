@@ -23,9 +23,9 @@
 							</div>
 						</div>
 						<input :type="password.type" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
-						<div class="input-group-append" @click="togglePassword">
+						<div class="input-group-append" @click="togglePasswordType(password)">
 							<button class="input-group-text btn btn-outline-secondary">
-								<i class="icon-min-width" :class="getPasswordStateIcon"></i>
+								<i class="icon-min-width" :class="getPasswordStateIcon(password.type)"></i>
 							</button>
 						</div>
 					</div>
@@ -55,8 +55,8 @@ export default {
 			},
 			password: {
 				value: "",
-				invalid: false,
-				type: "password"
+				type: "password",
+				invalid: false
 			},
 			regex: {
 				form: /^[a-zA-Z0-9]+$/
@@ -100,32 +100,6 @@ export default {
 		},
 		clearNotice() {
 			this.notice = null;
-		},
-		togglePassword() {
-			if(this.password.type === "password") {
-				this.password.type = "text";
-
-				return false;
-			}
-
-			if(this.password.type === "text") {
-				this.password.type = "password";
-
-				return false;
-			}
-		}
-	},
-	computed: {
-		getPasswordStateIcon() {
-			if(this.password.type === "password") {
-				return "fas fa-eye-slash";
-			}
-
-			if(this.password.type === "text") {
-				return "fas fa-eye";
-			}
-
-			return "";
 		}
 	},
 	watch: {

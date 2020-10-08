@@ -126,6 +126,30 @@ Vue.mixin({
 
 			return `${hours}:${minutes}:${seconds}`;
 		},
+		getPasswordStateIcon(type) {
+			if(type === "password") {
+				return "fas fa-eye-slash";
+			}
+
+			if(type === "text") {
+				return "fas fa-eye";
+			}
+
+			return "";
+		},
+		togglePasswordType(field) {
+			if(field.type === "password") {
+				field.type = "text";
+
+				return false;
+			}
+
+			if(field.type === "text") {
+				field.type = "password";
+
+				return false;
+			}
+		},
 		getClientVersion() {
 			return "1.0.0";
 		}

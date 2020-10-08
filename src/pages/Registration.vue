@@ -22,7 +22,12 @@
 								<i class="fas fa-key"></i>
 							</div>
 						</div>
-						<input type="password" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
+						<input :type="password.type" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
+						<div class="input-group-append" @click="togglePasswordType(password)">
+							<button class="input-group-text btn btn-outline-secondary">
+								<i class="icon-min-width" :class="getPasswordStateIcon(password.type)"></i>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
@@ -61,6 +66,7 @@ export default {
 			},
 			password: {
 				value: "",
+				type: "password",
 				invalid: false
 			},
 			email: {
