@@ -50,9 +50,9 @@
 						</div>
 						<input :type="password.old.type" class="form-control" placeholder="Старый пароль" v-model="password.old.value">
 						<div class="input-group-append" @click="togglePasswordType(password.old)">
-							<button class="input-group-text btn btn-outline-secondary">
+							<div class="input-group-text btn btn-secondary">
 								<i class="icon-min-width" :class="getPasswordStateIcon(password.old.type)"></i>
-							</button>
+							</div>
 						</div>
 					</div>
 					<div class="input-group">
@@ -63,9 +63,9 @@
 						</div>
 						<input :type="password.new.type" class="form-control" placeholder="Новый пароль" v-model="password.new.value">
 						<div class="input-group-append" @click="togglePasswordType(password.new)">
-							<button class="input-group-text btn btn-outline-secondary">
+							<div class="input-group-text btn btn-secondary">
 								<i class="icon-min-width" :class="getPasswordStateIcon(password.new.type)"></i>
-							</button>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -24,9 +24,9 @@
 						</div>
 						<input :type="password.type" class="form-control" maxlength="20" placeholder="Пароль" v-model="password.value" :class="validateForm('password')">
 						<div class="input-group-append" @click="togglePasswordType(password)">
-							<button class="input-group-text btn btn-outline-secondary">
+							<div class="input-group-text btn btn-secondary">
 								<i class="icon-min-width" :class="getPasswordStateIcon(password.type)"></i>
-							</button>
+							</div>
 						</div>
 					</div>
 				</div>
