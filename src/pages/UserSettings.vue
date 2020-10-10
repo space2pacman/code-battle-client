@@ -72,11 +72,11 @@
 				<div>
 					<div class="mb-1">Уведомления на e-mail</div>
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="notification" type="radio" id="notification_0" :value="true" v-model="notification">
+						<input class="custom-control-input" name="notification" type="radio" id="notification_0" :value="true" v-model="email.notification">
 						<label class="custom-control-label" for="notification_0">Присылать письма от code-battle</label>
 					</div>
 					<div class="custom-control custom-radio">
-						<input class="custom-control-input" name="notification" type="radio" id="notification_1" :value="false" v-model="notification">
+						<input class="custom-control-input" name="notification" type="radio" id="notification_1" :value="false" v-model="email.notification">
 						<label class="custom-control-label" for="notification_1">Не присылать письма</label>
 					</div>
 				</div>
@@ -185,11 +185,11 @@ export default {
 			],
 			password: {
 				old: {
-					value: "",
+					value: null,
 					type: "password"
 				},
 				new: {
-					value: "",
+					value: null,
 					type: "password"
 				}
 			},
@@ -197,9 +197,9 @@ export default {
 			email: {
 				value: null,
 				default: null,
-				invalid: null
+				invalid: null,
+				notification: null
 			},
-			notification: null,
 			socialNetworks: [],
 			country: null,
 			level: null,
@@ -484,7 +484,7 @@ export default {
 					},
 					email: {
 						address: this.email.value,
-						notification: this.notification
+						notification: this.email.notification
 					},
 					userpic: this.userpic,
 					socialNetworks: this.socialNetworks,
@@ -609,18 +609,40 @@ export default {
 			this.notice.password = null;
 		}
 	},
-	mounted() {
+	async mounted() {
 		let user = this.$store.state["user/auth"];
 
 		if(user) {
-			if(user !== this.$route.params.login) {
-				this.$router.push(`/user/${user.login}/settings`);
+			if(user.accessLevel === 100 && this.getAuthUserName !== this.$route.params.login) {
+				this.receive(`user/${this.$route.params.login}/advanced`).then(response => {
+					if(response.status === "success") {
+						let user = response.data; // fix double, load only by token
+
+						this.email.value = user.email.address;
+						this.email.default = user.email.address;
+						this.email.confirmed = user.email.confirmed;
+						this.email.notification = user.email.notification;
+						this.userpic = user.userpic;
+						this.country = user.country;
+						this.level = user.level;
+						this.setSocialNetworks(user.socialNetworks);
+						this.checkEmailConfirmation();
+					}
+				});
+
+				return false;
+			}
+
+			if(user.login !== this.$route.params.login) {
+				this.$router.push("/");
+
+				return false;
 			}
 
 			this.email.value = user.email.address;
 			this.email.default = user.email.address;
 			this.email.confirmed = user.email.confirmed;
-			this.notification = user.email.notification;
+			this.email.notification = user.email.notification;
 			this.userpic = user.userpic;
 			this.country = user.country;
 			this.level = user.level;

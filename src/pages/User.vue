@@ -133,7 +133,7 @@ export default {
 	mounted() {
 		let login = this.$route.params.login;
 
-		this.receive(`user/${login}`);
+		this.receive(`user/${login}/basic`);
 		this.receive(`user/${login}/tasks/solved`);
 		this.receive(`user/${login}/tasks/added`);
 		

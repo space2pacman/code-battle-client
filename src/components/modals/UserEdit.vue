@@ -74,6 +74,8 @@ export default {
 			let payload = {
 				data: {
 					email: {
+						address: this.user.email.address,
+						notification: this.user.email.notification,
 						confirmed: this.user.email.confirmed
 					},
 					verified: this.user.verified,
